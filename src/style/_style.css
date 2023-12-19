@@ -1,0 +1,176 @@
+/* global */
+
+body {
+    margin: 0;
+    font-family: 'Inconsolata', monospace;
+    min-height: 100svh;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 0;
+    position: relative;
+}
+
+
+/* signIn.php */
+
+.notLoggedIn {
+    position: relative;
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+.notLoggedIn img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: auto;
+    height: 100%;
+}
+
+.notLoggedIn section {
+    z-index: 10;
+    position: relative;
+}
+
+.notLoggedIn section:nth-child(1) {
+    color: white;
+    text-align: center;
+}
+
+.notLoggedIn section:nth-child(1) h1 {
+    font-size: 40px;
+}
+
+.notLoggedIn section:nth-child(1) h2 {
+    font-size: 28px;
+    font-weight: normal;
+}
+
+.notLoggedIn section:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 95%;
+    border-radius: 35px;
+    font-size: 18px;
+    background-color: rgb(0, 0, 0, .65);
+    color: white;
+    margin: 25px auto;
+    padding: 25px 10px;
+    box-sizing: border-box;
+}
+
+.notLoggedIn section:nth-child(2) h3 {
+    margin: 0;
+}
+
+.notLoggedIn section:nth-child(2) form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.notLoggedIn section:nth-child(2) form label {
+    padding: 10px 0 10px 0;
+    font-weight: 500;
+    display: flex;
+    align-self: flex-start;
+    max-width: 300px;
+    color: white;
+}
+
+.notLoggedIn section:nth-child(2) form input {
+    width: 280px;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 18px;
+    outline: none;
+}
+
+.notLoggedIn section:nth-child(2) form button {
+    margin-top: 30px;
+    width: 180px;
+    height: 40px;
+    background-color: #7CB518;
+    cursor: pointer;
+    border: none;
+    color: white;
+    font-size: 18px;
+    border-radius: 15px;
+}
+
+.notLoggedIn section:nth-child(2) form button:hover {
+    opacity: 0.8;
+}
+
+.notLoggedIn section:nth-child(2) a {
+    margin-top: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+}
+
+.notLoggedIn section:nth-child(2) a:hover {
+    color: #7CB518;
+}
+
+.notLoggedIn section:nth-child(2) label.red {
+    color: red;
+    font-size: 16px;
+}
+
+.notLoggedIn section:nth-child(2) #fail {
+    color: red
+}
+
+.single-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (min-width: 992px) {
+    .notLoggedIn {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr;
+        gap: 0px 25px;
+        grid-template-areas:
+            "text form";
+        justify-items: center;
+        align-items: center;
+    }
+
+    .notLoggedIn section {
+        width: unset;
+    }
+
+    .notLoggedIn section:nth-child(1) {
+        grid-area: text;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .notLoggedIn section:nth-child(1) h1 {
+        font-size: 96px;
+    }
+
+    .notLoggedIn section:nth-child(1) h2 {
+        font-size: 52px;
+    }
+
+    .notLoggedIn section:nth-child(2) {
+        grid-area: form;
+        max-height: 800px;
+        max-width: 500px;
+    }
+
+    .notLoggedIn img {
+        width: 100vw;
+    }
+
+}
