@@ -15,7 +15,7 @@
             <!-- <button type="submit" name="submit">Login</button> -->
             <a href="index.php">Sign In</a>
         </form>
-        <a href="#.php">
+        <a href="signUp.php">
             Don`t have any account? Sign up!
             <i class="fa-solid fa-arrow-right"></i>
         </a>
