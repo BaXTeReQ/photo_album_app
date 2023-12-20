@@ -8,8 +8,8 @@
     <!-- local css -->
     <link rel="stylesheet" href="../src/style/_normalize.css">
     <link rel="stylesheet" href="../src/style/_flexboxgrid.min.css">
-    <link rel="stylesheet" href="../src/style/header.css">
     <link rel="stylesheet" href="../src/style/_style.css">
+    <link rel="stylesheet" href="../src/style/nav.css">
 </head>
 
 <body>
