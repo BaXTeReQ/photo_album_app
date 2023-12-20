@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../src/style/_style.css">
     <link rel="stylesheet" href="../src/style/nav.css">
     <link rel="stylesheet" href="../src/style/userRecommendations.css">
+    <link rel="stylesheet" href="../src/style/bodyGrid.css">
 </head>
 
 <body>

@@ -9,6 +9,7 @@ body {
     flex-direction: row;
     gap: 0;
     position: relative;
+    background-color: black;
 }
 
 
@@ -172,5 +173,4 @@ body {
     .notLoggedIn img {
         width: 100vw;
     }
-
 }

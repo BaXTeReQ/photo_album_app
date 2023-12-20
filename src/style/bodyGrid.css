@@ -1,0 +1,18 @@
+body {
+    display: grid;
+    grid-template-columns: 400px 1fr 400px;
+    grid-template-areas:
+        "menu main users";
+}
+
+.navigation {
+    grid-area: menu;
+}
+
+.mainPage {
+    grid-area: main;
+}
+
+.userRecommendations {
+    grid-area: users;
+}
