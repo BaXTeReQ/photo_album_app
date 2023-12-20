@@ -19,7 +19,7 @@
             Don`t have any account? Sign up!
             <i class="fa-solid fa-arrow-right"></i>
         </a>
-        <a href="#.php">
+        <a href="passwordReset.php">
             Reset your password
             <i class="fa-solid fa-arrow-right"></i>
         </a>
