@@ -1,18 +1,17 @@
-.navigation {
-    background-color: red;
+.userRecommendations {
+    background-color: blue;
     position: fixed;
     font-size: 30px;
     color: white;
-    left: 0;
+    right: 0;
     top: 0;
-    height: 100%;
+    height: 500px;
     width: 400px;
     overflow: hidden;
     z-index: 50;
-    transition: .5s;
 }
 
-.navigation nav {
+.userRecommendations section {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,24 +19,25 @@
     height: 100%;
 }
 
-.navigation nav>* {
+.userRecommendations section>* {
     z-index: 20;
 }
 
-.navigation nav h2 {
+.userRecommendations section h2 {
     margin: 20px 0 0;
 }
 
-.navigation nav ul li a {
+.userRecommendations section ul li a {
     display: flex;
     justify-content: space-between;
     align-items: center;
     text-decoration: none;
     color: white;
     margin: 0 auto;
+    font-size: 20px;
 }
 
-.navigation nav ul {
+.userRecommendations section ul {
     box-sizing: border-box;
     list-style-type: none;
     width: 100%;
@@ -45,7 +45,7 @@
     margin-top: 50px;
 }
 
-.navigation nav ul li {
+.userRecommendations section ul li {
     text-align: center;
     padding: 8px;
     margin: 25px auto;
