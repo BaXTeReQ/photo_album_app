@@ -12,6 +12,16 @@ body {
     background-color: black;
 }
 
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mainPage section {
+    width: 100%;
+    max-width: 700px;
+}
 
 /* signIn.php */
 
@@ -173,4 +183,50 @@ body {
     .notLoggedIn img {
         width: 100vw;
     }
+}
+
+/* index.php */
+
+.mainPage {
+    color: white;
+    padding: 50px 25px;
+}
+
+.mainPage h2 {
+    margin: 0;
+    text-align: center;
+    font-size: 40px;
+}
+
+.mainPage .post {
+    margin-top: 50px;
+    font-size: 22px;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 50px 1fr;
+    grid-template-rows: 50px 1fr;
+    gap: 20px 0;
+    grid-template-areas:
+        "userDataPhoto userDataLogin"
+        "photo photo";
+}
+
+.mainPage .post a {
+    grid-area: userDataPhoto;
+    text-align: center;
+    color: white;
+}
+
+.mainPage .post span {
+    grid-area: userDataLogin;
+    margin-left: 15px;
+}
+
+.mainPage .post .img {
+    grid-area: photo;
+
+    /* temporary */
+    width: 100%;
+    height: 400px;
+    background-color: lightblue;
 }

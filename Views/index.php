@@ -2,14 +2,16 @@
 <?php require '../userRecommendations.php' ?>
 
 <main class="mainPage">
-    <!-- <h2>Odkrywaj</h2>
+    <h2>Odkrywaj</h2>
     <section>
+        <?php for ($i = 0; $i < 10; $i++) : ?>
         <article class="post">
             <a href="#.php"><i class="fa-solid fa-user"></i></a>
             <span>User Login</span>
-            <img src="" alt="" style="background-color: lightblue;">
+            <div class="img"></div>
         </article>
-    </section> -->
+        <?php endfor; ?>
+    </section>
 </main>
 
 <?php require '../footer.php' ?>

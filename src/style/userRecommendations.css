@@ -1,14 +1,15 @@
 .userRecommendations {
-    background-color: blue;
+    background-color: black;
     position: fixed;
     font-size: 30px;
     color: white;
     right: 0;
     top: 0;
     height: 500px;
-    width: 400px;
+    width: 300px;
     overflow: hidden;
     z-index: 50;
+    display: none;
 }
 
 .userRecommendations section {
@@ -23,18 +24,10 @@
     z-index: 20;
 }
 
-.userRecommendations section h2 {
+.userRecommendations h2 {
     margin: 20px 0 0;
-}
-
-.userRecommendations section ul li a {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-decoration: none;
-    color: white;
-    margin: 0 auto;
-    font-size: 20px;
+    font-size: 24px;
+    font-weight: normal;
 }
 
 .userRecommendations section ul {
@@ -42,12 +35,32 @@
     list-style-type: none;
     width: 100%;
     padding: 0;
-    margin-top: 50px;
+    margin-top: 25px;
 }
 
 .userRecommendations section ul li {
     text-align: center;
     padding: 8px;
-    margin: 25px auto;
+    margin: 25px 0;
     max-width: 200px;
+}
+
+.userRecommendations section ul li a {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    margin: 0 auto;
+    font-size: 20px;
+}
+
+.userRecommendations section ul li a i {
+    margin-right: 20px;
+}
+
+@media screen and (min-width: 992px) {
+    .userRecommendations {
+        display: block;
+    }
 }
