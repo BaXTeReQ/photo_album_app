@@ -1,8 +1,10 @@
 body {
     display: grid;
-    grid-template-columns: 400px 1fr 400px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 50px;
     grid-template-areas:
-        "menu main users";
+        "main main"
+        "menu menu";
 }
 
 .navigation {
@@ -15,4 +17,15 @@ body {
 
 .userRecommendations {
     grid-area: users;
+    display: none;
+}
+
+@media screen and (min-width: 992px) {
+    body {
+        grid-template-columns: 400px 1fr 400px;
+        grid-template-areas:
+            "menu main users";
+    }
+
+
 }
