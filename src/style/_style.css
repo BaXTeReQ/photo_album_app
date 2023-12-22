@@ -298,3 +298,10 @@ main section {
     font-weight: normal;
     text-align: center;
 }
+
+/* favourites.php */
+
+.favourites {
+    grid-column-start: main;
+    grid-column-end: users;
+}
