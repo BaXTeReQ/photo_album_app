@@ -6,8 +6,10 @@
     <section>
         <?php for ($i = 0; $i < 10; $i++) : ?>
         <article class="post">
-            <a href="#.php"><i class="fa-solid fa-user"></i></a>
-            <span>User Login</span>
+            <a href="#.php">
+                <i class="fa-solid fa-user"></i>
+                <span>User Login</span>
+            </a>
             <div class="img"></div>
         </article>
         <?php endfor; ?>

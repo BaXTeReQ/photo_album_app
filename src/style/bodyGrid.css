@@ -11,7 +11,7 @@ body {
     grid-area: menu;
 }
 
-.mainPage {
+main {
     grid-area: main;
 }
 
