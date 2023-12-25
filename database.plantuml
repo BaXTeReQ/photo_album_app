@@ -1,0 +1,58 @@
+@startuml
+
+object users {
+    ID
+    username
+    email
+    password
+}
+
+object photos {
+    ID
+    title
+    description
+}
+
+object hashtags {
+    ID
+    name
+}
+
+object usersUploadedPhotos {
+    ID
+    fk_userID
+    fk_photoID
+}
+
+object usersProfilePhotos {
+    ID
+    fk_userID
+    fk_photoID
+}
+
+object hashtagsToPhotos {
+    ID
+    fk_photoID
+    fk_hashtagID
+}
+
+object favourites {
+    ID
+    fk_photoID
+    fk_userID
+}
+
+hashtags --> hashtagsToPhotos 
+photos --> hashtagsToPhotos 
+
+photos --> favourites
+users --> favourites
+
+users --> usersUploadedPhotos 
+photos --> usersUploadedPhotos 
+
+users --> usersProfilePhotos
+photos --> usersProfilePhotos
+
+
+@enduml
