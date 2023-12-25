@@ -2,8 +2,8 @@
 
 <main class="notLoggedIn">
     <section>
-        <h1 style='color: black;'>App name</h1>
-        <h2 style='color: black;'>App short description</h2>
+        <h1>App name</h1>
+        <h2>App short description</h2>
     </section>
     <section>
         <h3>Sign in</h3>

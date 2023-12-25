@@ -110,6 +110,7 @@ main section {
     position: relative;
     width: 100vw;
     overflow-x: hidden;
+    color: white;
 }
 
 .notLoggedIn img {
