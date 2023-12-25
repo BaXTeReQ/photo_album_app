@@ -28,6 +28,16 @@ main section {
     max-width: 700px;
 }
 
+.btn-primary {
+    border: none;
+    background-color: #7CB518;
+    border-radius: 10px;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    padding: 1rem;
+}
+
 .post {
     margin-bottom: 50px;
     display: grid;
@@ -89,8 +99,7 @@ main section {
     background-color: lightblue;
 }
 
-.favourites,
-.addPhoto {
+.noUsers__panel {
     grid-column-start: main;
     grid-column-end: users;
 }
@@ -275,7 +284,6 @@ main section {
     background-color: rgba(125, 125, 125, 0.22);
     display: flex;
     width: clamp(80%, 80%, 400px);
-    ;
     justify-content: space-between;
     gap: 0;
 }
@@ -342,4 +350,68 @@ main section {
 .addPhoto .fileUpload input:focus+label,
 .addPhoto .fileUpload input+label:hover {
     background-color: red;
+}
+
+/* userSettings.php */
+
+.userSettings .userSettings__img {
+    position: relative;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.userSettings .userSettings__img .img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+
+    /* temporary */
+    background-color: blueviolet;
+}
+
+.userSettings .userSettings__img_button {
+    position: absolute;
+    bottom: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    color: white;
+    background-color: #7CB518;
+    font-size: 16px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.userSettings .userSettings__img_button i {
+    color: white;
+}
+
+.userSettings .userSettings__data {
+    gap: 25px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 24px;
+    margin-top: 50px;
+    width: calc(100% - 30px);
+}
+
+.userSettings .userSettings__data .row {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin: 0;
+}
+
+.userSettings .userSettings__data input {
+    font-size: 20px;
+    padding: .5rem .25rem;
+    height: 100%;
+    outline: none;
+    background-color: rgba(125, 125, 125, 0.22);
+    border-radius: 10px;
+    border: none;
+    text-align: center;
 }

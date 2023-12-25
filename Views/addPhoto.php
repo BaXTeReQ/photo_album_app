@@ -1,6 +1,6 @@
 <?php require '../nav.php' ?>
 
-<main class="addPhoto">
+<main class="addPhoto noUsers__panel">
     <h2>Dodaj zdjęcie</h2>
     <section>
         <form action="" class="fileUpload">

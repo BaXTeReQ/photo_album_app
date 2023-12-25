@@ -1,6 +1,6 @@
 <?php require '../nav.php' ?>
 
-<main class="favourites">
+<main class="favourites noUsers__panel">
     <h2>Twoje ulubione</h2>
     <section>
         <?php for ($i = 0; $i < 10; $i++) : ?>

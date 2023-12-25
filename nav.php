@@ -8,7 +8,7 @@
             <li><a href="search.php"><i class="fa-solid fa-magnifying-glass"></i><span>Szukaj</span></a></li>
             <li><a href="favourites.php"><i class="fa-regular fa-heart"></i><span>Polubione</span></a></li>
             <li><a href="addPhoto.php"><i class="fa-solid fa-plus"></i><span>Dodaj</span></a></li>
-            <li><a href="#.php"><i class="fa-solid fa-user"></i><span>Profil</span></a></li>
+            <li><a href="userSettings.php"><i class="fa-solid fa-user"></i><span>Profil</span></a></li>
         </ul>
     </nav>
 </aside>
