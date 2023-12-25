@@ -32,14 +32,14 @@ object usersProfilePhotos {
 
 object hashtagsToPhotos {
     ID
-    fk_photoID
     fk_hashtagID
+    fk_photoID
 }
 
 object favourites {
     ID
-    fk_photoID
     fk_userID
+    fk_photoID
 }
 
 hashtags --> hashtagsToPhotos 
