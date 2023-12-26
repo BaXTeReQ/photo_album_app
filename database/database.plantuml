@@ -5,6 +5,12 @@ object users {
     username
     email
     password
+    fk_roleID
+}
+
+object roles {
+    ID
+    name
 }
 
 object photos {
@@ -18,19 +24,19 @@ object hashtags {
     name
 }
 
-object usersUploadedPhotos {
+object users_uploaded_photos {
     ID
     fk_userID
     fk_photoID
 }
 
-object usersProfilePhotos {
+object users_profile_photos {
     ID
     fk_userID
     fk_photoID
 }
 
-object hashtagsToPhotos {
+object hashtags_to_photos {
     ID
     fk_hashtagID
     fk_photoID
@@ -42,17 +48,19 @@ object favourites {
     fk_photoID
 }
 
-hashtags --> hashtagsToPhotos 
-photos --> hashtagsToPhotos 
+hashtags --> hashtags_to_photos 
+photos --> hashtags_to_photos 
 
 photos --> favourites
 users --> favourites
 
-users --> usersUploadedPhotos 
-photos --> usersUploadedPhotos 
+users --> users_uploaded_photos 
+photos --> users_uploaded_photos 
 
-users --> usersProfilePhotos
-photos --> usersProfilePhotos
+users --> users_profile_photos
+photos --> users_profile_photos
+
+roles --> users
 
 
 @enduml
