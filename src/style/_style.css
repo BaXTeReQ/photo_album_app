@@ -17,10 +17,10 @@ main {
     flex-direction: column;
     align-items: center;
     color: white;
-    padding: 50px 25px;
+    /* padding: 50px 25px; */
     width: 100%;
     max-width: 1000px;
-    margin: 0 auto;
+    margin: 50px auto;
 }
 
 main section {
@@ -82,7 +82,7 @@ main section {
 .user span {
     grid-area: userName;
     margin-left: 15px;
-    width: 100%;
+    justify-self: baseline;
     text-align: left;
 }
 
@@ -225,6 +225,10 @@ main section {
 }
 
 @media screen and (min-width: 992px) {
+    main {
+        width: calc(100% - 125px);
+    }
+
     .notLoggedIn {
         display: grid;
         grid-template-columns: 1fr 1fr;
