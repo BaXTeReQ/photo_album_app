@@ -1,6 +1,10 @@
 <?php require '../nav.php' ?>
 <?php require '../userRecommendations.php' ?>
 
+<?php echo $_SESSION['userid']; ?>
+<?php echo $_SESSION['username']; ?>
+<?php echo $_SESSION['email']; ?>
+
 <main class="mainPage">
     <h2>Odkrywaj</h2>
     <section>

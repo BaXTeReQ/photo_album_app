@@ -1,5 +1,7 @@
 <?php require '../header.php' ?>
 
+<?php session_start(); ?>
+
 <aside class="navigation">
     <h2>App Name</h2>
     <nav>
