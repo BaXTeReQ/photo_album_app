@@ -1,7 +1,7 @@
 <?php require '../nav.php' ?>
 
 <main class="userSettings noUsers__panel">
-    <h2>Witaj, User Name</h2>
+    <h2>Witaj, <?php echo $_SESSION['username']; ?></h2>
     <div class="userSettings__img">
         <div class="img"></div>
         <button class="userSettings__img_button" type="button">
@@ -11,12 +11,12 @@
     <form class="userSettings__data" method="post" action="">
         <div class="row">
             <label>Username</label>
-            <input type="text" value="" name="usernamechange">
+            <input type="text" value="<?php echo $_SESSION['username']; ?>" name="usernamechange">
             <label class="red" for="usernamechange"></label>
         </div>
         <div class="row">
             <label>Email</label>
-            <input type="email" value="" name="emailchange">
+            <input type="email" value="<?php echo $_SESSION['email']; ?>" name="emailchange">
             <label class="red" for="emailchange"></label>
         </div>
         <button type="button" class="password_change_button btn-primary">Change password</button>
