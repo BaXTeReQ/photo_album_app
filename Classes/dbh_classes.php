@@ -10,12 +10,14 @@ class Dbh
     const DBNAME = 'photo_album';
 
     protected function connect(){
-        try {
+        try 
+        {
             $dbh = new  PDO('mysql:host=localhost;dbname='.self::DBNAME, self::USERNAME, self::PASSWORD);
             echo 'done';
             return $dbh;
         }
-        catch(PDOException $e) {
+        catch(PDOException $e) 
+        {
             echo "Error!: ".$e->getMessage()."<br />";
             die();
         }

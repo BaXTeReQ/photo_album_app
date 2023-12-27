@@ -1,6 +1,7 @@
 <?php
 
-if (isset($_POST["submit"])) {
+if (isset($_POST["submit"])) 
+{
     $username = (string)$_POST["login"];
     $password = (string)$_POST["password"];
 
@@ -8,9 +9,9 @@ if (isset($_POST["submit"])) {
     include "../Classes/signIn_classes.php";
     include "../Controllers/signIn_controller.php";
 
-    $login = new SignInController($username, $password);
+    $signIn = new SignInController($username, $password);
 
-    $login->signInUser();
+    $signIn->signInUser();
 
     header("location: ../Views/index.php");
 }

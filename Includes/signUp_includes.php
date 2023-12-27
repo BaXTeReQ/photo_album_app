@@ -1,7 +1,7 @@
 <?php
 
-if(isset($_POST['register_submit'])) {
-
+if(isset($_POST['register_submit'])) 
+{
     $email = (string)$_POST["email"];
     $username = (string)$_POST["login"];
     $password = (string)$_POST["password"];
