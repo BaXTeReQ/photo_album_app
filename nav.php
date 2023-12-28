@@ -11,6 +11,11 @@
             <li><a href="favourites.php"><i class="fa-regular fa-heart"></i><span>Polubione</span></a></li>
             <li><a href="addPhoto.php"><i class="fa-solid fa-plus"></i><span>Dodaj</span></a></li>
             <li><a href="userSettings.php"><i class="fa-solid fa-user"></i><span>Profil</span></a></li>
+            <?php if (isset($_SESSION['username'])): ?>
+            <li><a href="../Includes/signOut_includes.php"><i class="fa-solid fa-right-from-bracket"></i> <span>Wyloguj
+                        się</span></a>
+            </li>
+            <?php endif; ?>
         </ul>
     </nav>
 </aside>

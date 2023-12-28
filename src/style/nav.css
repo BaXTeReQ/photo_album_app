@@ -79,6 +79,10 @@
         margin-bottom: 30px;
     }
 
+    .navigation nav ul li:last-child {
+        margin-top: auto;
+    }
+
     .navigation nav ul li a {
         justify-content: flex-start;
         width: 250px;
