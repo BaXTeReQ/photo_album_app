@@ -25,7 +25,7 @@ class SignUp extends Dbh
             'SELECT username FROM users WHERE username = ?'
         );
         
-        if (!$stmt->execute($username)) 
+        if (!$stmt->execute(array($username))) 
         {
             $stmt = null;
             header("location: ../signUp.php?error=stmtfailed");
@@ -44,7 +44,7 @@ class SignUp extends Dbh
             'SELECT email FROM users WHERE email = ?'
         );
 
-        if (!$stmt->execute($email)) 
+        if (!$stmt->execute(array($email))) 
         {
             $stmt = null;
             header("location: ../signUp.php?error=stmtfailed");
