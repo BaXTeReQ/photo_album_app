@@ -364,15 +364,15 @@ main section {
     background-color: red;
 }
 
-/* userSettings.php */
+/* user.php */
 
-.userSettings .userSettings__img {
+.user .user__img {
     position: relative;
     width: fit-content;
     margin: 0 auto;
 }
 
-.userSettings .userSettings__img .img {
+.user .user__img .img {
     width: 200px;
     height: 200px;
     border-radius: 50%;
@@ -381,7 +381,7 @@ main section {
     background-color: blueviolet;
 }
 
-.userSettings .userSettings__img_button {
+.user .user__img_button {
     position: absolute;
     bottom: 10px;
     border-radius: 50%;
@@ -397,11 +397,11 @@ main section {
     align-items: center;
 }
 
-.userSettings .userSettings__img_button i {
+.user .user__img_button i {
     color: var(--main-font-color);
 }
 
-.userSettings .userSettings__data {
+.user .user__data {
     gap: 25px;
     display: flex;
     flex-direction: column;
@@ -411,13 +411,13 @@ main section {
     width: calc(100% - 30px);
 }
 
-.userSettings .userSettings__data .row {
+.user .user__data .row {
     flex-direction: column;
     flex-wrap: nowrap;
     margin: 0;
 }
 
-.userSettings .userSettings__data input {
+.user .user__data input {
     font-size: 20px;
     padding: .5rem .25rem;
     height: 100%;

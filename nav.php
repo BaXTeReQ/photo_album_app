@@ -11,7 +11,7 @@
             <?php if(isset($_SESSION['username'])): ?>
             <li><a href="favourites.php"><i class="fa-regular fa-heart"></i><span>Polubione</span></a></li>
             <li><a href="addPhoto.php"><i class="fa-solid fa-plus"></i><span>Dodaj</span></a></li>
-            <li><a href="userSettings.php"><i class="fa-solid fa-user"></i><span>Profil</span></a></li>
+            <li><a href="user.php"><i class="fa-solid fa-user"></i><span>Profil</span></a></li>
             <?php else: ?>
             <li><a href="signIn.php"><i class="fa-solid fa-user"></i><span>Profil</span></a></li>
             <?php endif; ?>

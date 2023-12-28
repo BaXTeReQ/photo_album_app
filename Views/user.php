@@ -2,15 +2,15 @@
 
 <?php if (!isset($_SESSION['username'])) header("location: ../Views/index.php"); ?>
 
-<main class="userSettings noUsers__panel">
+<main class="user noUsers__panel">
     <h2>Witaj, <?php echo $_SESSION['username']; ?></h2>
-    <div class="userSettings__img">
+    <div class="user__img">
         <div class="img"></div>
-        <button class="userSettings__img_button" type="button">
+        <button class="user__img_button" type="button">
             <i class="fa-solid fa-pen"></i>
         </button>
     </div>
-    <form class="userSettings__data" method="post" action="">
+    <form class="user__data" method="post" action="">
         <div class="row">
             <label>Username</label>
             <input type="text" value="<?php echo $_SESSION['username']; ?>" name="usernamechange">
@@ -25,7 +25,5 @@
         <button class="save_changes_button btn-primary" type="submit" name="submitall">Save changes</button>
     </form>
 </main>
-
-
 
 <?php require '../footer.php' ?>
