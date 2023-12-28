@@ -93,10 +93,6 @@ main section {
     text-align: left;
 }
 
-.user {
-    border-bottom: 1px solid var(--main-font-color);
-}
-
 .post .img {
     grid-area: photo;
 
@@ -326,6 +322,10 @@ main section {
     margin-top: 100px;
     font-weight: normal;
     text-align: center;
+}
+
+.search .search__results .user {
+    border-bottom: 1px solid var(--main-font-color);
 }
 
 /* addPhoto.php */

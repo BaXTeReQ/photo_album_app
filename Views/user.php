@@ -10,7 +10,7 @@
             <i class="fa-solid fa-pen"></i>
         </button>
     </div>
-    <form class="user__data" method="post" action="">
+    <form class="user__data" method="post" action="../Includes/user_includes.php">
         <div class="row">
             <label>Username</label>
             <input type="text" value="<?php echo $_SESSION['username']; ?>" name="usernamechange">
@@ -21,7 +21,7 @@
             <input type="email" value="<?php echo $_SESSION['email']; ?>" name="emailchange">
             <label class="red" for="emailchange"></label>
         </div>
-        <button type="button" class="password_change_button btn-primary">Change password</button>
+        <!-- <button type="button" class="password_change_button btn-primary">Change password</button> -->
         <button class="save_changes_button btn-primary" type="submit" name="submitall">Save changes</button>
     </form>
 </main>
