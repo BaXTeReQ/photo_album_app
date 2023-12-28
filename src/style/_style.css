@@ -1,3 +1,10 @@
+/* root */
+
+:root {
+    --main-bg-color: #000000;
+    --main-font-color: #ffffff;
+}
+
 /* global */
 
 body {
@@ -9,14 +16,14 @@ body {
     flex-direction: row;
     gap: 0;
     position: relative;
-    background-color: black;
+    background-color: var(--main-bg-color);
 }
 
 main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: white;
+    color: var(--main-font-color);
     /* padding: 50px 25px; */
     width: 100%;
     max-width: 1000px;
@@ -32,7 +39,7 @@ main section {
     border: none;
     background-color: #7CB518;
     border-radius: 10px;
-    color: white;
+    color: var(--main-font-color);
     font-size: 22px;
     cursor: pointer;
     padding: 1rem;
@@ -61,7 +68,7 @@ main section {
     text-decoration: none;
     grid-area: userData;
     text-align: center;
-    color: white;
+    color: var(--main-font-color);
     padding: 5px 0;
     font-size: 22px;
     display: grid;
@@ -87,7 +94,7 @@ main section {
 }
 
 .user {
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid var(--main-font-color);
 }
 
 .post .img {
@@ -110,7 +117,7 @@ main section {
     position: relative;
     width: 100vw;
     overflow-x: hidden;
-    color: white;
+    color: var(--main-font-color);
 }
 
 .notLoggedIn img {
@@ -127,7 +134,7 @@ main section {
 }
 
 .notLoggedIn section:nth-child(1) {
-    color: white;
+    color: var(--main-font-color);
     text-align: center;
 }
 
@@ -148,7 +155,7 @@ main section {
     border-radius: 35px;
     font-size: 18px;
     background-color: rgb(0, 0, 0, .65);
-    color: white;
+    color: var(--main-font-color);
     margin: 25px auto;
     padding: 25px 10px;
     box-sizing: border-box;
@@ -171,7 +178,7 @@ main section {
     display: flex;
     align-self: flex-start;
     max-width: 300px;
-    color: white;
+    color: var(--main-font-color);
 }
 
 .notLoggedIn section:nth-child(2) form input {
@@ -189,7 +196,7 @@ main section {
     background-color: #7CB518;
     cursor: pointer;
     border: none;
-    color: white;
+    color: var(--main-font-color);
     font-size: 18px;
     border-radius: 15px;
 }
@@ -202,7 +209,7 @@ main section {
     margin-top: 20px;
     cursor: pointer;
     text-decoration: none;
-    color: white;
+    color: var(--main-font-color);
 }
 
 .notLoggedIn section:nth-child(2) a:hover {
@@ -306,7 +313,7 @@ main section {
 .search form button {
     padding: 5px;
     background-color: blue;
-    color: white;
+    color: var(--main-font-color);
     border: none;
     height: 100%;
     width: 40px;
@@ -324,7 +331,7 @@ main section {
 /* addPhoto.php */
 
 .addPhoto .fileUpload {
-    color: white;
+    color: var(--main-font-color);
     display: flex;
     justify-content: center;
 }
@@ -348,7 +355,7 @@ main section {
 .addPhoto .fileUpload input+label {
     font-size: 1.25em;
     font-weight: 700;
-    color: white;
+    color: var(--main-font-color);
     display: inline-block;
 }
 
@@ -380,7 +387,7 @@ main section {
     border-radius: 50%;
     cursor: pointer;
     border: none;
-    color: white;
+    color: var(--main-font-color);
     background-color: #7CB518;
     font-size: 16px;
     width: 36px;
@@ -391,7 +398,7 @@ main section {
 }
 
 .userSettings .userSettings__img_button i {
-    color: white;
+    color: var(--main-font-color);
 }
 
 .userSettings .userSettings__data {
@@ -419,5 +426,5 @@ main section {
     border-radius: 10px;
     border: none;
     text-align: center;
-    color: white;
+    color: var(--main-font-color);
 }

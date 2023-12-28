@@ -1,8 +1,8 @@
 .userRecommendations {
-    background-color: black;
+    background-color: var(--main-bg-color);
     position: fixed;
     font-size: 30px;
-    color: white;
+    color: var(--main-font-color);
     right: 0;
     top: 0;
     height: 500px;
@@ -51,7 +51,7 @@
     justify-content: flex-start;
     align-items: center;
     text-decoration: none;
-    color: white;
+    color: var(--main-font-color);
     margin: 0 auto;
     font-size: 20px;
 }

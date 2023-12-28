@@ -1,8 +1,8 @@
 .navigation {
-    background-color: black;
+    background-color: var(--main-bg-color);
     position: fixed;
     font-size: 30px;
-    color: white;
+    color: var(--main-font-color);
     left: 0;
     bottom: 0;
     height: 50px;
@@ -32,7 +32,7 @@
     justify-content: space-between;
     align-items: center;
     text-decoration: none;
-    color: white;
+    color: var(--main-font-color);
     margin: 0 auto;
 }
 
@@ -66,7 +66,7 @@
         top: 0;
         height: 100%;
         width: 300px;
-        box-shadow: 1px 0 10px 0px rgb(255, 255, 255);
+        box-shadow: 1px 0 10px 0px var(--main-font-color);
     }
 
     .navigation nav ul {
