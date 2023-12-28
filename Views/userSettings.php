@@ -1,5 +1,7 @@
 <?php require '../nav.php' ?>
 
+<?php if (!isset($_SESSION['username'])) header("location: ../Views/index.php"); ?>
+
 <main class="userSettings noUsers__panel">
     <h2>Witaj, <?php echo $_SESSION['username']; ?></h2>
     <div class="userSettings__img">

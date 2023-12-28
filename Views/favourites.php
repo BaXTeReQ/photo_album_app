@@ -1,5 +1,7 @@
 <?php require '../nav.php' ?>
 
+<?php if (!isset($_SESSION['username'])) header("location: ../Views/index.php"); ?>
+
 <main class="favourites noUsers__panel">
     <h2>Twoje ulubione</h2>
     <section>

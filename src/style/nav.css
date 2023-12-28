@@ -79,7 +79,7 @@
         margin-bottom: 30px;
     }
 
-    .navigation nav ul li:last-child {
+    .navigation nav ul li.last {
         margin-top: auto;
     }
 
