@@ -19,15 +19,15 @@ class UserController extends \User
     {
         $redirect = "location: ../Views/user.php?";
 
-        // if ($this->emailTaken()) {
-        //     if ($redirect != "location: ../Views/user.php?") $redirect .= "&emailTakenError=1";
-        //     else $redirect .= "emailTakenError=1";
-        // }
+        if ($this->emailTaken()) {
+            if ($redirect != "location: ../Views/user.php?") $redirect .= "&emailTakenError=1";
+            else $redirect .= "emailTakenError=1";
+        }
 
-        // if ($this->usernameTaken()) {
-        //     if ($redirect != "location: ../Views/user.php?") $redirect .= "&usernameTakenError=1";
-        //     else $redirect .= "usernameTakenError=1";
-        // }
+        if ($this->usernameTaken()) {
+            if ($redirect != "location: ../Views/user.php?") $redirect .= "&usernameTakenError=1";
+            else $redirect .= "usernameTakenError=1";
+        }
 
         if ($redirect == "location: ../Views/user.php?") $this->setUser($this->id, $this->username, $this->email);
         else {
@@ -38,14 +38,14 @@ class UserController extends \User
 
     private function emailTaken(): bool
     {
-        if ($this->checkEmail($this->email)) return true;
+        if ($this->checkEmail($this->id, $this->email)) return true;
 
         return false;
     }
 
     private function usernameTaken(): bool
     {
-        if ($this->checkUsername($this->username)) return true;
+        if ($this->checkUsername($this->id, $this->username)) return true;
 
         return false;
     }

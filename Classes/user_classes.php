@@ -23,13 +23,13 @@ class User extends Dbh
         $stmt = null;
     }
 
-    public function checkEmail($email): bool
+    public function checkEmail($id, $email): bool
     {
         $stmt = $this->connect()->prepare(
-            'SELECT email FROM users WHERE email = ?'
+            'SELECT email FROM users WHERE email = ? AND NOT ID = ?'
         );
 
-        if (!$stmt->execute(array($email))) {
+        if (!$stmt->execute(array($email, $id))) {
             $stmt = null;
             header("location: ../user.php?error=stmtfailed");
             exit();
@@ -40,13 +40,13 @@ class User extends Dbh
         return false;
     }
 
-    public function checkUsername($username): bool
+    public function checkUsername($username, $id): bool
     {
         $stmt = $this->connect()->prepare(
-            "SELECT username FROM users WHERE username = ?"
+            "SELECT username FROM users WHERE username = ? AND NOT ID = ?"
         );
 
-        if (!$stmt->execute(array($username))) {
+        if (!$stmt->execute(array($username, $id))) {
             $stmt = null;
             header("location: ../user.php?errorstmtfailed");
             exit();
