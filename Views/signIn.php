@@ -6,10 +6,10 @@
         <h2>App short description</h2>
     </section>
     <section>
-        <?php if(isset($_GET['error'])): ?>
-        <div id="fail">
-            <p>Invalid login or password</p>
-        </div>
+        <?php if (isset($_GET['error'])) : ?>
+            <div id="fail">
+                <p>Invalid login or password</p>
+            </div>
         <?php endif; ?>
 
         <h3>Sign in</h3>

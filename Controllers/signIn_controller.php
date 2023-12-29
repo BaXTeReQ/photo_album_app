@@ -1,13 +1,13 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 class SignInController extends \SignIn
 {
     private string $username;
     private string $password;
 
-    public function __construct(string $username, string $password)// :self
+    public function __construct(string $username, string $password) // :self
     {
         $this->username = $username;
         $this->password = $password;

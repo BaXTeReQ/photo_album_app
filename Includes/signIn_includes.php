@@ -1,7 +1,6 @@
 <?php
 
-if (isset($_POST["submit"])) 
-{
+if (isset($_POST["submit"])) {
     $username = (string)$_POST["login"];
     $password = (string)$_POST["password"];
 
@@ -15,5 +14,3 @@ if (isset($_POST["submit"]))
 
     header("location: ../Views/index.php");
 }
-
-?>

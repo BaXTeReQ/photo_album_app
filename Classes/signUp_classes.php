@@ -1,10 +1,10 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-class SignUp extends Dbh 
+class SignUp extends Dbh
 {
-    protected function setUser($username, $email, $password) 
+    protected function setUser($username, $email, $password)
     {
         $stmt = $this->connect()->prepare(
             'INSERT INTO users (username, email, password, fk_roleID) VALUES (?,?,?,?);'
@@ -19,14 +19,13 @@ class SignUp extends Dbh
         $stmt = null;
     }
 
-    public function checkUsername($username): bool 
+    public function checkUsername($username): bool
     {
         $stmt = $this->connect()->prepare(
             'SELECT username FROM users WHERE username = ?'
         );
-        
-        if (!$stmt->execute(array($username))) 
-        {
+
+        if (!$stmt->execute(array($username))) {
             $stmt = null;
             header("location: ../signUp.php?error=stmtfailed");
             exit();
@@ -38,19 +37,18 @@ class SignUp extends Dbh
         return $result;
     }
 
-    public function checkEmail($email): bool 
+    public function checkEmail($email): bool
     {
         $stmt = $this->connect()->prepare(
             'SELECT email FROM users WHERE email = ?'
         );
 
-        if (!$stmt->execute(array($email))) 
-        {
+        if (!$stmt->execute(array($email))) {
             $stmt = null;
             header("location: ../signUp.php?error=stmtfailed");
             exit();
         }
-        
+
         if ($stmt->rowCount() > 0) $result = true;
         else $result = false;
 

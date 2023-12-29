@@ -11,24 +11,24 @@
         <div class="search__results__users">
             <h2>Użytkownicy</h2>
             <?php for ($i = 0; $i < 5; $i++) : ?>
-            <article class="user">
-                <a href="#.php">
-                    <i class="fa-solid fa-user"></i>
-                    <span>User Login</span>
-                </a>
-            </article>
+                <article class="user">
+                    <a href="#.php">
+                        <i class="fa-solid fa-user"></i>
+                        <span>User Login</span>
+                    </a>
+                </article>
             <?php endfor; ?>
         </div>
         <div class="search__results__posts">
             <h2>Posty</h2>
             <?php for ($i = 0; $i < 10; $i++) : ?>
-            <article class="post">
-                <a href="#.php">
-                    <i class="fa-solid fa-user"></i>
-                    <span>User Login</span>
-                </a>
-                <div class="img"></div>
-            </article>
+                <article class="post">
+                    <a href="#.php">
+                        <i class="fa-solid fa-user"></i>
+                        <span>User Login</span>
+                    </a>
+                    <div class="img"></div>
+                </article>
             <?php endfor; ?>
         </div>
     </section>

@@ -1,7 +1,6 @@
 <?php
 
-if(isset($_POST['reset-submit']))
-{
+if (isset($_POST['reset-submit'])) {
     $username = (string)$_POST['login'];
     $email = (string)$_POST['email'];
     $password = (string)"";
@@ -11,13 +10,11 @@ if(isset($_POST['reset-submit']))
     include "../Controllers/passwordReset_controller.php";
 
     $passwordReset = new PasswordResetController($username, $email, $password);
-    
+
     $passwordReset->checkUser();
 
     header("location: ../Views/passwordReset.php?username=$username&email=$email");
-}
-else if(isset($_POST['reset-submit2']))
-{
+} else if (isset($_POST['reset-submit2'])) {
     $username = $_POST['login'];
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -27,7 +24,6 @@ else if(isset($_POST['reset-submit2']))
     include "../Controllers/passwordReset_controller.php";
 
     $passwordReset = new PasswordResetController($username, $email, $password);
-    
+
     $passwordReset->setNewPassword();
-}
-else header("Location: ../Views/passwordReset.php");
+} else header("Location: ../Views/passwordReset.php");
