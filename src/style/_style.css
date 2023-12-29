@@ -304,6 +304,7 @@ main section {
     border: none;
     font-size: 26px;
     width: 90%;
+    color: var(--main-font-color);
 }
 
 .search form button {
