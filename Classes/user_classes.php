@@ -70,12 +70,12 @@ class User extends Dbh
         return false;
     }
 
-    public static function getRecommendedUsers(): array
+    public static function getRecommendedUsers(int $loggedUser = 0): array
     {
         $dbh = new Dbh();
         $connection = $dbh->connect();
 
-        $query = "SELECT * FROM users WHERE fk_roleID = 3 ORDER BY RAND() LIMIT 5";
+        $query = "SELECT * FROM users WHERE fk_roleID = 3 AND NOT ID = $loggedUser ORDER BY RAND() LIMIT 5";
         $stmt = $connection->query($query);
         $usersData = $stmt->fetchALL(PDO::FETCH_ASSOC);
 

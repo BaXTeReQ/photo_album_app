@@ -4,7 +4,8 @@
         <ul>
             <?php
             require_once '../Classes/user_classes.php';
-            $users = User::getRecommendedUsers(5);
+            if (isset($_SESSION['userid'])) $users = User::getRecommendedUsers($_SESSION['userid']);
+            else $users = User::getRecommendedUsers();
 
             foreach ($users as $user) :
             ?>
