@@ -7,7 +7,7 @@
         <h2>Witaj, <?php echo $_SESSION['username']; ?></h2>
         <div class="user__img">
             <img src="../pictures/default_user_profile.png" alt="User Image" class="profile__photo">
-            <button class="user__img_button" type="button">
+            <button class="user__img_button" type="button" id="changeProfilePictureButton">
                 <i class="fa-solid fa-pen"></i>
             </button>
         </div>
@@ -26,6 +26,14 @@
             <button class="save_changes_button btn-primary" type="submit" name="submitall">Save changes</button>
         </form>
     </main>
+    <div id="overlay"></div>
+    <form action="#" method="post" id="changeProfilePhotoForm" class="fileUpload">
+        <h3>Zmień zdjęcie profilowe</h3>
+        <input type="file" name="file" id="file" onchange="handleFileSelect()" accept=".jpeg, .jpg, .png, image/jpeg, image/png">
+        <label for="file"><i class="fa-solid fa-file-image"></i> Wybierz zdjęcie</label>
+        <div class="preview profile__photo"></div>
+    </form>
+    <script src="../src/js/profilePhotoUpdate.js"></script>
 <?php else : ?>
     <?php
     require_once '../Classes/user_classes.php';

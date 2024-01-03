@@ -278,6 +278,16 @@ main section {
     }
 }
 
+#overlay {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--main-bg-color);
+    opacity: .65;
+    z-index: 100;
+    position: absolute;
+    display: none;
+}
+
 /* index.php */
 
 .mainPage h2 {
@@ -335,13 +345,13 @@ main section {
 
 /* addPhoto.php */
 
-.addPhoto .fileUpload {
+.fileUpload {
     color: var(--main-font-color);
     display: flex;
     justify-content: center;
 }
 
-.addPhoto .fileUpload input {
+.fileUpload input {
     width: 0.1px;
     height: 0.1px;
     opacity: 0;
@@ -350,26 +360,30 @@ main section {
     z-index: -1;
 }
 
-.addPhoto .fileUpload label {
+.fileUpload label {
     padding: 15px 20px;
     cursor: pointer;
     background-color: blue;
     border-radius: 1rem;
 }
 
-.addPhoto .fileUpload input+label {
+.fileUpload input+label {
     font-size: 1.25em;
     font-weight: 700;
     color: var(--main-font-color);
     display: inline-block;
 }
 
-.addPhoto .fileUpload input:focus+label,
-.addPhoto .fileUpload input+label:hover {
+.fileUpload input:focus+label,
+.fileUpload input+label:hover {
     background-color: red;
 }
 
 /* user.php */
+
+.user.noUsers__panel {
+    padding: 10px 0;
+}
 
 .user .user__img {
     position: relative;
@@ -433,4 +447,39 @@ main section {
 .user.user-otherUser h3 {
     margin-top: 50px;
     font-size: 40px;
+}
+
+#changeProfilePhotoForm {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    z-index: 150;
+    width: 300px;
+    height: clamp(200px, 400px);
+    border-radius: 1rem;
+    display: none;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--main-font-color);
+    color: var(--main-bg-color);
+}
+
+#changeProfilePhotoForm h3 {
+    margin-top: 0;
+}
+
+#changeProfilePhotoForm .preview {
+    margin-top: 25px;
+    width: 100px;
+    height: 100px;
+}
+
+#changeProfilePhotoForm .preview img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
 }
