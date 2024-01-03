@@ -10,7 +10,7 @@
             foreach ($users as $user) :
             ?>
                 <li>
-                    <a href="/user.php?userid=<?php echo $user->getUserID(); ?>">
+                    <a href="user.php?userid=<?php echo $user->getUserID(); ?>">
                         <img src="../pictures/default_user_profile.png" alt="User Image" class="profile__photo"><?php echo $user->getUsername(); ?>
                     </a>
                 </li>
