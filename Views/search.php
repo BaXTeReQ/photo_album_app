@@ -18,8 +18,8 @@
                     <h2>Użytkownicy</h2>
                     <?php foreach ($users as $user) : ?>
                         <article class="user">
-                            <a href="#.php">
-                                <i class="fa-solid fa-user"></i>
+                            <a href="user.php?userid=<?php echo $user->getUserID(); ?>">
+                                <img src="../pictures/default_user_profile.png" alt="User Image" class="profile__photo">
                                 <span><?php echo $user->getUsername(); ?></span>
                             </a>
                         </article>
