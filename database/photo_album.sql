@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sty 03, 2024 at 04:51 PM
+-- Generation Time: Sty 03, 2024 at 06:31 PM
 -- Wersja serwera: 10.4.28-MariaDB
 -- Wersja PHP: 8.2.4
 
@@ -42,7 +42,7 @@ CREATE TABLE `favourites` (
 CREATE TABLE `photos` (
   `ID` int(11) NOT NULL,
   `CID` text NOT NULL,
-  `title` varchar(30) NOT NULL,
+  `photoName` varchar(30) NOT NULL,
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
