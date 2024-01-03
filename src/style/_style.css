@@ -384,7 +384,7 @@ main section {
 
 .user .user__img_button {
     position: absolute;
-    bottom: 10px;
+    bottom: 20px;
     border-radius: 50%;
     cursor: pointer;
     border: none;

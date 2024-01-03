@@ -1,6 +1,6 @@
 <?php require 'nav.php' ?>
 
-<?php if (!isset($_SESSION['username'])) header("location: ../Views/index.php"); ?>
+<?php if (!isset($_SESSION['username']) && !isset($_GET['userid'])) header("location: ../Views/index.php"); ?>
 
 <?php if (!isset($_GET['userid'])) : ?>
     <main class="user noUsers__panel">
