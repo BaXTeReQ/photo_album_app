@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sty 03, 2024 at 02:05 PM
+-- Generation Time: Sty 03, 2024 at 04:51 PM
 -- Wersja serwera: 10.4.28-MariaDB
 -- Wersja PHP: 8.2.4
 
@@ -129,8 +129,8 @@ CREATE TABLE `users_uploaded_photos` (
 --
 ALTER TABLE `favourites`
   ADD PRIMARY KEY (`ID`),
-  ADD KEY `fk_userID` (`fk_userID`),
-  ADD KEY `fk_photoID` (`fk_photoID`);
+  ADD KEY `fk_userID` (`fk_userID`) USING BTREE,
+  ADD KEY `fk_photoID` (`fk_photoID`) USING BTREE;
 
 --
 -- Indeksy dla tabeli `photos`
@@ -155,13 +155,17 @@ ALTER TABLE `users`
 -- Indeksy dla tabeli `users_profile_photos`
 --
 ALTER TABLE `users_profile_photos`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `fk_photoID` (`fk_photoID`),
+  ADD KEY `fk_userID` (`fk_userID`);
 
 --
 -- Indeksy dla tabeli `users_uploaded_photos`
 --
 ALTER TABLE `users_uploaded_photos`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `fk_photoID` (`fk_photoID`),
+  ADD KEY `fk_userID` (`fk_userID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -178,10 +182,31 @@ ALTER TABLE `users`
 --
 
 --
+-- Constraints for table `favourites`
+--
+ALTER TABLE `favourites`
+  ADD CONSTRAINT `photos_ID` FOREIGN KEY (`fk_photoID`) REFERENCES `photos` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `users_ID` FOREIGN KEY (`fk_userID`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `users`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `users_roles` FOREIGN KEY (`fk_roleID`) REFERENCES `roles` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `users_profile_photos`
+--
+ALTER TABLE `users_profile_photos`
+  ADD CONSTRAINT `fk_photoID` FOREIGN KEY (`fk_photoID`) REFERENCES `photos` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_userID` FOREIGN KEY (`fk_userID`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `users_uploaded_photos`
+--
+ALTER TABLE `users_uploaded_photos`
+  ADD CONSTRAINT `users_uploaded_photos_ibfk_1` FOREIGN KEY (`fk_photoID`) REFERENCES `photos` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `users_uploaded_photos_ibfk_2` FOREIGN KEY (`fk_userID`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
