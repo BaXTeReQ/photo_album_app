@@ -1,4 +1,4 @@
-<?php require '../headerL.php' ?>
+<?php require 'headerL.php' ?>
 
 <main class="notLoggedIn" style="grid-template-areas: 'form form'">
     <section></section>

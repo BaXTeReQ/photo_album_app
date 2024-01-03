@@ -1,5 +1,5 @@
-<?php require '../nav.php' ?>
-<?php require '../userRecommendations.php' ?>
+<?php require 'nav.php' ?>
+<?php require 'userRecommendations.php' ?>
 
 <main class="search">
     <form action="../Includes/search_includes.php" method="GET">
@@ -30,17 +30,13 @@
 
         <div class="search__results__posts">
             <h2>Posty</h2>
-            <?php for ($i = 0; $i < 10; $i++) : ?>
-                <article class="post">
-                    <a href="#.php">
-                        <i class="fa-solid fa-user"></i>
-                        <span>User Login</span>
-                    </a>
-                    <div class="img"></div>
-                </article>
-            <?php endfor; ?>
+            <?php
+            for ($i = 0; $i < 10; $i++) :
+                include 'post.php';
+            endfor;
+            ?>
         </div>
     </section>
 </main>
 
-<?php require '../footer.php' ?>
+<?php require 'footer.php' ?>

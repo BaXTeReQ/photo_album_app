@@ -1,4 +1,4 @@
-<?php require '../nav.php' ?>
+<?php require 'nav.php' ?>
 
 <?php if (!isset($_SESSION['username'])) header("location: ../Views/index.php"); ?>
 
@@ -26,4 +26,4 @@
     </form>
 </main>
 
-<?php require '../footer.php' ?>
+<?php require 'footer.php' ?>

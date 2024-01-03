@@ -1,4 +1,4 @@
-<?php require '../headerL.php' ?>
+<?php require 'headerL.php' ?>
 
 <main class="notLoggedIn">
     <section>
@@ -46,4 +46,4 @@
     </section>
 </main>
 
-<?php require '../footer.php' ?>
+<?php require 'footer.php' ?>
