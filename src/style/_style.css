@@ -52,7 +52,7 @@ main section {
     grid-auto-columns: 1fr;
     grid-template-columns: 1fr;
     grid-template-rows: 50px 1fr;
-    gap: 20px 0;
+    gap: 10px 0;
     grid-template-areas:
         "userData"
         "photo";
@@ -88,7 +88,6 @@ main section {
 .post span,
 .user span {
     grid-area: userName;
-    margin-left: 15px;
     justify-self: baseline;
     text-align: left;
 }
@@ -105,6 +104,11 @@ main section {
 .noUsers__panel {
     grid-column-start: main;
     grid-column-end: users;
+}
+
+.profile__photo {
+    width: 30px;
+    height: 30px;
 }
 
 /* signIn.php */

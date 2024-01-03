@@ -7,7 +7,7 @@
         <?php for ($i = 0; $i < 10; $i++) : ?>
             <article class="post">
                 <a href="#.php">
-                    <i class="fa-solid fa-user"></i>
+                    <img src="../pictures/default_user_profile.png" alt="User Image" class="profile__photo">
                     <span>User Login</span>
                 </a>
                 <div class="img"></div>

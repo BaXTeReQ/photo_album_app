@@ -9,7 +9,12 @@
 
             foreach ($users as $user) :
             ?>
-                <li><a href="#.php"><i class="fa-solid fa-user"></i><?php echo $user->getUsername(); ?></a></li>
+            <li>
+                <a href="#.php">
+                    <img src="../pictures/default_user_profile.png" alt="User Image"
+                        class="profile__photo"><?php echo $user->getUsername(); ?>
+                </a>
+            </li>
             <?php endforeach; ?>
         </ul>
     </section>

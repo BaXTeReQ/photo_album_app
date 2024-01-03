@@ -56,8 +56,8 @@
     font-size: 20px;
 }
 
-.userRecommendations section ul li a i {
-    margin-right: 20px;
+.userRecommendations section ul li a img {
+    margin-right: 10px;
 }
 
 @media screen and (min-width: 992px) {
