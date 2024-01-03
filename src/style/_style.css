@@ -377,13 +377,9 @@ main section {
     margin: 0 auto;
 }
 
-.user .user__img .img {
+.user .user__img img {
     width: 200px;
     height: 200px;
-    border-radius: 50%;
-
-    /* temporary */
-    background-color: blueviolet;
 }
 
 .user .user__img_button {
@@ -432,4 +428,9 @@ main section {
     border: none;
     text-align: center;
     color: var(--main-font-color);
+}
+
+.user.user-otherUser h3 {
+    margin-top: 50px;
+    font-size: 40px;
 }

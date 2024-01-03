@@ -109,4 +109,16 @@ class User extends Dbh
     {
         return $this->email;
     }
+
+    public static function getUsernameById(int $id): string
+    {
+        $dbh = new Dbh();
+        $connection = $dbh->connect();
+
+        $query = "SELECT username FROM users WHERE ID = $id";
+        $stmt = $connection->query($query);
+        $username = $stmt->fetchALL(PDO::FETCH_ASSOC);
+
+        return $username[0]["username"];
+    }
 }
