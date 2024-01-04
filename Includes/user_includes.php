@@ -27,12 +27,5 @@ if (isset($_POST['changeProfilePhotoFormButton'])) {
     // var_dump($_FILES);
     // echo "</pre>";
 
-    if ($upload->changeProfilePhoto($userID, $_FILES['file'])) {
-        echo "File uploaded successfully!";
-        // header("location: ../Views/current_user.php");
-        // exit();
-        // } else {
-        // header("location: ../Views/current_user.php?message=uploaderror");
-        // exit();
-    }
+    $upload->changeProfilePhoto($userID, $_FILES['file']);
 }

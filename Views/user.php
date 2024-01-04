@@ -3,13 +3,16 @@
 <?php if (!isset($_SESSION['username']) && !isset($_GET['userid'])) header("location: ../Views/index.php"); ?>
 
 <?php require_once '../Classes/user_classes.php'; ?>
+<?php require_once '../Classes/ipfs_classes.php'; ?>
 <?php if (!isset($_GET['userid'])) :
-    $profilePhotoPath = User::getProfilePictureCID($_SESSION['userid']);
+    $CID = User::getProfilePictureCID($_SESSION['userid']);
+    $ipfs = new IPFS();
+    $gateway = $ipfs->getGateway();
 ?>
     <main class="user noUsers__panel">
         <h2>Witaj, <?php echo $_SESSION['username']; ?></h2>
         <div class="user__img">
-            <img src="<?php echo $profilePhotoPath; ?>" alt="User Image" class="profile__photo">
+            <img src="<?php echo $gateway . $CID; ?>" alt="User Image" class="profile__photo">
             <button class="user__img_button" type="button" id="changeProfilePictureButton">
                 <i class="fa-solid fa-pen"></i>
             </button>
@@ -41,12 +44,14 @@
 <?php else : ?>
     <?php
     $username = User::getUsernameById($_GET['userid']);
-    $profilePhotoPath = User::getProfilePictureCID($_GET['userid']);
+    $CID = User::getProfilePictureCID($_GET['userid']);
+    $ipfs = new IPFS();
+    $gateway = $ipfs->getGateway();
     ?>
     <main class="user noUsers__panel user-otherUser">
         <h2><?php echo $username; ?></h2>
         <div class="user__img">
-            <img src="<?php echo $profilePhotoPath; ?>" alt="User Image" class="profile__photo">
+            <img src="<?php echo $gateway . $CID; ?>" alt="User Image" class="profile__photo">
         </div>
         <h3>Posty</h3>
         <section>

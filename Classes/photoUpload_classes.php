@@ -3,13 +3,12 @@
 declare(strict_types=1);
 
 require_once('dbh_classes.php');
+require_once('ipfs_classes.php');
 
 class PhotoUpload extends Dbh
 {
     public function changeProfilePhoto($userID, $file)
     {
-        // $CID = 'test_439424416241389';
-
         if ($file['error'] !== UPLOAD_ERR_OK) return false;
 
         $allowedExtensions = array("jpeg", "jpg", "png");
@@ -17,23 +16,20 @@ class PhotoUpload extends Dbh
 
         if (!in_array(strtolower($fileExtension), $allowedExtensions)) return false;
 
-        // Set the target directory where you want to store uploaded files
-        $targetDir = "../pictures/";
-
         $newFileName = "profilePic_$userID.$fileExtension";
 
-        // Construct the target filename with the desired name
-        $targetFile = $targetDir . $newFileName;
+        $ipfs = new IPFS();
 
-        // Move the uploaded file to the specified directory
-        if (move_uploaded_file($file['tmp_name'], $targetFile)) {
-            // File uploaded successfully, you can now insert its information into the database if needed.
-            // Use the parent::connect() method to get a database connection.
+        if (!$ipfs->API_PinResponse()) return false;
+        else {
+            $CID = $ipfs->pinPhoto($file, $newFileName);
+            $desc = "Profile photo for user with ID = $userID";
+
             $stmt = $this->connect()->prepare(
-                'INSERT INTO photos(CID, photoName) VALUES (?,?)'
+                'INSERT INTO photos(CID, photoName, description) VALUES (?,?,?)'
             );
 
-            $stmt->execute(array($targetFile, $newFileName));
+            $stmt->execute(array($CID, $newFileName, $desc));
 
             $photoID = $this->getLastProfilePhotoID();
 
@@ -42,9 +38,7 @@ class PhotoUpload extends Dbh
             );
 
             $stmt->execute(array($userID, $photoID));
-
-            return true;
-        } else return false; // Error uploading the file
+        }
     }
 
     public function getLastProfilePhotoID()
