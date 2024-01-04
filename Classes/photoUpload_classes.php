@@ -48,7 +48,8 @@ class PhotoUpload extends Dbh
 
         $query = "SELECT ID FROM users_profile_photos ORDER BY ID DESC LIMIT 1;";
         $stmt = $connection->query($query);
-        $lastID = $stmt->fetchALL(PDO::FETCH_ASSOC);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $lastID = $result["ID"];
 
         if ($stmt->rowCount() > 0) return $lastID;
         else return 1;
