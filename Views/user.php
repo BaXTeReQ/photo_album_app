@@ -29,9 +29,10 @@
     <div id="overlay"></div>
     <form action="#" method="post" id="changeProfilePhotoForm" class="fileUpload">
         <h3>Zmień zdjęcie profilowe</h3>
-        <input type="file" name="file" id="file" onchange="handleFileSelect()" accept=".jpeg, .jpg, .png, image/jpeg, image/png">
+        <input type="file" name="file" id="file" accept=".jpeg, .jpg, .png, image/jpeg, image/png">
         <label for="file"><i class="fa-solid fa-file-image"></i> Wybierz zdjęcie</label>
         <div class="preview profile__photo"></div>
+        <button type="submit" class="btn-primary" name="changeProfilePhotoFormButton">Zapisz</button>
     </form>
     <script src="../src/js/profilePhotoUpdate.js"></script>
 <?php else : ?>
