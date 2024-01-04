@@ -5,11 +5,14 @@ declare(strict_types=1);
 class IPFS
 {
     private string $apiPing = "https://api.pinata.cloud/data/testAuthentication";
-    private string $apiKey = "x";
-    private string $apiSecret = "x";
+    private string $apiKey = "";
+    private string $apiSecret = "";
 
     public function __construct()
     {
+        include('../_api/keys.php');
+        $this->apiKey = $key;
+        $this->apiSecret = $secret;
     }
 
     public function API_Response()
