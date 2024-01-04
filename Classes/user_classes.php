@@ -121,4 +121,18 @@ class User extends Dbh
 
         return $username[0]["username"];
     }
+
+    public static function getProfilePictureCID(int $userID): string
+    {
+        $dbh = new Dbh();
+        $connection = $dbh->connect();
+
+        $query = "SELECT p.CID FROM photos p, users_profile_photos usp, users u WHERE u.ID = $userID AND p.ID = usp.fk_photoID AND u.ID = usp.fk_userID;";
+        $stmt = $connection->query($query);
+
+        if ($stmt->rowCount() > 0) {
+            $CID = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $CID[0]["CID"];
+        } else return "../pictures/default_user_profile.png";
+    }
 }

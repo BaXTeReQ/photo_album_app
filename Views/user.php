@@ -2,11 +2,14 @@
 
 <?php if (!isset($_SESSION['username']) && !isset($_GET['userid'])) header("location: ../Views/index.php"); ?>
 
-<?php if (!isset($_GET['userid'])) : ?>
+<?php require_once '../Classes/user_classes.php'; ?>
+<?php if (!isset($_GET['userid'])) :
+    $profilePhotoPath = User::getProfilePictureCID($_SESSION['userid']);
+?>
     <main class="user noUsers__panel">
         <h2>Witaj, <?php echo $_SESSION['username']; ?></h2>
         <div class="user__img">
-            <img src="../pictures/default_user_profile.png" alt="User Image" class="profile__photo">
+            <img src="<?php echo $profilePhotoPath; ?>" alt="User Image" class="profile__photo">
             <button class="user__img_button" type="button" id="changeProfilePictureButton">
                 <i class="fa-solid fa-pen"></i>
             </button>
@@ -27,7 +30,7 @@
         </form>
     </main>
     <div id="overlay"></div>
-    <form action="#" method="post" id="changeProfilePhotoForm" class="fileUpload">
+    <form action="../Includes/user_includes.php" method="post" id="changeProfilePhotoForm" class="fileUpload" enctype="multipart/form-data">
         <h3>Zmień zdjęcie profilowe</h3>
         <input type="file" name="file" id="file" accept=".jpeg, .jpg, .png, image/jpeg, image/png">
         <label for="file"><i class="fa-solid fa-file-image"></i> Wybierz zdjęcie</label>
@@ -37,13 +40,13 @@
     <script src="../src/js/profilePhotoUpdate.js"></script>
 <?php else : ?>
     <?php
-    require_once '../Classes/user_classes.php';
     $username = User::getUsernameById($_GET['userid']);
+    $profilePhotoPath = User::getProfilePictureCID($_GET['userid']);
     ?>
     <main class="user noUsers__panel user-otherUser">
         <h2><?php echo $username; ?></h2>
         <div class="user__img">
-            <img src="../pictures/default_user_profile.png" alt="User Image" class="profile__photo">
+            <img src="<?php echo $profilePhotoPath; ?>" alt="User Image" class="profile__photo">
         </div>
         <h3>Posty</h3>
         <section>
