@@ -34,10 +34,10 @@ class PhotoUpload extends Dbh
             $photoID = $this->getLastProfilePhotoID();
 
             $stmt = $this->connect()->prepare(
-                'INSERT INTO users_profile_photos(fk_userID, fk_PhotoID) VALUES(?,?);'
+                'UPDATE users_profile_photos SET fk_photoID = ? WHERE fk_userID = ?;'
             );
 
-            $stmt->execute(array($userID, $photoID));
+            $stmt->execute(array($photoID, $userID));
         }
     }
 

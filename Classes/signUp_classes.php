@@ -19,7 +19,7 @@ class SignUp extends Dbh
         $insertedID = $this->getLastUserID();
 
         $stmt = $this->connect()->prepare(
-            'INSERT INTO users_profile_photos VALUES (?,?);'
+            'INSERT INTO users_profile_photos(fk_userID, fk_photoID) VALUES (?,?);'
         );
 
         if (!$stmt->execute(array($insertedID, 1))) {
