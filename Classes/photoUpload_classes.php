@@ -22,6 +22,7 @@ class PhotoUpload extends Dbh
 
         if (!$ipfs->API_PinResponse()) return false;
         else {
+            $file = $this->resizeProfilePhoto($file, $fileExtension);
             $CID = $ipfs->pinPhoto($file, $newFileName);
             $desc = "Profile photo for user with ID = $userID";
 
@@ -55,5 +56,42 @@ class PhotoUpload extends Dbh
 
         if ($stmt->rowCount() > 0) return $lastID;
         else return 1;
+    }
+
+    public function resizeProfilePhoto($file, $extension)
+    {
+        $targetSize = 500;
+
+        if (is_array($file) && isset($file['tmp_name'])) {
+            $file_tmp = $file['tmp_name'];
+        }
+
+        list($originalWidth, $originalHeight) = getimagesize($file_tmp);
+
+        $newWidth = intval($targetSize);
+        // $newHeight = intval(ceil(($originalHeight / $originalWidth) * $targetSize));
+        $newHeight = intval($targetSize);
+
+        $resizedImage = imagecreatetruecolor($newWidth, $newHeight);
+
+        if ($extension === 'jpeg' || $extension === 'jpg') $sourceImage = imagecreatefromjpeg($file_tmp);
+        else if ($extension === 'png') $sourceImage = imagecreatefrompng($file_tmp);
+        else die('Unsupported file type');
+
+        imagecopyresampled($resizedImage, $sourceImage, 0, 0, 0, 0, $newWidth, $newHeight, $originalWidth, $originalHeight);
+
+        $tempResizedFileName = tempnam(sys_get_temp_dir(), 'resized_image_') . '.' . $extension;
+
+        if ($extension === 'jpeg' || $extension === 'jpg') imagejpeg($resizedImage, $tempResizedFileName);
+        else if ($extension === 'png') imagepng($resizedImage, $tempResizedFileName);
+
+        imagedestroy($sourceImage);
+
+        return array(
+            'width' => $newWidth,
+            'height' => $newHeight,
+            'mime' => image_type_to_mime_type(exif_imagetype($tempResizedFileName)), // Get MIME type
+            'tmp_name' => $tempResizedFileName, // Temporary file path
+        );
     }
 }
