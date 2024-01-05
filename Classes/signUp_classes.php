@@ -16,6 +16,18 @@ class SignUp extends Dbh
             exit();
         }
 
+        $insertedID = $this->getLastUserID();
+
+        $stmt = $this->connect()->prepare(
+            'INSERT INTO users_profile_photos VALUES (?,?);'
+        );
+
+        if (!$stmt->execute(array($insertedID, 1))) {
+            $stmt = null;
+            header("location: ../signUp.php?error=stmtfailed");
+            exit();
+        }
+
         $stmt = null;
     }
 
@@ -53,5 +65,19 @@ class SignUp extends Dbh
         else $result = false;
 
         return $result;
+    }
+
+    public function getLastUserID()
+    {
+        $dbh = new Dbh();
+        $connection = $dbh->connect();
+
+        $query = "SELECT ID FROM users ORDER BY ID DESC LIMIT 1;";
+        $stmt = $connection->query($query);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $lastID = $result["ID"];
+
+        if ($stmt->rowCount() > 0) return $lastID;
+        else return 1;
     }
 }
