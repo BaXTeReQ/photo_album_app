@@ -67,6 +67,7 @@ main section {
 
 .post a,
 .user a {
+    width: fit-content;
     text-decoration: none;
     grid-area: userData;
     text-align: center;
