@@ -25,6 +25,8 @@ class PhotoUpload extends Dbh
             $CID = $ipfs->pinPhoto($file, $newFileName);
             $desc = "Profile photo for user with ID = $userID";
 
+            // TODO: think about not adding another record if user adds photo pinned before
+
             $stmt = $this->connect()->prepare(
                 'INSERT INTO photos(CID, photoName, description) VALUES (?,?,?)'
             );
@@ -46,7 +48,7 @@ class PhotoUpload extends Dbh
         $dbh = new Dbh();
         $connection = $dbh->connect();
 
-        $query = "SELECT ID FROM users_profile_photos ORDER BY ID DESC LIMIT 1;";
+        $query = "SELECT ID FROM photos ORDER BY ID DESC LIMIT 1;";
         $stmt = $connection->query($query);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $lastID = $result["ID"];

@@ -28,4 +28,5 @@ if (isset($_POST['changeProfilePhotoFormButton'])) {
     // echo "</pre>";
 
     $upload->changeProfilePhoto($userID, $_FILES['file']);
+    header('location: ../Views/user.php');
 }
