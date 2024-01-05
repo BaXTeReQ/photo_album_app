@@ -11,15 +11,22 @@
         <?php
         if (isset($_GET['search'])) :
             require_once('../Classes/search_classes.php');
+            require_once('../Classes/ipfs_classes.php');
+
             $users = Search::getUsersBySearch((string)$_GET['search']);
             if (!empty($users)) :
         ?>
                 <div class="search__results__users">
                     <h2>Użytkownicy</h2>
-                    <?php foreach ($users as $user) : ?>
+                    <?php
+                    foreach ($users as $user) :
+                        $CID = User::getProfilePictureCID($user->getUserID());
+                        $ipfs = new IPFS();
+                        $gateway = $ipfs->getGateway();
+                    ?>
                         <article class="user">
                             <a href="user.php?userid=<?php echo $user->getUserID(); ?>">
-                                <img src="../pictures/default_user_profile.png" alt="User Image" class="profile__photo">
+                                <img src="<?php echo $gateway . $CID; ?>" alt="User Image" class="profile__photo">
                                 <span><?php echo $user->getUsername(); ?></span>
                             </a>
                         </article>
