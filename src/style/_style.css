@@ -46,6 +46,7 @@ main section {
 }
 
 .post {
+    padding: 15px;
     margin-bottom: 50px;
     display: grid;
     align-items: center;
@@ -55,7 +56,8 @@ main section {
     gap: 10px 0;
     grid-template-areas:
         "userData"
-        "photo";
+        "photo"
+        "description";
 }
 
 .user {
@@ -99,6 +101,11 @@ main section {
     width: 100%;
     height: 400px;
     background-color: lightblue;
+}
+
+.post p {
+    grid-area: description;
+    margin-top: 10px;
 }
 
 .noUsers__panel {

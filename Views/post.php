@@ -4,4 +4,7 @@
         <span>User Login</span>
     </a>
     <div class="img"></div>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut fugiat explicabo dolore natus inventore! Facere illum
+        accusamus necessitatibus minima, ex itaque voluptates! Quo eaque facere iusto veritatis sit. Nobis, voluptas!
+    </p>
 </article>
