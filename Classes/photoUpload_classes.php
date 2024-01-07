@@ -80,14 +80,10 @@ class PhotoUpload extends Dbh
             $newHeight = intval($targetSize);
             $newWidth = intval($targetSize);
         }
+
         $cropValue = abs($newHeight - $newWidth) / 2;
 
         $resizedImage = imagecreatetruecolor($newWidth, $newHeight);
-
-        echo $originalWidth . "<br>";
-        echo $originalHeight . "<br>";
-        echo $newWidth . "<br>";
-        echo $newHeight . "<br>";
 
         if ($extension === 'jpeg' || $extension === 'jpg') $sourceImage = imagecreatefromjpeg($file_tmp);
         else if ($extension === 'png') $sourceImage = imagecreatefrompng($file_tmp);
