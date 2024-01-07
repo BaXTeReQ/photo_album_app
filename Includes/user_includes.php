@@ -23,10 +23,6 @@ if (isset($_POST['changeProfilePhotoFormButton'])) {
     $upload = new PhotoUpload();
     $userID = $_SESSION['userid'];
 
-    // echo "<pre>";
-    // var_dump($_FILES);
-    // echo "</pre>";
-
     $upload->changeProfilePhoto($userID, $_FILES['file']);
     header('location: ../Views/user.php');
 }

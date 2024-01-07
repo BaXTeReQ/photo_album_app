@@ -68,11 +68,26 @@ class PhotoUpload extends Dbh
 
         list($originalWidth, $originalHeight) = getimagesize($file_tmp);
 
-        $newWidth = intval($targetSize);
-        // $newHeight = intval(ceil(($originalHeight / $originalWidth) * $targetSize));
-        $newHeight = intval($targetSize);
+        if ($originalHeight < $originalWidth) {
+            $resizeRatioHeight = $originalHeight / $targetSize;
+            $newHeight = intval($targetSize);
+            $newWidth = intval($originalWidth / $resizeRatioHeight);
+        } else if ($originalHeight > $originalWidth) {
+            $resizeRatioWidth = $originalWidth / $targetSize;
+            $newHeight = intval($originalHeight / $resizeRatioWidth);
+            $newWidth = intval($targetSize);
+        } else {
+            $newHeight = intval($targetSize);
+            $newWidth = intval($targetSize);
+        }
+        $cropValue = abs($newHeight - $newWidth) / 2;
 
         $resizedImage = imagecreatetruecolor($newWidth, $newHeight);
+
+        echo $originalWidth . "<br>";
+        echo $originalHeight . "<br>";
+        echo $newWidth . "<br>";
+        echo $newHeight . "<br>";
 
         if ($extension === 'jpeg' || $extension === 'jpg') $sourceImage = imagecreatefromjpeg($file_tmp);
         else if ($extension === 'png') $sourceImage = imagecreatefrompng($file_tmp);
@@ -82,14 +97,32 @@ class PhotoUpload extends Dbh
 
         $tempResizedFileName = tempnam(sys_get_temp_dir(), 'resized_image_') . '.' . $extension;
 
-        if ($extension === 'jpeg' || $extension === 'jpg') imagejpeg($resizedImage, $tempResizedFileName);
-        else if ($extension === 'png') imagepng($resizedImage, $tempResizedFileName);
+        if ($originalHeight < $originalWidth) {
+            $croppedImage = imagecrop($resizedImage, [
+                'x' => $cropValue,
+                'y' => 0,
+                'width' => $targetSize,
+                'height' => $targetSize
+            ]);
+        } else if ($originalHeight > $originalWidth) {
+            $croppedImage = imagecrop($resizedImage, [
+                'x' => 0,
+                'y' => $cropValue,
+                'width' => $targetSize,
+                'height' => $targetSize
+            ]);
+        } else {
+            $croppedImage = $resizedImage;
+        }
+
+        if ($extension === 'jpeg' || $extension === 'jpg') imagejpeg($croppedImage, $tempResizedFileName);
+        else if ($extension === 'png') imagepng($croppedImage, $tempResizedFileName);
 
         imagedestroy($sourceImage);
 
         return array(
-            'width' => $newWidth,
-            'height' => $newHeight,
+            'width' => $targetSize,
+            'height' => $targetSize,
             'mime' => image_type_to_mime_type(exif_imagetype($tempResizedFileName)), // Get MIME type
             'tmp_name' => $tempResizedFileName, // Temporary file path
         );
