@@ -92,6 +92,11 @@ main section {
 .post i {
     font-size: 26px;
     color: var(--main-font-color);
+    transition: .3s color;
+}
+
+.post i.fa-solid {
+    color: #9d0208;
 }
 
 .user i {
