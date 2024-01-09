@@ -135,4 +135,13 @@ class User extends Dbh
             return $CID[0]["CID"];
         } else return "../pictures/default_user_profile.png";
     }
+
+    public static function likePhoto($userID, $photoID)
+    {
+        $dbh = new Dbh();
+        $connection = $dbh->connect();
+
+        $query = "INSERT INTO favourites (fk_userID, fk_photoID) VALUES ('$userID', '$photoID');";
+        $stmt = $connection->query($query);
+    }
 }
