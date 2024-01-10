@@ -8,9 +8,14 @@
         <form action="" class="fileUpload">
             <input type="file" name="file" id="file" accept=".jpeg, .jpg, .png, image/jpeg, image/png">
             <label for="file"><i class="fa-solid fa-file-image"></i> Wybierz zdjęcie</label>
+            <div class="preview"></div>
             <textarea name="desc" id="" cols="30" rows="10" placeholder="Twój opis zdjęcia..."></textarea>
+            <button type="submit" name="submitPhoto" id="submitPhoto" class="btn-primary">Dodaj zdjęcie</button>
         </form>
     </section>
 </main>
+
+<script src="../src/js/makePreviewFunction.js"></script>
+<script src="../src/js/postPhotoPreview.js"></script>
 
 <?php require 'footer.php' ?>

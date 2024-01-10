@@ -1,4 +1,4 @@
-function makePreview(targetSize) {
+function makePreview(targetSize, photoType = "profile") {
     var fileInput = document.getElementById('file');
     let preview = document.querySelector('.preview');
 
@@ -13,30 +13,50 @@ function makePreview(targetSize) {
             img.onload = function () {
                 let originalWidth = img.width;
                 let originalHeight = img.height;
-                let newWidth, newHeight, resizeRatioHeight, resizeRatioWidth;
-
-                if (originalHeight < originalWidth) {
-                    resizeRatioHeight = originalHeight / targetSize;
-                    newHeight = targetSize;
-                    newWidth = originalWidth / resizeRatioHeight;
-                } else if (originalHeight > originalWidth) {
-                    resizeRatioWidth = originalWidth / targetSize;
-                    newWidth = targetSize;
-                    newHeight = originalHeight / resizeRatioWidth;
-                } else {
-                    newWidth = targetSize;
-                    newHeight = targetSize;
-                }
-
-                let cropValue = Math.abs(originalHeight - originalWidth) / 2;
-
-                // Create a canvas element
+                let newWidth, newHeight, resizeRatioHeight, resizeRatioWidth, cropValue;
                 let canvas = document.createElement('canvas');
-                canvas.width = targetSize;
-                canvas.height = targetSize;
                 let ctx = canvas.getContext('2d');
 
+                if (photoType === "profile") {
+                    if (originalHeight < originalWidth) {
+                        resizeRatioHeight = originalHeight / targetSize;
+                        newHeight = targetSize;
+                        newWidth = originalWidth / resizeRatioHeight;
+                    } else if (originalHeight > originalWidth) {
+                        resizeRatioWidth = originalWidth / targetSize;
+                        newWidth = targetSize;
+                        newHeight = originalHeight / resizeRatioWidth;
+                    } else {
+                        newWidth = targetSize;
+                        newHeight = targetSize;
+                    }
+
+                    canvas.width = targetSize;
+                    canvas.height = targetSize;
+                    cropValue = Math.abs(originalHeight - originalWidth) / 2;
+                } else {
+                    console.log("doopa");
+                    if (originalHeight < originalWidth) {
+                        resizeRatioHeight = originalHeight / targetSize;
+                        newHeight = targetSize;
+                        newWidth = originalWidth / resizeRatioHeight;
+                    } else if (originalHeight > originalWidth) {
+                        resizeRatioWidth = originalWidth / targetSize;
+                        newWidth = targetSize;
+                        newHeight = originalHeight / resizeRatioWidth;
+                    } else {
+                        newWidth = targetSize;
+                        newHeight = targetSize;
+                    }
+
+                    canvas.width = newWidth;
+                    canvas.height = newHeight;
+                    cropValue = 0;
+                }
+                // Create a canvas element
+
                 if (originalHeight < originalWidth) {
+                    console.log("dupa");
                     ctx.clearRect(0, 0, newWidth, targetSize);
                     ctx.drawImage(img, cropValue, 0, originalWidth, originalHeight, 0, 0, newWidth, targetSize);
                 }
@@ -56,7 +76,6 @@ function makePreview(targetSize) {
                 preview.innerHTML += "<img src=" + croppedSrc + " alt='Selected Image'>";
 
                 // Optionally, you can set the display style for the button
-                photoSelectButton.style.display = 'block';
             };
         };
 

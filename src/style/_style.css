@@ -415,6 +415,15 @@ main section {
     width: 100%;
 }
 
+.fileUpload .preview {
+    width: 100%;
+    height: auto;
+}
+
+.fileUpload .preview img {
+    width: 100%;
+}
+
 /* user.php */
 
 .user.noUsers__panel {
