@@ -1,26 +1,4 @@
-var changeProfilePictureButton = document.querySelector('#changeProfilePictureButton');
-let overlay = document.querySelector('#overlay');
-let changeProfilePhotoForm = document.querySelector('#changeProfilePhotoForm');
-let photoSelectInput = document.querySelector('#changeProfilePhotoForm input');
-let photoSelectButton = document.querySelector('#changeProfilePhotoForm button');
-
-changeProfilePictureButton.addEventListener('click', () => {
-    if (overlay.style.display === 'none' || overlay.style.display === '') {
-        overlay.style.display = 'block';
-        changeProfilePhotoForm.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-    }
-})
-
-overlay.addEventListener('click', () => {
-    if (overlay.style.display === 'block') {
-        overlay.style.display = 'none';
-        changeProfilePhotoForm.style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }
-})
-
-photoSelectInput.addEventListener('change', () => {
+function makePreview(targetSize) {
     var fileInput = document.getElementById('file');
     let preview = document.querySelector('.preview');
 
@@ -33,7 +11,6 @@ photoSelectInput.addEventListener('change', () => {
             img.src = e.target.result;
 
             img.onload = function () {
-                let targetSize = 500;
                 let originalWidth = img.width;
                 let originalHeight = img.height;
                 let newWidth, newHeight, resizeRatioHeight, resizeRatioWidth;
@@ -52,8 +29,6 @@ photoSelectInput.addEventListener('change', () => {
                 }
 
                 let cropValue = Math.abs(originalHeight - originalWidth) / 2;
-
-                console.log(cropValue);
 
                 // Create a canvas element
                 let canvas = document.createElement('canvas');
@@ -87,4 +62,4 @@ photoSelectInput.addEventListener('change', () => {
 
         reader.readAsDataURL(file);
     }
-});
+}

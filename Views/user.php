@@ -40,7 +40,6 @@
         <div class="preview profile__photo"></div>
         <button type="submit" class="btn-primary" name="changeProfilePhotoFormButton">Zapisz</button>
     </form>
-    <script src="../src/js/profilePhotoUpdate.js"></script>
 <?php else : ?>
     <?php
     $username = User::getUsernameById($_GET['userid']);
@@ -63,5 +62,9 @@
         </section>
     </main>
 <?php endif; ?>
+
+<script src="../src/js/profilePhotoForm.js"></script>
+<script src="../src/js/makePreviewFunction.js"></script>
+<script src="../src/js/profilePhotoPreview.js"></script>
 
 <?php require 'footer.php' ?>

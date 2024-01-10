@@ -487,6 +487,7 @@ main section {
 }
 
 #changeProfilePhotoForm {
+    gap: 15px;
     padding-top: 50px;
     padding-bottom: 50px;
     z-index: 150;
