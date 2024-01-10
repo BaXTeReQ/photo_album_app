@@ -18,4 +18,18 @@ class Post extends Dbh
         $query = "INSERT INTO favourites (fk_userID, fk_photoID) VALUES ('$userID', '$photoID');";
         $stmt = $connection->query($query);
     }
+
+    public static function checkIfPhotoIsLiked($userID, $photoID): bool
+    {
+        $dbh = new Dbh();
+        $connection = $dbh->connect();
+
+        $query = "SELECT * FROM favourites WHERE fk_userID = $userID AND fk_photoID = $photoID;";
+        $stmt = $connection->query($query);
+        $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
+
+        if (isset($result)) return true;
+
+        return false;
+    }
 }
