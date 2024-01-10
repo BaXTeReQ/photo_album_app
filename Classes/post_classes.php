@@ -32,4 +32,14 @@ class Post extends Dbh
 
         return false;
     }
+
+    public static function deleteLike($userID, $photoID)
+    {
+        $dbh = new Dbh();
+        $connection = $dbh->connect();
+
+        $query = "DELETE FROM favourites WHERE fk_userID = $userID AND fk_photoID = $photoID;";
+        $stmt = $connection->query($query);
+        $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
+    }
 }
