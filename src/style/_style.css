@@ -372,6 +372,10 @@ main section {
     color: var(--main-font-color);
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 50px;
+    padding: 15px;
 }
 
 .fileUpload input {
@@ -384,6 +388,7 @@ main section {
 }
 
 .fileUpload label {
+    width: fit-content;
     padding: 15px 20px;
     cursor: pointer;
     background-color: blue;
@@ -400,6 +405,14 @@ main section {
 .fileUpload input:focus+label,
 .fileUpload input+label:hover {
     background-color: red;
+}
+
+.fileUpload textarea {
+    padding: 10px;
+    border-radius: 1rem;
+    resize: vertical;
+    font-size: 24px;
+    width: 100%;
 }
 
 /* user.php */
