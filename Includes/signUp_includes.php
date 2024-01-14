@@ -6,11 +6,10 @@ if (isset($_POST['register_submit'])) {
     $password = (string)$_POST["password"];
     $confirm_password = (string)$_POST["confirm_password"];
 
-    include "../Classes/dbh_classes.php";
-    include "../Classes/signUp_classes.php";
-    include "../Controllers/signUp_controller.php";
+    require_once "../Classes/dbh_classes.php";
+    require_once "../Classes/signUp_classes.php";
 
-    $signUp = new SignUpController($username, $email, $password, $confirm_password);
+    $signUp = new SignUp($username, $email, $password, $confirm_password);
     $signUp->signUpUser();
 
     header("Location: ../Views/signUpSuccesfull.php");

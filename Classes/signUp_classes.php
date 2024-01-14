@@ -4,6 +4,80 @@ declare(strict_types=1);
 
 class SignUp extends Dbh
 {
+    private string $username;
+    private string $email;
+    private string $password;
+    private string $confirm_password;
+
+    public function __construct(string $username, string $email, string $password, string $confirm_password)
+    {
+        $this->username = $username;
+        $this->email = $email;
+        $this->password = $password;
+        $this->confirm_password = $confirm_password;
+    }
+
+    public function signUpUser()
+    {
+        $redirect = "location: ../Views/signUp.php?";
+
+        if ($this->emailTaken() == true) {
+            if ($redirect != "location: ../Views/signUp.php?") $redirect .= "&emailTakenError=1";
+            else $redirect .= "emailTakenError=1";
+        }
+
+        if ($this->usernameTaken() == true) {
+            if ($redirect != "location: ../Views/signUp.php?") $redirect .= "&usernameTakenError=1";
+            else $redirect .= "usernameTakenError=1";
+        }
+
+        if ($this->passwordMatch() == false) {
+            if ($redirect != "location: ../Views/signUp.php?") $redirect .= "&password!matchError=1";
+            else $redirect .= "password!matchError=1";
+        }
+
+        if ($this->passwordIncorrect() == true) {
+            if ($redirect != "location: ../Views/signUp.php?") $redirect .= "&invalidpasswordError=1";
+            else $redirect .= "invalidpasswordError=1";
+        }
+
+        if ($redirect == "location: ../Views/signUp.php?") {
+            $this->setUser($this->username, $this->email, $this->password);
+        } else {
+            header($redirect);
+            exit();
+        }
+    }
+
+    private function emailTaken(): bool
+    {
+        if ($this->checkEmail($this->email)) return true;
+        return false;
+    }
+
+    private function usernameTaken(): bool
+    {
+        if ($this->checkUsername($this->username)) return true;
+        return false;
+    }
+
+    private function passwordIncorrect(): bool
+    {
+        $uppercase = preg_match('@[A-Z]@', $this->password);
+        $lowercase = preg_match('@[a-z]@', $this->password);
+        $number = preg_match('@[0-9]@', $this->password);
+        $specialChars = preg_match('@[^\w]@', $this->password);
+
+        if (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($this->password) < 8) return true;
+        return false;
+    }
+
+    protected function passwordMatch(): bool
+    {
+        if ($this->password !== $this->confirm_password) return false;
+        return true;
+    }
+
     protected function setUser($username, $email, $password)
     {
         $stmt = $this->connect()->prepare(
@@ -12,26 +86,26 @@ class SignUp extends Dbh
 
         if (!$stmt->execute(array($username, $email,  $password, 3))) {
             $stmt = null;
-            header("location: ../signUp.php?error=stmtfailed");
+            header("location: ../Views/error.php?error=stmtfailed");
             exit();
         }
 
         $insertedID = $this->getLastUserID();
 
         $stmt = $this->connect()->prepare(
-            'INSERT INTO users_profile_photos(fk_userID, fk_photoID) VALUES (?,?);'
+            'INSERT INTO users_profile_photos(fk_userID, fk_photoID) VALUES (?, 1);'
         );
 
-        if (!$stmt->execute(array($insertedID, 1))) {
+        if (!$stmt->execute(array($insertedID))) {
             $stmt = null;
-            header("location: ../signUp.php?error=stmtfailed");
+            header("location: ../Views/error.php?error=stmtfailed");
             exit();
         }
 
         $stmt = null;
     }
 
-    public function checkUsername($username): bool
+    protected function checkUsername($username): bool
     {
         $stmt = $this->connect()->prepare(
             'SELECT username FROM users WHERE username = ?'
@@ -39,17 +113,15 @@ class SignUp extends Dbh
 
         if (!$stmt->execute(array($username))) {
             $stmt = null;
-            header("location: ../signUp.php?error=stmtfailed");
+            header("location: ../Views/error.php?error=stmtfailed");
             exit();
         }
 
-        if ($stmt->rowCount() > 0) $result = true;
-        else $result = false;
-
-        return $result;
+        if ($stmt->rowCount() > 0) return true;
+        return false;
     }
 
-    public function checkEmail($email): bool
+    protected function checkEmail($email): bool
     {
         $stmt = $this->connect()->prepare(
             'SELECT email FROM users WHERE email = ?'
@@ -57,27 +129,30 @@ class SignUp extends Dbh
 
         if (!$stmt->execute(array($email))) {
             $stmt = null;
-            header("location: ../signUp.php?error=stmtfailed");
+            header("location: ../Views/error.php?error=stmtfailed");
             exit();
         }
 
-        if ($stmt->rowCount() > 0) $result = true;
-        else $result = false;
-
-        return $result;
+        if ($stmt->rowCount() > 0) return true;
+        return false;
     }
 
-    public function getLastUserID()
+    protected function getLastUserID(): int
     {
-        $dbh = new Dbh();
-        $connection = $dbh->connect();
+        $stmt = $this->connect()->prepare(
+            'SELECT ID FROM users ORDER BY ID DESC LIMIT 1;'
+        );
 
-        $query = "SELECT ID FROM users ORDER BY ID DESC LIMIT 1;";
-        $stmt = $connection->query($query);
+        if (!$stmt->execute()) {
+            $stmt = null;
+            header("location: ../Views/error.php?error=stmtfailed");
+            exit();
+        }
+
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $lastID = $result["ID"];
 
         if ($stmt->rowCount() > 0) return $lastID;
-        else return 1;
+        return 1;
     }
 }
