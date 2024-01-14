@@ -55,17 +55,19 @@ class Post extends Dbh
         $stmt = $connection->query($query);
     }
 
-    public static function checkIfPhotoIsLiked($userID, $photoID): bool
+    public function checkIfPhotoIsLiked($userID, $photoID): bool
     {
-        $dbh = new Dbh();
-        $connection = $dbh->connect();
+        $stmt = $this->connect()->prepare(
+            "SELECT * FROM favourites WHERE fk_userID = ? AND fk_photoID = ?;"
+        );
 
-        $query = "SELECT * FROM favourites WHERE fk_userID = $userID AND fk_photoID = $photoID;";
-        $stmt = $connection->query($query);
-        $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
+        if (!$stmt->execute(array($userID, $photoID))) {
+            $stmt = null;
+            header("location: ../Views/error.php?error=stmtfailed");
+            exit();
+        }
 
-        if (isset($result)) return true;
-
+        if ($stmt->rowCount() > 0) return true;
         return false;
     }
 

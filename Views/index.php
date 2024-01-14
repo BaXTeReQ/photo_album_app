@@ -25,7 +25,7 @@
                     <img src="<?php echo $gateway . $post->getCID(); ?>" alt="<?php echo $post->getDescription(); ?>">
                 </div>
                 <button type="button" class="like--button" data-user-id="<?php echo $post->getUserID(); ?>" data-photo-id="<?php echo $post->getPostID(); ?>">
-                    <i class="fa-regular fa-heart"></i>
+                    <i class='<?php echo ($post->checkIfPhotoIsLiked($_SESSION['userid'], $post->getPostID())) ? "fa-solid fa-heart" : "fa-regular fa-heart"; ?>'></i>
                 </button>
                 <p><?php echo $post->getDescription(); ?></p>
             </article>
