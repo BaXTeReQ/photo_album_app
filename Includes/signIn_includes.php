@@ -4,11 +4,10 @@ if (isset($_POST["submit"])) {
     $username = (string)$_POST["login"];
     $password = (string)$_POST["password"];
 
-    include "../Classes/dbh_classes.php";
-    include "../Classes/signIn_classes.php";
-    include "../Controllers/signIn_controller.php";
+    require_once "../Classes/dbh_classes.php";
+    require_once "../Classes/signIn_classes.php";
 
-    $signIn = new SignInController($username, $password);
+    $signIn = new SignIn($username, $password);
 
     $signIn->signInUser();
 

@@ -6,10 +6,29 @@ require_once('dbh_classes.php');
 
 class SignIn extends Dbh
 {
-    protected function getUser($username, $password)
+    private string $username;
+    private string $password;
+
+    public function __construct(string $username, string $password) // :self
+    {
+        $this->username = $username;
+        $this->password = $password;
+    }
+
+    public function signInUser()
+    {
+        $userData = $this->getUser($this->username, $this->password);
+
+        session_start();
+        $_SESSION["userid"] = $userData["ID"];
+        $_SESSION["username"] = $userData["username"];
+        $_SESSION["email"] = $userData["email"];
+    }
+
+    protected function getUser($username, $password): array
     {
         $stmt = $this->connect()->prepare(
-            'SELECT * FROM users WHERE username = ? AND password = ?;'
+            'SELECT ID, username, email FROM users WHERE username = ? AND password = ?;'
         );
 
         if (!$stmt->execute(array($username, $password))) {
@@ -24,13 +43,8 @@ class SignIn extends Dbh
             exit();
         }
 
-        $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        session_start();
-        $_SESSION["userid"] = $user[0]["ID"];
-        $_SESSION["username"] = $user[0]["username"];
-        $_SESSION["email"] = $user[0]["email"];
-
-        $stmt = null;
+        return $result;
     }
 }
