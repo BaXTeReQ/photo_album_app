@@ -13,14 +13,15 @@
             require_once('../Classes/search_classes.php');
             require_once('../Classes/ipfs_classes.php');
 
-            $users = Search::getUsersBySearch((string)$_GET['search']);
+            $search = new Search();
+            $users = $search->getUsersBySearch($_GET['search']);
             if (!empty($users)) :
         ?>
                 <div class="search__results__users">
                     <h2>Użytkownicy</h2>
                     <?php
                     foreach ($users as $user) :
-                        $CID = User::getProfilePictureCID($user->getUserID());
+                        $CID = $user->getProfilePictureCID($user->getUserID());
                         $ipfs = new IPFS();
                         $gateway = $ipfs->getGateway();
                     ?>

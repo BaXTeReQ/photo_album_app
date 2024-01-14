@@ -7,24 +7,18 @@ require_once('user_classes.php');
 
 class Search extends Dbh
 {
-    private array $users;
-    private array $posts;
-    private array $hashtags;
-
-    public function __construct(int $users, string $posts, string $hashtags)
+    public function getUsersBySearch($search): array
     {
-        $this->users = $users;
-        $this->posts = $posts;
-        $this->hashtags = $hashtags;
-    }
+        $stmt = $this->connect()->prepare(
+            "SELECT * FROM users WHERE username LIKE ? AND fk_roleID = 3;"
+        );
 
-    public static function getUsersBySearch($search): array
-    {
-        $dbh = new Dbh();
-        $connection = $dbh->connect();
+        if (!$stmt->execute(array("%$search%"))) {
+            $stmt = null;
+            header("location: ../Views/error.php?error=stmtfailed");
+            exit();
+        }
 
-        $query = "SELECT * FROM users WHERE username LIKE '%$search%' AND fk_roleID = 3;";
-        $stmt = $connection->query($query);
         $usersData = $stmt->fetchALL(PDO::FETCH_ASSOC);
 
         $array = [];
@@ -33,8 +27,7 @@ class Search extends Dbh
             $user = new User(
                 $userData["ID"],
                 $userData["username"],
-                $userData["email"],
-                $userData["fk_roleID"]
+                $userData["email"]
             );
 
             array_push($array, $user);
