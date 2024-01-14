@@ -7,16 +7,43 @@ require_once('dbh_classes.php');
 class Post extends Dbh
 {
     private int $userID;
+    private int $postID;
     private string $username;
     private string $CID;
     private string $desc;
 
-    public function __construct(int $userID, string $username, string $CID, string $desc)
+    public function __construct(int $userID, int $postID, string $username, string $CID, string $desc)
     {
         $this->userID = $userID;
+        $this->postID = $postID;
         $this->username = $username;
         $this->CID = $CID;
         $this->desc = $desc;
+    }
+
+    public function getUserID()
+    {
+        return $this->userID;
+    }
+
+    public function getPostID()
+    {
+        return $this->postID;
+    }
+
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    public function getCID()
+    {
+        return $this->CID;
+    }
+
+    public function getDescription()
+    {
+        return $this->desc;
     }
 
     public static function likePhoto($userID, $photoID)
@@ -57,7 +84,7 @@ class Post extends Dbh
         $dbh = new Dbh();
         $connection = $dbh->connect();
 
-        $query = "SELECT u.ID, u.username, p.CID, p.description FROM users_uploaded_photos uup INNER JOIN users u ON uup.fk_userID = u.ID INNER JOIN photos p ON uup.fk_photoID = p.ID;";
+        $query = "SELECT u.ID as userID, p.ID as photoID, u.username, p.CID, p.description FROM users_uploaded_photos uup INNER JOIN users u ON uup.fk_userID = u.ID INNER JOIN photos p ON uup.fk_photoID = p.ID;";
         $stmt = $connection->query($query);
         $data = $stmt->fetchALL(PDO::FETCH_ASSOC);
 
@@ -65,7 +92,8 @@ class Post extends Dbh
 
         foreach ($data as $singleData) {
             $post = new Post(
-                $singleData['ID'],
+                $singleData['userID'],
+                $singleData['photoID'],
                 $singleData["username"],
                 $singleData["CID"],
                 $singleData["description"]
@@ -75,25 +103,5 @@ class Post extends Dbh
         }
 
         return $array;
-    }
-
-    public function getUserID()
-    {
-        return $this->userID;
-    }
-
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    public function getCID()
-    {
-        return $this->CID;
-    }
-
-    public function getDescription()
-    {
-        return $this->desc;
     }
 }

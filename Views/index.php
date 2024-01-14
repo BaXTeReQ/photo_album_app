@@ -24,7 +24,7 @@
                 <div class="img">
                     <img src="<?php echo $gateway . $post->getCID(); ?>" alt="<?php echo $post->getDescription(); ?>">
                 </div>
-                <button type="button" class="like--button" data-user-id="<?php echo $post->getUserID(); ?>" data-photo-id="1">
+                <button type="button" class="like--button" data-user-id="<?php echo $post->getUserID(); ?>" data-photo-id="<?php echo $post->getPostID(); ?>">
                     <i class="fa-regular fa-heart"></i>
                 </button>
                 <p><?php echo $post->getDescription(); ?></p>
