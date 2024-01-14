@@ -3,12 +3,13 @@
     <section>
         <ul>
             <?php
-            require_once('../Classes/user_classes.php');
-            require_once('../Classes/ipfs_classes.php');
+            include('../Classes/user_classes.php');
+            include('../Classes/ipfs_classes.php');
 
-            $users = (isset($_SESSION['userid'])) ? User::getRecommendedUsers($_SESSION['userid']) : User::getRecommendedUsers();
+            $user = new User();
+            $users = (isset($_SESSION['userid'])) ? $user->getRecommendedUsers($_SESSION['userid']) : $user->getRecommendedUsers();
             foreach ($users as $user) :
-                $CID = User::getProfilePictureCID($user->getUserID());
+                $CID = $user->getProfilePictureCID($user->getUserID());
                 $ipfs = new IPFS();
                 $gateway = $ipfs->getGateway();
             ?>

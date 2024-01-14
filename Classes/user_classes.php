@@ -10,7 +10,7 @@ class User extends Dbh
     private string $username;
     private string $email;
 
-    public function __construct(int $id, string $username = "", string $email = "")
+    public function __construct(int $id = 0, string $username = "", string $email = "")
     {
         $this->id = $id;
         $this->username = $username;
@@ -118,7 +118,7 @@ class User extends Dbh
         return false;
     }
 
-    protected function getRecommendedUsers(int $loggedUser = 0): array
+    public function getRecommendedUsers(int $loggedUser = 0): array
     {
         $stmt = $this->connect()->prepare(
             "SELECT * FROM users WHERE fk_roleID = 3 AND NOT ID = ? ORDER BY RAND() LIMIT 5;"
