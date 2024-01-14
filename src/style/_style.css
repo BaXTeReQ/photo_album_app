@@ -112,11 +112,11 @@ main section {
 
 .post .img {
     grid-area: photo;
+}
 
-    /* temporary */
+.post .img img {
     width: 100%;
-    height: 400px;
-    background-color: lightblue;
+    height: auto;
 }
 
 .post p {

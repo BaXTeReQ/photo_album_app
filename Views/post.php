@@ -1,13 +1,28 @@
+<?php
+require_once('../Classes/post_classes.php');
+require_once('../Classes/ipfs_classes.php');
+?>
+
+<?php
+$posts = Post::getPosts();
+$ipfs = new IPFS();
+$gateway = $ipfs->getGateway();
+
+foreach ($posts as $post) :
+?>
+
 <article class="post">
-    <a href="#.php">
-        <img src="../pictures/default_user_profile.png" alt="User Image" class="profile__photo">
-        <span>User Login</span>
+    <a href="user.php?userid=<?php echo $post->getUserID(); ?>">
+        <img src="<?php echo User::getProfilePictureCID($userID); ?>" alt="User Image" class="profile__photo">
+        <span><?php echo $post->getUsername(); ?></span>
     </a>
-    <div class="img"></div>
-    <button type="button" class="like--button" data-user-id="<?php echo $_SESSION['userid']; ?>" data-photo-id="1">
+    <div class="img">
+        <img src="<?php echo $gateway . $CID; ?>" alt="<?php echo $post->getDescription(); ?>">
+    </div>
+    <button type="button" class="like--button" data-user-id="<?php echo $post->getUserID(); ?>" data-photo-id="1">
         <i class="fa-regular fa-heart"></i>
     </button>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut fugiat explicabo dolore natus inventore! Facere illum
-        accusamus necessitatibus minima, ex itaque voluptates! Quo eaque facere iusto veritatis sit. Nobis, voluptas!
-    </p>
+    <p><?php echo $post->getDescription(); ?></p>
 </article>
+
+<?php endforeach; ?>
