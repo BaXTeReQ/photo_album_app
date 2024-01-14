@@ -2,10 +2,11 @@
 
 <?php if (!isset($_SESSION['username']) && !isset($_GET['userid'])) header("location: ../Views/index.php"); ?>
 
-<?php require_once '../Classes/user_classes.php'; ?>
-<?php require_once '../Classes/ipfs_classes.php'; ?>
+<?php include '../Classes/user_classes.php'; ?>
+<?php include '../Classes/ipfs_classes.php'; ?>
 <?php if (!isset($_GET['userid'])) :
-    $CID = User::getProfilePictureCID($_SESSION['userid']);
+    $user = new User($_SESSION['userid'], $_SESSION['username'], $_SESSION['email']);
+    $CID = $user->getProfilePictureCID($user->getUserID());
     $ipfs = new IPFS();
     $gateway = $ipfs->getGateway();
 ?>
@@ -42,8 +43,10 @@
     </form>
 <?php else : ?>
     <?php
-    $username = User::getUsernameById($_GET['userid']);
-    $CID = User::getProfilePictureCID($_GET['userid']);
+    $userID = $_GET['userid'];
+    $user = new User($userID);
+    $username = $user->getUsernameById($userID);
+    $CID = $user->getProfilePictureCID($userID);
     $ipfs = new IPFS();
     $gateway = $ipfs->getGateway();
     ?>

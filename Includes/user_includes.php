@@ -10,7 +10,7 @@ if (isset($_POST['submitall'])) {
     include "../Classes/user_classes.php";
 
     $user = new User($id, $username, $email);
-    $userUpdate->updateUser();
+    $user->updateUser();
 
     header("location: ../Views/user.php");
 }

@@ -10,7 +10,7 @@ class User extends Dbh
     private string $username;
     private string $email;
 
-    public function __construct(int $id, string $username, string $email)
+    public function __construct(int $id, string $username = "", string $email = "")
     {
         $this->id = $id;
         $this->username = $username;
@@ -44,7 +44,7 @@ class User extends Dbh
         return false;
     }
 
-    private function updateUser()
+    public function updateUser()
     {
         $redirect = "location: ../Views/user.php?";
 
@@ -148,7 +148,7 @@ class User extends Dbh
         return $array;
     }
 
-    protected function getUsernameById(int $id): string
+    public function getUsernameById(int $id): string
     {
         $stmt = $this->connect()->prepare(
             "SELECT username FROM users WHERE ID = ?;"
@@ -165,7 +165,7 @@ class User extends Dbh
         return $username["username"];
     }
 
-    protected function getProfilePictureCID(int $id): string
+    public function getProfilePictureCID(int $id): string
     {
         $stmt = $this->connect()->prepare(
             "SELECT p.CID FROM photos p, users_profile_photos usp, users u WHERE u.ID = ? AND p.ID = usp.fk_photoID AND u.ID = usp.fk_userID;"
