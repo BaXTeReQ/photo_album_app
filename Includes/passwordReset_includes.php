@@ -5,11 +5,10 @@ if (isset($_POST['reset-submit'])) {
     $email = (string)$_POST['email'];
     $password = (string)"";
 
-    include "../Classes/dbh_classes.php";
-    include "../Classes/passwordReset_classes.php";
-    include "../Controllers/passwordReset_controller.php";
+    require_once "../Classes/dbh_classes.php";
+    require_once "../Classes/passwordReset_classes.php";
 
-    $passwordReset = new PasswordResetController($username, $email, $password);
+    $passwordReset = new PasswordReset($username, $email, $password);
 
     $passwordReset->checkUser();
 
@@ -19,11 +18,12 @@ if (isset($_POST['reset-submit'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    include "../Classes/dbh_classes.php";
-    include "../Classes/passwordReset_classes.php";
-    include "../Controllers/passwordReset_controller.php";
+    require_once "../Classes/dbh_classes.php";
+    require_once "../Classes/passwordReset_classes.php";
 
-    $passwordReset = new PasswordResetController($username, $email, $password);
+    $passwordReset = new PasswordReset($username, $email, $password);
 
     $passwordReset->setNewPassword();
-} else header("Location: ../Views/passwordReset.php");
+
+    header("location: ../Views/passwordResetSuccess.php");
+} else header("location: ../Views/passwordReset.php");
