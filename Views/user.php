@@ -2,9 +2,11 @@
 
 <?php if (!isset($_SESSION['username']) && !isset($_GET['userid'])) header("location: ../Views/index.php"); ?>
 
-<?php include '../Classes/user_classes.php'; ?>
-<?php include '../Classes/ipfs_classes.php'; ?>
-<?php if (!isset($_GET['userid'])) :
+<?php
+require_once '../Classes/user_classes.php';
+require_once '../Classes/ipfs_classes.php';
+
+if (!isset($_GET['userid'])) :
     $user = new User($_SESSION['userid'], $_SESSION['username'], $_SESSION['email']);
     $CID = $user->getProfilePictureCID($user->getUserID());
     $ipfs = new IPFS();

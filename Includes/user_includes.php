@@ -7,7 +7,7 @@ if (isset($_POST['submitall'])) {
     $username = $_POST['usernamechange'];
     $email = $_POST['emailchange'];
 
-    include "../Classes/user_classes.php";
+    require_once("../Classes/user_classes.php");
 
     $user = new User($id, $username, $email);
     $user->updateUser();

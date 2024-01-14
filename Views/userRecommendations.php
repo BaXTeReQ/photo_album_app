@@ -3,8 +3,8 @@
     <section>
         <ul>
             <?php
-            include('../Classes/user_classes.php');
-            include('../Classes/ipfs_classes.php');
+            require_once('../Classes/user_classes.php');
+            require_once('../Classes/ipfs_classes.php');
 
             $user = new User();
             $users = (isset($_SESSION['userid'])) ? $user->getRecommendedUsers($_SESSION['userid']) : $user->getRecommendedUsers();
