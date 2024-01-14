@@ -13,7 +13,8 @@
         $gateway = $ipfs->getGateway();
 
         foreach ($posts as $post) :
-            $profilePictureCID = User::getProfilePictureCID($post->getUserID());
+            $user = new User();
+            $profilePictureCID = $user->getProfilePictureCID($post->getUserID());
         ?>
             <article class="post">
                 <a href="user.php?userid=<?php echo $post->getUserID(); ?>">
