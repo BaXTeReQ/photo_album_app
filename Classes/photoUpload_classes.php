@@ -44,7 +44,58 @@ class PhotoUpload extends Dbh
         }
     }
 
-    public function getLastProfilePhotoID()
+    public function addPostPhoto($userID, $file, $desc)
+    {
+        if ($file['error'] !== UPLOAD_ERR_OK) return false;
+
+        $allowedExtensions = array("jpeg", "jpg", "png");
+        $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
+
+        if (!in_array(strtolower($fileExtension), $allowedExtensions)) return false;
+
+        $postNewID = $this->getPostsCount() + 1;
+
+        $newFileName = "post_$postNewID.$fileExtension";
+
+        $ipfs = new IPFS();
+
+        if (!$ipfs->API_PinResponse()) return false;
+        else {
+            // $file = $this->resizeProfilePhoto($file, $fileExtension);
+            $CID = $ipfs->pinPhoto($file, $newFileName);
+
+            // TODO: think about not adding another record if user adds photo pinned before
+
+            $stmt = $this->connect()->prepare(
+                'INSERT INTO photos(CID, photoName, description) VALUES (?,?,?)'
+            );
+
+            $stmt->execute(array($CID, $newFileName, $desc));
+
+            $photoID = $this->getLastPhotoID();
+
+            $stmt = $this->connect()->prepare(
+                'INSERT INTO users_uploaded_photos (fk_userID, fk_photoID) VALUES (?,?);'
+            );
+
+            $stmt->execute(array($userID, $photoID));
+        }
+    }
+
+    public function getPostsCount(): int
+    {
+        $dbh = new Dbh();
+        $connection = $dbh->connect();
+
+        $query = "SELECT count(*) as count FROM users_uploaded_photos;";
+        $stmt = $connection->query($query);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $count = $result["count"];
+
+        return $count;
+    }
+
+    public function getLastPhotoID()
     {
         $dbh = new Dbh();
         $connection = $dbh->connect();
@@ -52,10 +103,24 @@ class PhotoUpload extends Dbh
         $query = "SELECT ID FROM photos ORDER BY ID DESC LIMIT 1;";
         $stmt = $connection->query($query);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $lastID = $result['ID'];
+
+        if ($stmt->rowCount() > 0) return $lastID;
+        return 1;
+    }
+
+    public function getLastProfilePhotoID()
+    {
+        $dbh = new Dbh();
+        $connection = $dbh->connect();
+
+        $query = "SELECT ID FROM photos WHERE photoName LIKE 'profilePic%' ORDER BY ID DESC LIMIT 1;";
+        $stmt = $connection->query($query);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $lastID = $result["ID"];
 
         if ($stmt->rowCount() > 0) return $lastID;
-        else return 1;
+        return 1;
     }
 
     public function resizeProfilePhoto($file, $extension)

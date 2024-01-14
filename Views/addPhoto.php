@@ -5,7 +5,7 @@
 <main class="addPhoto noUsers__panel">
     <h2>Dodaj zdjęcie</h2>
     <section>
-        <form action="" class="fileUpload">
+        <form action="../Includes/addPhoto_includes.php" class="fileUpload" method="POST" enctype="multipart/form-data">
             <input type="file" name="file" id="file" accept=".jpeg, .jpg, .png, image/jpeg, image/png">
             <label for="file"><i class="fa-solid fa-file-image"></i> Wybierz zdjęcie</label>
             <div class="preview"></div>
