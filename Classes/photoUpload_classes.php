@@ -22,7 +22,8 @@ class PhotoUpload extends Dbh
 
         if (!$ipfs->API_PinResponse()) return false;
         else {
-            $file = $this->resizeProfilePhoto($file, $fileExtension);
+            $targetSize = 500;
+            $file = $this->resizePhoto($file, $fileExtension, $targetSize);
             $CID = $ipfs->pinPhoto($file, $newFileName);
             $desc = "Profile photo for user with ID = $userID";
 
@@ -61,7 +62,8 @@ class PhotoUpload extends Dbh
 
         if (!$ipfs->API_PinResponse()) return false;
         else {
-            // $file = $this->resizeProfilePhoto($file, $fileExtension);
+            $targetSize = 1080;
+            $file = $this->resizePhoto($file, $fileExtension, $targetSize, 0);
             $CID = $ipfs->pinPhoto($file, $newFileName);
 
             // TODO: think about not adding another record if user adds photo pinned before
@@ -123,10 +125,8 @@ class PhotoUpload extends Dbh
         return 1;
     }
 
-    public function resizeProfilePhoto($file, $extension)
+    protected function resizePhoto($file, $extension, $targetSize, $profile = 1): array
     {
-        $targetSize = 500;
-
         if (is_array($file) && isset($file['tmp_name'])) {
             $file_tmp = $file['tmp_name'];
         }
@@ -146,7 +146,8 @@ class PhotoUpload extends Dbh
             $newWidth = intval($targetSize);
         }
 
-        $cropValue = abs($newHeight - $newWidth) / 2;
+        if ($profile) $cropValue = abs($newHeight - $newWidth) / 2;
+        else $cropValue = 0;
 
         $resizedImage = imagecreatetruecolor($newWidth, $newHeight);
 
@@ -158,20 +159,24 @@ class PhotoUpload extends Dbh
 
         $tempResizedFileName = tempnam(sys_get_temp_dir(), 'resized_image_') . '.' . $extension;
 
-        if ($originalHeight < $originalWidth) {
-            $croppedImage = imagecrop($resizedImage, [
-                'x' => $cropValue,
-                'y' => 0,
-                'width' => $targetSize,
-                'height' => $targetSize
-            ]);
-        } else if ($originalHeight > $originalWidth) {
-            $croppedImage = imagecrop($resizedImage, [
-                'x' => 0,
-                'y' => $cropValue,
-                'width' => $targetSize,
-                'height' => $targetSize
-            ]);
+        if ($profile) {
+            if ($originalHeight < $originalWidth) {
+                $croppedImage = imagecrop($resizedImage, [
+                    'x' => $cropValue,
+                    'y' => 0,
+                    'width' => $targetSize,
+                    'height' => $targetSize
+                ]);
+            } else if ($originalHeight > $originalWidth) {
+                $croppedImage = imagecrop($resizedImage, [
+                    'x' => 0,
+                    'y' => $cropValue,
+                    'width' => $targetSize,
+                    'height' => $targetSize
+                ]);
+            } else {
+                $croppedImage = $resizedImage;
+            }
         } else {
             $croppedImage = $resizedImage;
         }
