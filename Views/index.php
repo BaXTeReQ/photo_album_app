@@ -13,22 +13,23 @@
         $gateway = $ipfs->getGateway();
 
         foreach ($posts as $post) :
-            $user = new User();
-            $profilePictureCID = $user->getProfilePictureCID($post->getUserID());
+            $profilePictureCID = User::getProfilePictureCID($post->getUserID());
         ?>
-            <article class="post">
-                <a href="user.php?userid=<?php echo $post->getUserID(); ?>">
-                    <img src="<?php echo $gateway . $profilePictureCID; ?>" alt="User Image" class="profile__photo">
-                    <span><?php echo $post->getUsername(); ?></span>
-                </a>
-                <div class="img">
-                    <img src="<?php echo $gateway . $post->getCID(); ?>" alt="<?php echo $post->getDescription(); ?>">
-                </div>
-                <button type="button" class="like--button" data-user-id="<?php echo $post->getUserID(); ?>" data-photo-id="<?php echo $post->getPostID(); ?>">
-                    <i class='<?php echo ($post->checkIfPhotoIsLiked($_SESSION['userid'], $post->getPostID())) ? "fa-solid fa-heart" : "fa-regular fa-heart"; ?>'></i>
-                </button>
-                <p><?php echo $post->getDescription(); ?></p>
-            </article>
+        <article class="post">
+            <a href="user.php?userid=<?php echo $post->getUserID(); ?>">
+                <img src="<?php echo $gateway . $profilePictureCID; ?>" alt="User Image" class="profile__photo">
+                <span><?php echo $post->getUsername(); ?></span>
+            </a>
+            <div class="img">
+                <img src="<?php echo $gateway . $post->getCID(); ?>" alt="<?php echo $post->getDescription(); ?>">
+            </div>
+            <button type="button" class="like--button" data-user-id="<?php echo $post->getUserID(); ?>"
+                data-photo-id="<?php echo $post->getPostID(); ?>">
+                <i
+                    class='<?php echo ($post->checkIfPhotoIsLiked($_SESSION['userid'], $post->getPostID())) ? "fa-solid fa-heart" : "fa-regular fa-heart"; ?>'></i>
+            </button>
+            <p><?php echo $post->getDescription(); ?></p>
+        </article>
         <?php endforeach; ?>
     </section>
 </main>
