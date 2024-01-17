@@ -13,7 +13,8 @@
         $gateway = $ipfs->getGateway();
 
         foreach ($posts as $post) :
-            $profilePictureCID = User::getProfilePictureCID($post->getUserID());
+            $user = new User($post->getUserID());
+            $profilePictureCID = $user->getProfilePictureCID($post->getUserID());
         ?>
         <article class="post">
             <a href="user.php?userid=<?php echo $post->getUserID(); ?>">
@@ -24,7 +25,8 @@
                 <img src="<?php echo $gateway . $post->getCID(); ?>" alt="<?php echo $post->getDescription(); ?>">
             </div>
             <button type="button" class="like--button" data-user-id="<?php echo $post->getUserID(); ?>"
-                data-photo-id="<?php echo $post->getPostID(); ?>">
+                data-photo-id="<?php echo $post->getPostID(); ?>"
+                data-photo-liked="<?php echo ($post->checkIfPhotoIsLiked($_SESSION['userid'], $post->getPostID())) ? 1 : 0; ?>">
                 <i
                     class='<?php echo ($post->checkIfPhotoIsLiked($_SESSION['userid'], $post->getPostID())) ? "fa-solid fa-heart" : "fa-regular fa-heart"; ?>'></i>
             </button>

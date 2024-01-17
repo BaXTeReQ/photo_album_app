@@ -49,10 +49,19 @@ class Post extends Dbh
     public static function likePhoto($userID, $photoID)
     {
         $dbh = new Dbh();
-        $connection = $dbh->connect();
 
-        $query = "INSERT INTO favourites (fk_userID, fk_photoID) VALUES ('$userID', '$photoID');";
-        $stmt = $connection->query($query);
+        $stmt = $dbh->connect()->prepare(
+            "INSERT INTO favourites (ID, fk_userID, fk_photoID) VALUES (?, ?, ?);"
+        );
+
+        $lastID = self::checkLastPostID();
+        $newID = $lastID + 1;
+
+        if (!$stmt->execute(array($newID, $userID, $photoID))) {
+            $stmt = null;
+            header("location: ../Views/error.php?error=stmtfailed");
+            exit();
+        }
     }
 
     public function checkIfPhotoIsLiked($userID, $photoID): bool
@@ -79,6 +88,25 @@ class Post extends Dbh
         $query = "DELETE FROM favourites WHERE fk_userID = $userID AND fk_photoID = $photoID;";
         $stmt = $connection->query($query);
         $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
+    }
+
+    protected static function checkLastPostID(): int
+    {
+        $dbh = new Dbh();
+        $stmt = $dbh->connect()->prepare(
+            "SELECT ID FROM favourites ORDER BY ID DESC LIMIT 1;"
+        );
+
+        if (!$stmt->execute()) {
+            $stmt = null;
+            header("location: ../Views/error.php?error=stmtfailed");
+            exit();
+        }
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (empty($result)) return 0;
+        return $result["ID"];
     }
 
     public static function getPosts(): array
