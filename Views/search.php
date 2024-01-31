@@ -21,7 +21,7 @@
                     <h2>Użytkownicy</h2>
                     <?php
                     foreach ($users as $user) :
-                        $CID = $user->getProfilePictureCID($user->getUserID());
+                        $CID = $user->getProfilePhotoCID();
                         $ipfs = new IPFS();
                         $gateway = $ipfs->getGateway();
                     ?>
