@@ -8,6 +8,7 @@ class SignUp extends Dbh
     private string $email;
     private string $password;
     private string $confirm_password;
+    protected string $default_profile_photoCID = "Qmb6WUqrY2GVDMMxoJk9Fe7qRHVrLWUMpYb9tsVeaDTGCC";
 
     public function __construct(string $username, string $email, string $password, string $confirm_password)
     {
@@ -81,28 +82,14 @@ class SignUp extends Dbh
     protected function setUser($username, $email, $password)
     {
         $stmt = $this->connect()->prepare(
-            'INSERT INTO users (username, email, password, fk_roleID) VALUES (?,?,?,?);'
+            'INSERT INTO users (username, email, password, profile_photoCID, fk_roleID) VALUES (?,?,?,?,?);'
         );
 
-        if (!$stmt->execute(array($username, $email,  $password, 3))) {
+        if (!$stmt->execute(array($username, $email,  $password, $this->default_profile_photoCID, 3))) {
             $stmt = null;
             header("location: ../Views/error.php?error=stmtfailed");
             exit();
         }
-
-        $insertedID = $this->getLastUserID();
-
-        $stmt = $this->connect()->prepare(
-            'INSERT INTO users_profile_photos(fk_userID, fk_photoID) VALUES (?, 1);'
-        );
-
-        if (!$stmt->execute(array($insertedID))) {
-            $stmt = null;
-            header("location: ../Views/error.php?error=stmtfailed");
-            exit();
-        }
-
-        $stmt = null;
     }
 
     protected function checkUsername($username): bool
@@ -135,24 +122,5 @@ class SignUp extends Dbh
 
         if ($stmt->rowCount() > 0) return true;
         return false;
-    }
-
-    protected function getLastUserID(): int
-    {
-        $stmt = $this->connect()->prepare(
-            'SELECT ID FROM users ORDER BY ID DESC LIMIT 1;'
-        );
-
-        if (!$stmt->execute()) {
-            $stmt = null;
-            header("location: ../Views/error.php?error=stmtfailed");
-            exit();
-        }
-
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $lastID = $result["ID"];
-
-        if ($stmt->rowCount() > 0) return $lastID;
-        return 1;
     }
 }
