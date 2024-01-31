@@ -27,7 +27,8 @@ class Search extends Dbh
             $user = new User(
                 $userData["ID"],
                 $userData["username"],
-                $userData["email"]
+                $userData["email"],
+                $userData["profile_photoCID"]
             );
 
             array_push($array, $user);
