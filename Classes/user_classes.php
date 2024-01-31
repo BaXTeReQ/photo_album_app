@@ -173,4 +173,21 @@ class User extends Dbh
 
         return $username["username"];
     }
+
+    public function getProfilePhotoCIDById($userID)
+    {
+        $stmt = $this->connect()->prepare(
+            "SELECT profile_photoCID as 'CID' FROM users WHERE ID = ?;"
+        );
+
+        if (!$stmt->execute(array($userID))) {
+            $stmt = null;
+            header("location: ../Views/error.php?error=stmtfailed");
+            exit();
+        }
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result["CID"];
+    }
 }

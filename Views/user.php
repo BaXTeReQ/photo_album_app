@@ -8,7 +8,7 @@ require_once '../Classes/ipfs_classes.php';
 
 if (!isset($_GET['userid'])) :
     $user = new User($_SESSION['userid'], $_SESSION['username'], $_SESSION['email']);
-    $CID = $user->getProfilePictureCID($user->getUserID());
+    $CID = $user->getProfilePhotoCIDByID($_SESSION['userid']);
     $ipfs = new IPFS();
     $gateway = $ipfs->getGateway();
 ?>
@@ -49,7 +49,7 @@ if (!isset($_GET['userid'])) :
     $userID = $_GET['userid'];
     $user = new User($userID);
     $username = $user->getUsernameById($userID);
-    $CID = $user->getProfilePictureCID($userID);
+    $CID = $user->getProfilePhotoCIDByID($userID);
     $ipfs = new IPFS();
     $gateway = $ipfs->getGateway();
     ?>
