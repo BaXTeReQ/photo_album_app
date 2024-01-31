@@ -6,39 +6,20 @@ require_once('dbh_classes.php');
 
 class Post extends Dbh
 {
-    private int $userID;
-    private int $postID;
-    private string $username;
-    private string $CID;
+    private string $photoCID;
     private string $desc;
+    private int $userID;
 
-    public function __construct(int $userID, int $postID, string $username, string $CID, string $desc)
+    public function __construct(string $photoCID, string $desc, int $userID)
     {
-        $this->userID = $userID;
-        $this->postID = $postID;
-        $this->username = $username;
-        $this->CID = $CID;
+        $this->photoCID = $photoCID;
         $this->desc = $desc;
-    }
-
-    public function getUserID()
-    {
-        return $this->userID;
-    }
-
-    public function getPostID()
-    {
-        return $this->postID;
-    }
-
-    public function getUsername()
-    {
-        return $this->username;
+        $this->userID = $userID;
     }
 
     public function getCID()
     {
-        return $this->CID;
+        return $this->photoCID;
     }
 
     public function getDescription()
@@ -46,31 +27,47 @@ class Post extends Dbh
         return $this->desc;
     }
 
-    public static function likePhoto($userID, $photoID)
+    public function getUserID()
     {
-        $dbh = new Dbh();
+        return $this->userID;
+    }
 
-        $stmt = $dbh->connect()->prepare(
-            "INSERT INTO favourites (ID, fk_userID, fk_photoID) VALUES (?, ?, ?);"
+    public function insertLike($userID, $photoCID)
+    {
+        $stmt = $this->connect()->prepare(
+            "INSERT INTO favourites (ID, fk_userID, fk_postCID) VALUES (?, ?, ?);"
         );
 
         $lastID = self::checkLastPostID();
         $newID = $lastID + 1;
 
-        if (!$stmt->execute(array($newID, $userID, $photoID))) {
+        if (!$stmt->execute(array($newID, $userID, $photoCID))) {
             $stmt = null;
             header("location: ../Views/error.php?error=stmtfailed");
             exit();
         }
     }
 
-    public function checkIfPhotoIsLiked($userID, $photoID): bool
+    public function deleteLike($userID, $photoCID)
     {
         $stmt = $this->connect()->prepare(
-            "SELECT * FROM favourites WHERE fk_userID = ? AND fk_photoID = ?;"
+            "DELETE FROM favourites WHERE fk_userID = ? AND fk_postCID = ?;"
         );
 
-        if (!$stmt->execute(array($userID, $photoID))) {
+        if (!$stmt->execute(array($userID, $photoCID))) {
+            $stmt = null;
+            header("location: ../Views/error.php?error=stmtfailed");
+            exit();
+        }
+    }
+
+    public function checkIfPostIsLiked($userID, $photoCID): bool
+    {
+        $stmt = $this->connect()->prepare(
+            "SELECT * FROM favourites WHERE fk_userID = ? AND fk_postCID = ?;"
+        );
+
+        if (!$stmt->execute(array($userID, $photoCID))) {
             $stmt = null;
             header("location: ../Views/error.php?error=stmtfailed");
             exit();
@@ -78,16 +75,6 @@ class Post extends Dbh
 
         if ($stmt->rowCount() > 0) return true;
         return false;
-    }
-
-    public static function deleteLike($userID, $photoID)
-    {
-        $dbh = new Dbh();
-        $connection = $dbh->connect();
-
-        $query = "DELETE FROM favourites WHERE fk_userID = $userID AND fk_photoID = $photoID;";
-        $stmt = $connection->query($query);
-        $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
     }
 
     protected static function checkLastPostID(): int
@@ -114,7 +101,7 @@ class Post extends Dbh
         $dbh = new Dbh();
         $connection = $dbh->connect();
 
-        $query = "SELECT u.ID as userID, p.ID as photoID, u.username, p.CID, p.description FROM users_uploaded_photos uup INNER JOIN users u ON uup.fk_userID = u.ID INNER JOIN photos p ON uup.fk_photoID = p.ID;";
+        $query = "SELECT CID, description as desc, fk_userID as userID FROM posts";
         $stmt = $connection->query($query);
         $data = $stmt->fetchALL(PDO::FETCH_ASSOC);
 
@@ -122,11 +109,9 @@ class Post extends Dbh
 
         foreach ($data as $singleData) {
             $post = new Post(
-                $singleData['userID'],
-                $singleData['photoID'],
-                $singleData["username"],
-                $singleData["CID"],
-                $singleData["description"]
+                $singleData['CID'],
+                $singleData['desc'],
+                $singleData['userID']
             );
 
             array_push($array, $post);
