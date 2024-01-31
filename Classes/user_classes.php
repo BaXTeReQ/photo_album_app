@@ -9,12 +9,14 @@ class User extends Dbh
     private int $id;
     private string $username;
     private string $email;
+    private string $profile_photoCID;
 
-    public function __construct(int $id, string $username = "", string $email = "")
+    public function __construct(int $id, string $username = "", string $email = "", string $profile_photoCID = "")
     {
         $this->id = $id;
         $this->username = $username;
         $this->email = $email;
+        $this->profile_photoCID = $profile_photoCID;
     }
 
     public function getUserID(): int
@@ -30,6 +32,11 @@ class User extends Dbh
     public function getEmail(): string
     {
         return $this->email;
+    }
+
+    public function getProfilePhotoCID(): string
+    {
+        return $this->profile_photoCID;
     }
 
     private function emailTaken(): bool
@@ -140,7 +147,8 @@ class User extends Dbh
                 $user = new User(
                     $userData["ID"],
                     $userData["username"],
-                    $userData["email"]
+                    $userData["email"],
+                    $userData["profile_photoCID"]
                 );
 
                 array_push($array, $user);
@@ -164,43 +172,5 @@ class User extends Dbh
         $username = $stmt->fetch(PDO::FETCH_ASSOC);
 
         return $username["username"];
-    }
-
-    public function getProfilePictureCID(int $id): string
-    {
-        $stmt = $this->connect()->prepare(
-            "SELECT p.CID FROM photos p, users_profile_photos usp, users u WHERE u.ID = ? AND p.ID = usp.fk_photoID AND u.ID = usp.fk_userID;"
-        );
-
-        if (!$stmt->execute(array($id))) {
-            $stmt = null;
-            header("location: ../Views/error.php?error=stmtfailed");
-            exit();
-        }
-
-        if ($stmt->rowCount() > 0) {
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $result["CID"];
-        }
-
-        return $this->getDefaultProfilePictureCID();
-    }
-
-    protected function getDefaultProfilePictureCID(): string
-    {
-        $stmt = $this->connect()->prepare(
-            "SELECT CID FROM photos WHERE ID = 1 AND description = 'Default photo for user';"
-        );
-
-        if (!$stmt->execute()) {
-            $stmt = null;
-            header("location: ../Views/error.php?error=stmtfailed");
-            exit();
-        }
-
-        if ($stmt->rowCount() > 0) {
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $result["CID"];
-        }
     }
 }
