@@ -11,7 +11,7 @@ class PhotoUpload extends Dbh
     {
         if ($this->checkFileExtension($file)) {
 
-            $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
+            $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
 
             $newFileName = "photoBy_$userID.$fileExtension";
 
@@ -19,8 +19,6 @@ class PhotoUpload extends Dbh
 
             if (!$ipfs->API_PinResponse()) return false;
             else {
-                // Commented for now, planning to make photo resize with js
-                // $file = $this->resizePhoto($file, $fileExtension, 500);
                 $CID = $ipfs->pinPhoto($file, $newFileName);
 
                 $stmt = $this->connect()->prepare(
@@ -36,16 +34,13 @@ class PhotoUpload extends Dbh
     {
         if ($this->checkFileExtension($file)) {
 
-            $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
+            $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
 
             $newFileName = "photoBy_$userID.$fileExtension";
 
             $ipfs = new IPFS();
-
             if (!$ipfs->API_PinResponse()) return false;
             else {
-                // Same as before, planning resize in js
-                // $file = $this->resizePhoto($file, $fileExtension, 1080, 0);
                 $CID = $ipfs->pinPhoto($file, $newFileName);
 
                 $stmt = $this->connect()->prepare(
@@ -59,10 +54,8 @@ class PhotoUpload extends Dbh
 
     protected function checkFileExtension($file): bool
     {
-        if ($file['error'] !== UPLOAD_ERR_OK) return false;
-
         $allowedExtensions = array("jpeg", "jpg", "png");
-        $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
+        $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
 
         if (!in_array(strtolower($fileExtension), $allowedExtensions)) return false;
         return true;

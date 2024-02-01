@@ -65,9 +65,9 @@ class IPFS
         }
     }
 
-    public function pinPhoto($file, $newFileName): string
+    public function pinPhoto($filePath, $newFileName): string
     {
-        $tmp_path = $file["tmp_name"];
+        // $tmp_path = $file["tmp_name"];
 
         // Create a cURL handle
         $ch = curl_init();
@@ -77,7 +77,7 @@ class IPFS
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, [
-            'file' => new CURLFile($tmp_path, mime_content_type($tmp_path), $newFileName),
+            'file' => new CURLFile($filePath, mime_content_type($filePath), $newFileName),
         ]);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             'Content-Type: multipart/form-data',

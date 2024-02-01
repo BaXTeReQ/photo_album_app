@@ -11,6 +11,7 @@
             <div class="preview"></div>
             <textarea name="desc" id="" cols="30" rows="10" placeholder="Twój opis zdjęcia..."></textarea>
             <button type="submit" name="submitPhoto" id="submitPhoto" class="btn-primary">Dodaj zdjęcie</button>
+            <input type="hidden" name="croppedImage" id="croppedImage">
         </form>
     </section>
 </main>

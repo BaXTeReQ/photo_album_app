@@ -1,6 +1,9 @@
 function makePreview(targetSize, photoType = "profile") {
     var fileInput = document.getElementById('file');
     let preview = document.querySelector('.preview');
+    let newImageInput = document.querySelector('form #croppedImage');
+
+    console.log(newImageInput);
 
     if (fileInput.files.length > 0) {
         let file = fileInput.files[0];
@@ -74,6 +77,8 @@ function makePreview(targetSize, photoType = "profile") {
                 // Update the preview with the cropped image
                 preview.innerHTML = '';
                 preview.innerHTML += "<img src=" + croppedSrc + " alt='Selected Image'>";
+
+                newImageInput.value = croppedSrc;
 
                 // Optionally, you can set the display style for the button
             };
