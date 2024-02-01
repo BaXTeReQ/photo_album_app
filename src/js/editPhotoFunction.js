@@ -1,4 +1,4 @@
-function makePreview(targetSize, photoType = "profile") {
+function editPhotoFunction(targetSize, photoType = "profile") {
     var fileInput = document.getElementById('file');
     let preview = document.querySelector('.preview');
     let newImageInput = document.querySelector('form #croppedImage');

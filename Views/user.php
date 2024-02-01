@@ -70,7 +70,7 @@ if (!isset($_GET['userid'])) :
 <?php endif; ?>
 
 <script src="../src/js/profilePhotoForm.js"></script>
-<script src="../src/js/makePreviewFunction.js"></script>
+<script src="../src/js/editPhotoFunction.js"></script>
 <script src="../src/js/profilePhotoPreview.js"></script>
 
 <?php require 'footer.php' ?>

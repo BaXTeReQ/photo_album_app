@@ -16,7 +16,7 @@
     </section>
 </main>
 
-<script src="../src/js/makePreviewFunction.js"></script>
+<script src="../src/js/editPhotoFunction.js"></script>
 <script src="../src/js/postPhotoPreview.js"></script>
 
 <?php require 'footer.php' ?>
