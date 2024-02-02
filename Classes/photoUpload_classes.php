@@ -60,4 +60,24 @@ class PhotoUpload extends Dbh
         if (!in_array(strtolower($fileExtension), $allowedExtensions)) return false;
         return true;
     }
+
+    public function processPhoto($file): string
+    {
+        list($type, $data) = explode(';', $file);
+        list(, $data)      = explode(',', $data);
+
+        $binaryData = base64_decode($data);
+
+        if (preg_match("/^data:image\/(\w+);base64,/", $file, $matches)) $fileExtension = '.' . $matches[1];
+
+        $filename = 'image_' . uniqid() . $fileExtension;
+
+        $uploadPath = '../Images/';
+
+        file_put_contents($uploadPath . $filename, $binaryData);
+
+        $filePath = $uploadPath . $filename;
+
+        return $filePath;
+    }
 }
