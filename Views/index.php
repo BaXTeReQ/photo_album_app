@@ -14,12 +14,12 @@
 
         foreach ($posts as $post) :
             $user = new User($post->getUserID());
-            $profilePictureCID = $user->getProfilePictureCID($post->getUserID());
+            $profilePictureCID = $user->getProfilePhotoCIDById($post->getUserID());
         ?>
         <article class="post">
             <a href="user.php?userid=<?php echo $post->getUserID(); ?>">
                 <img src="<?php echo $gateway . $profilePictureCID; ?>" alt="User Image" class="profile__photo">
-                <span><?php echo $post->getUsername(); ?></span>
+                <span><?php echo $user->getUsernameById($post->getUserID()); ?></span>
             </a>
             <div class="img">
                 <img src="<?php echo $gateway . $post->getCID(); ?>" alt="<?php echo $post->getDescription(); ?>">
