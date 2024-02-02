@@ -43,6 +43,7 @@ if (!isset($_GET['userid'])) :
     <label for="file"><i class="fa-solid fa-file-image"></i> Wybierz zdjęcie</label>
     <div class="preview profile__photo"></div>
     <button type="submit" class="btn-primary" name="changeProfilePhotoFormButton">Zapisz</button>
+    <input type="hidden" name="croppedImage" id="croppedImage">
 </form>
 <?php else : ?>
 <?php
