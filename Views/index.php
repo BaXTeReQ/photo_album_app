@@ -24,11 +24,10 @@
             <div class="img">
                 <img src="<?php echo $gateway . $post->getCID(); ?>" alt="<?php echo $post->getDescription(); ?>">
             </div>
-            <button type="button" class="like--button" data-user-id="<?php echo $post->getUserID(); ?>"
-                data-photo-id="<?php echo $post->getPostID(); ?>"
-                data-photo-liked="<?php echo ($post->checkIfPhotoIsLiked($_SESSION['userid'], $post->getPostID())) ? 1 : 0; ?>">
-                <i
-                    class='<?php echo ($post->checkIfPhotoIsLiked($_SESSION['userid'], $post->getPostID())) ? "fa-solid fa-heart" : "fa-regular fa-heart"; ?>'></i>
+            <button type="button" class="like--button" data-post-cid="<?php echo $post->getCID(); ?>"
+                data-post-liked="<?php echo ($post->checkIfPostIsLiked($_SESSION['userid'], $post->getCID())) ? 1 : 0; ?>">
+                <i class='<?php echo ($post->checkIfPostIsLiked($_SESSION['userid'], $post->getCID())) ? "fa-solid fa-heart" : "fa-regular fa-heart";
+                                ?>'></i>
             </button>
             <p><?php echo $post->getDescription(); ?></p>
         </article>

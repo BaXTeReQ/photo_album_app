@@ -1,9 +1,8 @@
 $(document).ready(function () {
     $(".like--button").on("click", function () {
         var button = $(this);
-        var photo_id = $(this).data("photo-id");
-        var user_id = $(this).data("user-id");
-        var photo_liked = $(this).data("photo-liked");
+        var post_CID = $(this).data("post-cid");
+        var post_liked = $(this).data("post-liked");
         var icon = $(this).find('i');
 
         // Send AJAX request to your PHP script
@@ -11,14 +10,13 @@ $(document).ready(function () {
             type: "POST",
             url: "../Includes/like_includes.php",
             data: {
-                user_id: user_id,
-                photo_id: photo_id,
-                photo_liked: photo_liked
+                post_CID: post_CID,
+                post_liked: post_liked
             },
             success: function (response) {
-                var photoLikedNewValue = (photo_liked) ? 0 : 1;
-                button.attr("data-photo-liked", photoLikedNewValue);
-                button.data("photo-liked", photoLikedNewValue);
+                var postLikedNewValue = (post_liked) ? 0 : 1;
+                button.attr("data-post-liked", postLikedNewValue);
+                button.data("post-liked", postLikedNewValue);
 
                 icon.toggleClass('fa-solid fa-heart');
                 icon.toggleClass('fa-regular fa-heart');

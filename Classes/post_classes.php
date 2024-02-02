@@ -32,9 +32,10 @@ class Post extends Dbh
         return $this->userID;
     }
 
-    public function insertLike($userID, $photoCID)
+    public static function insertLike($userID, $photoCID)
     {
-        $stmt = $this->connect()->prepare(
+        $dbh = new Dbh();
+        $stmt = $dbh->connect()->prepare(
             "INSERT INTO favourites (ID, fk_userID, fk_postCID) VALUES (?, ?, ?);"
         );
 
@@ -48,9 +49,10 @@ class Post extends Dbh
         }
     }
 
-    public function deleteLike($userID, $photoCID)
+    public static function deleteLike($userID, $photoCID)
     {
-        $stmt = $this->connect()->prepare(
+        $dbh = new Dbh();
+        $stmt = $dbh->connect()->prepare(
             "DELETE FROM favourites WHERE fk_userID = ? AND fk_postCID = ?;"
         );
 
