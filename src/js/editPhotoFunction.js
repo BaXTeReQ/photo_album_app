@@ -1,9 +1,7 @@
-function editPhotoFunction(targetSize, photoType = "profile") {
+function editPhotoFunction(photoType) {
     var fileInput = document.getElementById('file');
     let preview = document.querySelector('.preview');
     let newImageInput = document.querySelector('form #croppedImage');
-
-    console.log(newImageInput);
 
     if (fileInput.files.length > 0) {
         let file = fileInput.files[0];
@@ -16,71 +14,46 @@ function editPhotoFunction(targetSize, photoType = "profile") {
             img.onload = function () {
                 let originalWidth = img.width;
                 let originalHeight = img.height;
-                let newWidth, newHeight, resizeRatioHeight, resizeRatioWidth, cropValue;
+                let newWidth, newHeight, imageRatio, cropWidthValue, cropHeightValue, targetSize, valueToCalcRatio;
                 let canvas = document.createElement('canvas');
                 let ctx = canvas.getContext('2d');
 
-                if (photoType === "profile") {
-                    if (originalHeight < originalWidth) {
-                        resizeRatioHeight = originalHeight / targetSize;
-                        newHeight = targetSize;
-                        newWidth = originalWidth / resizeRatioHeight;
-                    } else if (originalHeight > originalWidth) {
-                        resizeRatioWidth = originalWidth / targetSize;
-                        newWidth = targetSize;
-                        newHeight = originalHeight / resizeRatioWidth;
-                    } else {
-                        newWidth = targetSize;
-                        newHeight = targetSize;
-                    }
+                targetSize = (photoType === "profile") ? 500 : 1080;
+                valueToCalcRatio = (originalHeight < originalWidth) ? originalHeight : originalWidth;
+                imageRatio = valueToCalcRatio / targetSize;
 
-                    canvas.width = targetSize;
-                    canvas.height = targetSize;
-                    cropValue = Math.abs(originalHeight - originalWidth) / 2;
-                } else {
-                    console.log("doopa");
-                    if (originalHeight < originalWidth) {
-                        resizeRatioHeight = originalHeight / targetSize;
-                        newHeight = targetSize;
-                        newWidth = originalWidth / resizeRatioHeight;
-                    } else if (originalHeight > originalWidth) {
-                        resizeRatioWidth = originalWidth / targetSize;
-                        newWidth = targetSize;
-                        newHeight = originalHeight / resizeRatioWidth;
-                    } else {
-                        newWidth = targetSize;
-                        newHeight = targetSize;
-                    }
-
-                    canvas.width = newWidth;
-                    canvas.height = newHeight;
-                    cropValue = 0;
-                }
-                // Create a canvas element
-
-                if (originalHeight < originalWidth) {
-                    console.log("dupa");
-                    ctx.clearRect(0, 0, newWidth, targetSize);
-                    ctx.drawImage(img, cropValue, 0, originalWidth, originalHeight, 0, 0, newWidth, targetSize);
-                }
-                else if (originalHeight > originalWidth) {
-                    ctx.clearRect(0, 0, targetSize, newHeight);
-                    ctx.drawImage(img, 0, cropValue, originalWidth, originalHeight, 0, 0, targetSize, newHeight);
+                if (imageRatio == 1 || (imageRatio < 1 && photoType === "post")) {
+                    newWidth = originalWidth;
+                    newHeight = originalHeight;
                 }
                 else {
-                    ctx.clearRect(0, 0, targetSize, targetSize);
-                    ctx.drawImage(img, 0, 0, originalWidth, originalHeight, 0, 0, targetSize, targetSize);
+                    newWidth = originalWidth / imageRatio;
+                    newHeight = originalHeight / imageRatio;
                 }
+
+                if (photoType === "profile") canvas.width = canvas.height = targetSize;
+                else {
+                    canvas.width = newWidth;
+                    canvas.height = newHeight;
+                }
+
+                cropWidthValue = cropHeightValue = 0;
+
+                if (photoType === "profile" && imageRatio != 1) {
+                    let cropValue = Math.abs(originalHeight - originalWidth) / 2;
+                    if (originalHeight > originalWidth) cropHeightValue = cropValue;
+                    if (originalWidth > originalHeight) cropWidthValue = cropValue;
+                }
+
+                ctx.clearRect(0, 0, newWidth, newHeight);
+                ctx.drawImage(img, cropWidthValue, cropHeightValue, originalWidth, originalHeight, 0, 0, newWidth, newHeight);
 
                 let croppedSrc = canvas.toDataURL();
 
-                // Update the preview with the cropped image
                 preview.innerHTML = '';
                 preview.innerHTML += "<img src=" + croppedSrc + " alt='Selected Image'>";
 
                 newImageInput.value = croppedSrc;
-
-                // Optionally, you can set the display style for the button
             };
         };
 

@@ -2,6 +2,6 @@ let photoSelectInput = changeProfilePhotoForm.querySelector('#changeProfilePhoto
 let photoSelectButton = changeProfilePhotoForm.querySelector('#changeProfilePhotoForm button');
 
 photoSelectInput.addEventListener('change', () => {
-    editPhotoFunction(500, "profile");
+    editPhotoFunction("profile");
     photoSelectButton.style.display = 'block';
 });

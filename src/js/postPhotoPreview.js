@@ -1,10 +1,7 @@
 let photoSelectInput = document.querySelector('#file');
 let photoSubmitButton = document.querySelector('#submitPhoto');
 
-console.log(photoSelectInput);
-console.log(photoSubmitButton);
-
 photoSelectInput.addEventListener('change', () => {
-    editPhotoFunction(1080, "post");
+    editPhotoFunction("post");
     photoSubmitButton.style.display = 'block';
 });
