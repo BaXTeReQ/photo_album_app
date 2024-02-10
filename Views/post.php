@@ -6,10 +6,21 @@
     <div class="img">
         <img src="<?php echo $gateway . $post->getCID(); ?>" alt="<?php echo $post->getDescription(); ?>">
     </div>
-    <button type="button" class="like--button" data-post-cid="<?php echo $post->getCID(); ?>"
-        data-post-liked="<?php echo ($post->checkIfPostIsLiked($_SESSION['userid'], $post->getCID())) ? 1 : 0; ?>">
-        <i class='<?php echo ($post->checkIfPostIsLiked($_SESSION['userid'], $post->getCID())) ? "fa-solid fa-heart" : "fa-regular fa-heart";
-                    ?>'></i>
-    </button>
+    <?php
+    echo "<button type='button' class='like--button' data-post-cid='";
+    echo $post->getCID();
+    echo "' data-post-liked='";
+    if (isset($_SESSION['userid'])) {
+        echo ($post->checkIfPostIsLiked($_SESSION['userid'], $post->getCID())) ? 1 : 0;
+        echo "'>";
+        echo "<i class='";
+        echo ($post->checkIfPostIsLiked($_SESSION['userid'], $post->getCID())) ? "fa-solid fa-heart" : "fa-regular fa-heart";
+        echo "'></i>";
+    } else {
+        echo "0' disabled>";
+        echo "<i class='fa-regular fa-heart'></i>";
+    }
+    echo "</button>";
+    ?>
     <p><?php echo $post->getDescription(); ?></p>
 </article>
