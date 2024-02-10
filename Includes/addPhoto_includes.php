@@ -14,4 +14,5 @@ if (isset($_POST['submitPhoto'])) {
     $upload->addPostPhoto($userID, $filePath, $desc);
 
     unlink($filePath);
+    header('Location: ../Views/');
 }
