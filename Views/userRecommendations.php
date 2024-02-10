@@ -12,11 +12,12 @@
                 $ipfs = new IPFS();
                 $gateway = $ipfs->getGateway();
             ?>
-                <li>
-                    <a href="user.php?userid=<?php echo $user->getUserID(); ?>">
-                        <img src="<?php echo $gateway . $CID; ?>" alt="User Image" class="profile__photo"><?php echo $user->getUsername(); ?>
-                    </a>
-                </li>
+            <li>
+                <a href="user.php?userid=<?php echo $user->getUserID(); ?>">
+                    <img src="<?php echo $gateway . $CID; ?>" alt="User Image" class="profile__photo">
+                    <?php echo (strlen($user->getUsername()) > 15) ? substr($user->getUsername(), 0, 12) . "..." : $user->getUsername(); ?>
+                </a>
+            </li>
             <?php endforeach; ?>
         </ul>
     </section>
