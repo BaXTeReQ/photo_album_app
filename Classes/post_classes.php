@@ -110,7 +110,7 @@ class Post extends Dbh
         $dbh = new Dbh();
         $connection = $dbh->connect();
 
-        $query = "SELECT ID, CID, description as 'desc', fk_userID as userID FROM posts";
+        $query = "SELECT ID, CID, description as 'desc', fk_userID as userID FROM posts ORDER BY ID DESC";
         $stmt = $connection->query($query);
         $data = $stmt->fetchALL(PDO::FETCH_ASSOC);
 
