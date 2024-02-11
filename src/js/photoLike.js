@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $(".like--button").on("click", function () {
         var button = $(this);
-        var post_CID = $(this).data("post-cid");
+        var post_ID = $(this).data("post-id");
         var post_liked = $(this).data("post-liked");
         var icon = $(this).find('i');
 
@@ -10,7 +10,7 @@ $(document).ready(function () {
             type: "POST",
             url: "../Includes/like_includes.php",
             data: {
-                post_CID: post_CID,
+                post_ID: post_ID,
                 post_liked: post_liked
             },
             success: function (response) {

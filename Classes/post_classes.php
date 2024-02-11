@@ -6,15 +6,22 @@ require_once('dbh_classes.php');
 
 class Post extends Dbh
 {
+    private int $postID;
     private string $photoCID;
     private string $desc;
     private int $userID;
 
-    public function __construct(string $photoCID, string $desc, int $userID)
+    public function __construct(int $postID, string $photoCID, string $desc, int $userID)
     {
+        $this->postID = $postID;
         $this->photoCID = $photoCID;
         $this->desc = $desc;
         $this->userID = $userID;
+    }
+
+    public function getID()
+    {
+        return $this->postID;
     }
 
     public function getCID()
@@ -32,44 +39,44 @@ class Post extends Dbh
         return $this->userID;
     }
 
-    public static function insertLike($userID, $photoCID)
+    public static function insertLike($userID, $photoID)
     {
         $dbh = new Dbh();
         $stmt = $dbh->connect()->prepare(
-            "INSERT INTO favourites (ID, fk_userID, fk_postCID) VALUES (?, ?, ?);"
+            "INSERT INTO favourites (ID, fk_userID, fk_postID) VALUES (?, ?, ?);"
         );
 
         $lastID = self::checkLastPostID();
         $newID = $lastID + 1;
 
-        if (!$stmt->execute(array($newID, $userID, $photoCID))) {
+        if (!$stmt->execute(array($newID, $userID, $photoID))) {
             $stmt = null;
             header("location: ../Views/error.php?error=stmtfailed");
             exit();
         }
     }
 
-    public static function deleteLike($userID, $photoCID)
+    public static function deleteLike($userID, $photoID)
     {
         $dbh = new Dbh();
         $stmt = $dbh->connect()->prepare(
-            "DELETE FROM favourites WHERE fk_userID = ? AND fk_postCID = ?;"
+            "DELETE FROM favourites WHERE fk_userID = ? AND fk_postID = ?;"
         );
 
-        if (!$stmt->execute(array($userID, $photoCID))) {
+        if (!$stmt->execute(array($userID, $photoID))) {
             $stmt = null;
             header("location: ../Views/error.php?error=stmtfailed");
             exit();
         }
     }
 
-    public function checkIfPostIsLiked($userID, $photoCID): bool
+    public function checkIfPostIsLiked($userID, $photoID): bool
     {
         $stmt = $this->connect()->prepare(
-            "SELECT * FROM favourites WHERE fk_userID = ? AND fk_postCID = ?;"
+            "SELECT * FROM favourites WHERE fk_userID = ? AND fk_postID = ?;"
         );
 
-        if (!$stmt->execute(array($userID, $photoCID))) {
+        if (!$stmt->execute(array($userID, $photoID))) {
             $stmt = null;
             header("location: ../Views/error.php?error=stmtfailed");
             exit();
@@ -103,7 +110,7 @@ class Post extends Dbh
         $dbh = new Dbh();
         $connection = $dbh->connect();
 
-        $query = "SELECT CID, description as 'desc', fk_userID as userID FROM posts";
+        $query = "SELECT ID, CID, description as 'desc', fk_userID as userID FROM posts";
         $stmt = $connection->query($query);
         $data = $stmt->fetchALL(PDO::FETCH_ASSOC);
 
@@ -111,6 +118,7 @@ class Post extends Dbh
 
         foreach ($data as $singleData) {
             $post = new Post(
+                $singleData['ID'],
                 $singleData['CID'],
                 $singleData['desc'],
                 $singleData['userID']

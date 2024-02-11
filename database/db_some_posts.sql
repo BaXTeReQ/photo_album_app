@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2024 at 07:46 PM
+-- Generation Time: Feb 11, 2024 at 01:21 PM
 -- Wersja serwera: 10.4.28-MariaDB
 -- Wersja PHP: 8.2.4
 
@@ -30,8 +30,19 @@ SET time_zone = "+00:00";
 CREATE TABLE `favourites` (
   `ID` int(11) NOT NULL,
   `fk_userID` int(11) NOT NULL,
-  `fk_postCID` text NOT NULL
+  `fk_postID` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `favourites`
+--
+
+INSERT INTO `favourites` (`ID`, `fk_userID`, `fk_postID`) VALUES
+(1, 1, '1'),
+(2, 1, '5'),
+(3, 3, '1'),
+(4, 3, '3'),
+(5, 11, '1');
 
 -- --------------------------------------------------------
 
@@ -40,6 +51,7 @@ CREATE TABLE `favourites` (
 --
 
 CREATE TABLE `posts` (
+  `ID` int(11) NOT NULL,
   `CID` text NOT NULL,
   `description` text DEFAULT NULL,
   `fk_userID` int(11) NOT NULL
@@ -49,22 +61,25 @@ CREATE TABLE `posts` (
 -- Dumping data for table `posts`
 --
 
-INSERT INTO `posts` (`CID`, `description`, `fk_userID`) VALUES
-('QmaJwpxiwPPB2wJ5ncBK2NhaDgi2Yqnd7GVeQHGi8mjNAf', 'Wyścigowa tradycja z Valtterim Bottasem! Gdy życie stawia przede mną butelkę, ja trzymam ją z klasą! #ValtteriBottas #Tradycje #Szampan #Mem', 5),
-('Qme5XJWjTcXjHyoyyqkBxMEeP5QVobgwe4mC4qzwJaEgAj', 'Dwaj mistrzowie toru na jednym zdjęciu! Max Verstappen w bolidzie Red Bull Racing, a Pierre Gasly reprezentujący Alphatauri w sezonie 2021. Wzajemna rywalizacja, talent i prędkość, które definiują dynamikę Formuły 1. #F1 #Honda #Verstappen #Gasly #F1Rivalry', 14),
-('QmeH46WfJEa6JtXnG7cUck3RNPRbwHHteJbxoHVCS3r3Fd', 'Marc Marquez w pełnej krasie! Wheelie z mistrzem motocyklowych emocji. Adrenalina na asfalcie, sztuka w powietrzu. Nieśmiertelność na dwóch kółkach! #MarcMarquez #MistrzWheelie #MotoGP', 7),
-('QmfHsUH8nmuTkUVrhQjAdgbRp6CMn3PRLFW7F2fb6Z9GqN', 'Fascynujące chwile z testów na torze w Barcelonie. Lewis Hamilton prowadzi bolid Mercedes F1 z 2020, wyposażony w kraty do pomiaru przepływu powietrza. Nauka, innowacje, dominacja! #LewisHamilton #MercedesF1 #InnowacjeNaTorze', 8),
-('QmPajFTEA6mdeVphjtRaxZz8AVFrZrsUzkiVCBZnsKpaHb', 'Siła w działaniu! Codzienna praca nad sobą na #siłownia. Żaden dzień bez postępów! #Motywacja #FitnessLifestyle', 5),
-('QmQpkPPjdgG24VVdcvzQwD2uuVGy9Pm3rcGoVhJa53xQeh', 'Aston Martin prezentuje się majestatycznie na piaszczystym zakręcie. Czerwień mocy w harmonii z przyrodą. Elegancja, styl i silnik w jednym spojrzeniu. #AstonMartin #ElegancjaNaDrodze #MocISztuka', 9),
-('QmSxAKPW9xMMHW3jpoaJ3CevfWVwgxWMjJR5bTModi1ZHt', 'Marc Marquez w płynnym tańcu na torze. Szybkość, perfekcja, kontrola. Po prostu jedzie, a za nim zostaje tylko smuga pasji. Mistrzowska jazda w czystej postaci! #MarcMarquez #MotoGP #PasjaNaKołach', 7),
-('QmTVz4rUpLU7sMY9bDVWkDEAqqX4B7jxUTM1MfsfmfL87g', 'Aston Martin 2023 w całej swej nowoczesnej chwale! Dynamiczne linie, futurystyczny design. Bolid, który definiuje nowy standard elegancji i szybkości.  #AstonMartin #NowoczesnośćNaTorze #InnowacyjnyDesign', 11),
-('QmUo62KGXTbUz5Xqr1P8c3T2qA6ajuLfQuNMZozp64tMQ7', 'Otoczony luksusem: Bugatti Veyron Super Sport. Kombinacja elegancji i mocy. Szybki jak myśl, piękny jak sen. To nie jest tylko samochód, to manifestacja doskonałości inżynierii i designu. #BugattiVeyronSS #Luksus #Potęga', 6),
-('QmUoBazhnj53REqNc6LpiYsT7dnSrfKKKqgoPNJ86dfJn3', 'Odkrywanie przyszłości wyścigów: McLaren MCL38 prezentuje się zjawiskowo na torze. Innowacyjny design, potężne osiągi, to bolid, który zdobywa serca fanów i zmienia zasady gry. Siła, szybkość i nieustający ducha rywalizacji w jednym ujęciu. #McLaren #MCL38 #PrzyszłośćWyścigów', 11),
-('QmUwoddtpct693K54XUytp1qmb24AoYBBX6ArsRi1N3vJM', 'Moc i elegancja Red Bulla na zimowym torze! Bolid przecina śnieg z pasją, tworząc kontrast między siłą a delikatnością natury. Red Bull w zimowej scenerii - potęga w białym płaszczu. #RedBullRacing #ZimowaJazda #MocWŚniegu', 14),
-('QmUYBiRb1ioggpaYgQqdcvfndWGEWtJzCDw9N5uGDoTBfj', 'Koenigsegg Agera RS, czarna bestia w jesiennym lesie. Mocne kontrasty z pomarańczowymi akcentami podkreślają wyrafinowany design. Szlachetna elegancja i potężna moc splatają się z naturą, tworząc pełne magii sceny. To nie tylko samochód, to dzieło sztuki, które rozkwita w złotych promieniach jesiennego słońca.', 11),
-('QmXyhkjrLSgws3MwHpKCiRzwdiYk9ShbZgEEpPUiwaBd1s', 'Nostalgiczny powrót do sezonu 2007-2008 z bolidem BMW Sauber na malowniczym torze w Singapurze. Historia, moc i duma w jednym obrazie! #BMWSauber #SingapurGP #MotorsportHistory', 8),
-('QmY9M5uexb2otrWZLRCYk8tEDSQCT87rMJJz5rT9VpWGBT', 'Sebastian Vettel w akcji za kierownicą bolidu Aston Martin w sezonie 2021. Dynamika, doświadczenie i niepowtarzalny styl mistrza, który znalazł nowe wyzwanie. Bolid mieni się w słońcu, podczas gdy mistrzowska jazda definiuje kolejny rozdział w historii wyścigów. #SebastianVettel #AstonMartin #MistrzowskaJazda', 11),
-('QmZWQDc6E6PUA3Nt4TuHcWLW7vS5v8JVyB1CsESnHiwUuq', 'Chwila dramatu na torze w Australii. Fernando Alonso w McLarenie, złowieszcza kraksa, ale bezpieczeństwo zawsze na pierwszym miejscu. Żelazna wola mistrza w obliczu wyzwań. #FernandoAlonso #McLaren #BezpieczeństwoNaTorze', 8);
+INSERT INTO `posts` (`ID`, `CID`, `description`, `fk_userID`) VALUES
+(1, 'QmaJwpxiwPPB2wJ5ncBK2NhaDgi2Yqnd7GVeQHGi8mjNAf', 'Wyścigowa tradycja z Valtterim Bottasem! Gdy życie stawia przede mną butelkę, ja trzymam ją z klasą! #ValtteriBottas #Tradycje #Szampan #Mem', 5),
+(2, 'Qmc5SXw5YSfy1sFeRT5K1ZRJ5bj8UmUtcD4vMtUWK9WcHF', 'Koenigsegg CCX w pełnej okazałości pokonuje malowniczą, krętą trasę. Potężny silnik w harmonii z zakrętami, a błyskawiczne przyspieszenie świętuje triumf nad krętym asfaltem. Luksus, moc i perfekcyjna kontrola splatają się w tańcu po drodze, tworząc niezapomnianą symfonię dynamiki i designu. #KoenigseggCCX #SztukaNaDrodze #MocWZakrętach', 11),
+(3, 'Qme5XJWjTcXjHyoyyqkBxMEeP5QVobgwe4mC4qzwJaEgAj', 'Dwaj mistrzowie toru na jednym zdjęciu! Max Verstappen w bolidzie Red Bull Racing, a Pierre Gasly reprezentujący Alphatauri w sezonie 2021. Wzajemna rywalizacja, talent i prędkość, które definiują dynamikę Formuły 1. #F1 #Honda #Verstappen #Gasly #F1Rivalry', 14),
+(4, 'QmeGKYzFKPVD5DXMd1HoSrMSJo2WWYPwNdVEWc5sZJZFhw', 'W zimowym raju, Koenigsegg Agera prezentuje swoją potęgę, a na bagażniku dachowym gości niezwykły pasażer - Stig z Top Gear. Białe auto, białe otoczenie, biały kombinezon Stiga - to spotkanie legendy motoryzacji z zimową aurą. Moc, szybkość i tajemnicza obecność Stiga, tworzą magię na śnieżnych drogach. #KoenigseggAgera #Stig #ZimowaMoc', 11),
+(5, 'QmeH46WfJEa6JtXnG7cUck3RNPRbwHHteJbxoHVCS3r3Fd', 'Marc Marquez w pełnej krasie! Wheelie z mistrzem motocyklowych emocji. Adrenalina na asfalcie, sztuka w powietrzu. Nieśmiertelność na dwóch kółkach! #MarcMarquez #MistrzWheelie #MotoGP', 7),
+(6, 'QmfHsUH8nmuTkUVrhQjAdgbRp6CMn3PRLFW7F2fb6Z9GqN', 'Fascynujące chwile z testów na torze w Barcelonie. Lewis Hamilton prowadzi bolid Mercedes F1 z 2020, wyposażony w kraty do pomiaru przepływu powietrza. Nauka, innowacje, dominacja! #LewisHamilton #MercedesF1 #InnowacjeNaTorze', 8),
+(7, 'QmPajFTEA6mdeVphjtRaxZz8AVFrZrsUzkiVCBZnsKpaHb', 'Siła w działaniu! Codzienna praca nad sobą na #siłownia. Żaden dzień bez postępów! #Motywacja #FitnessLifestyle', 5),
+(8, 'QmQpkPPjdgG24VVdcvzQwD2uuVGy9Pm3rcGoVhJa53xQeh', 'Aston Martin prezentuje się majestatycznie na piaszczystym zakręcie. Czerwień mocy w harmonii z przyrodą. Elegancja, styl i silnik w jednym spojrzeniu. #AstonMartin #ElegancjaNaDrodze #MocISztuka', 9),
+(9, 'QmSxAKPW9xMMHW3jpoaJ3CevfWVwgxWMjJR5bTModi1ZHt', 'Marc Marquez w płynnym tańcu na torze. Szybkość, perfekcja, kontrola. Po prostu jedzie, a za nim zostaje tylko smuga pasji. Mistrzowska jazda w czystej postaci! #MarcMarquez #MotoGP #PasjaNaKołach', 7),
+(10, 'QmTVz4rUpLU7sMY9bDVWkDEAqqX4B7jxUTM1MfsfmfL87g', 'Aston Martin 2023 w całej swej nowoczesnej chwale! Dynamiczne linie, futurystyczny design. Bolid, który definiuje nowy standard elegancji i szybkości.  #AstonMartin #NowoczesnośćNaTorze #InnowacyjnyDesign', 11),
+(11, 'QmUo62KGXTbUz5Xqr1P8c3T2qA6ajuLfQuNMZozp64tMQ7', 'Otoczony luksusem: Bugatti Veyron Super Sport. Kombinacja elegancji i mocy. Szybki jak myśl, piękny jak sen. To nie jest tylko samochód, to manifestacja doskonałości inżynierii i designu. #BugattiVeyronSS #Luksus #Potęga', 6),
+(12, 'QmUoBazhnj53REqNc6LpiYsT7dnSrfKKKqgoPNJ86dfJn3', 'Odkrywanie przyszłości wyścigów: McLaren MCL38 prezentuje się zjawiskowo na torze. Innowacyjny design, potężne osiągi, to bolid, który zdobywa serca fanów i zmienia zasady gry. Siła, szybkość i nieustający ducha rywalizacji w jednym ujęciu. #McLaren #MCL38 #PrzyszłośćWyścigów', 11),
+(13, 'QmUwoddtpct693K54XUytp1qmb24AoYBBX6ArsRi1N3vJM', 'Moc i elegancja Red Bulla na zimowym torze! Bolid przecina śnieg z pasją, tworząc kontrast między siłą a delikatnością natury. Red Bull w zimowej scenerii - potęga w białym płaszczu. #RedBullRacing #ZimowaJazda #MocWŚniegu', 14),
+(14, 'QmUYBiRb1ioggpaYgQqdcvfndWGEWtJzCDw9N5uGDoTBfj', 'Koenigsegg Agera RS, czarna bestia w jesiennym lesie. Mocne kontrasty z pomarańczowymi akcentami podkreślają wyrafinowany design. Szlachetna elegancja i potężna moc splatają się z naturą, tworząc pełne magii sceny. To nie tylko samochód, to dzieło sztuki, które rozkwita w złotych promieniach jesiennego słońca.', 11),
+(15, 'QmXyhkjrLSgws3MwHpKCiRzwdiYk9ShbZgEEpPUiwaBd1s', 'Nostalgiczny powrót do sezonu 2007-2008 z bolidem BMW Sauber na malowniczym torze w Singapurze. Historia, moc i duma w jednym obrazie! #BMWSauber #SingapurGP #MotorsportHistory', 8),
+(16, 'QmY9M5uexb2otrWZLRCYk8tEDSQCT87rMJJz5rT9VpWGBT', 'Sebastian Vettel w akcji za kierownicą bolidu Aston Martin w sezonie 2021. Dynamika, doświadczenie i niepowtarzalny styl mistrza, który znalazł nowe wyzwanie. Bolid mieni się w słońcu, podczas gdy mistrzowska jazda definiuje kolejny rozdział w historii wyścigów. #SebastianVettel #AstonMartin #MistrzowskaJazda', 11),
+(17, 'QmZWQDc6E6PUA3Nt4TuHcWLW7vS5v8JVyB1CsESnHiwUuq', 'Chwila dramatu na torze w Australii. Fernando Alonso w McLarenie, złowieszcza kraksa, ale bezpieczeństwo zawsze na pierwszym miejscu. Żelazna wola mistrza w obliczu wyzwań. #FernandoAlonso #McLaren #BezpieczeństwoNaTorze', 8),
+(18, 'QmT7WgkdYdQgmz6mppcRxKKGCANuEH1bG9o67vuMqFwRTw', 'Bugatti Chiron, kontrastujący z żółto-czarną elegancją, zatrzymuje czas na malowniczej drodze wzdłuż zatoki. To nie tylko samochód - to dzieło sztuki na tle przyrody. Potęga, szybkość i styl spotykają się z naturalnym pięknem, tworząc harmonię luksusu i pejzażu. #BugattiChiron #LuksusNaDrodze #ZatokowaElegancja', 11);
 
 -- --------------------------------------------------------
 
@@ -135,7 +150,7 @@ ALTER TABLE `favourites`
 -- Indeksy dla tabeli `posts`
 --
 ALTER TABLE `posts`
-  ADD PRIMARY KEY (`CID`(50)) USING BTREE;
+  ADD PRIMARY KEY (`ID`) USING BTREE;
 
 --
 -- Indeksy dla tabeli `roles`
@@ -158,7 +173,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `favourites`
 --
 ALTER TABLE `favourites`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `users`
