@@ -190,7 +190,7 @@ class Post extends Dbh
         $connection = $dbh->connect();
 
         $query = "SELECT ID, CID, description as 'desc', fk_userID as 'userID'
-                FROM posts WHERE fk_userID = ?;";
+                FROM posts WHERE fk_userID = ? ORDER BY ID DESC;";
 
         $stmt = $connection->prepare($query);
         $stmt->execute(array($userID));
