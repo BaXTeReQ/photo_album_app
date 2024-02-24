@@ -4,6 +4,9 @@ $(document).ready(function () {
         var post_ID = $(this).data("post-id");
         var post_liked = $(this).data("post-liked");
         var icon = $(this).find('i');
+        var counter = $('#likeCounter-' + post_ID);
+
+        console.log(post_ID);
 
         // Send AJAX request to your PHP script
         $.ajax({
@@ -20,7 +23,10 @@ $(document).ready(function () {
 
                 icon.toggleClass('fa-solid fa-heart');
                 icon.toggleClass('fa-regular fa-heart');
+
+                counter.text(response.likeCount);
             },
+            dataType: 'json', // Ensure that the response is treated as JSON
         });
     });
 });

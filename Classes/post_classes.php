@@ -70,6 +70,24 @@ class Post extends Dbh
         }
     }
 
+    public static function countLikes(int $postID): int
+    {
+        $dbh = new Dbh();
+        $stmt = $dbh->connect()->prepare(
+            "SELECT count(*) as 'likeCount' FROM favourites WHERE fk_postID = ?;"
+        );
+
+        if (!$stmt->execute(array($postID))) {
+            $stmt = null;
+            header("location: ../Views/error.php?error=stmtfailed");
+            exit();
+        }
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result['likeCount'];
+    }
+
     public function checkIfPostIsLiked($userID, $photoID): bool
     {
         $stmt = $this->connect()->prepare(

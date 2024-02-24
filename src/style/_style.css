@@ -123,6 +123,20 @@ main section {
     margin-top: 0;
 }
 
+.post .likes {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+}
+
+.post .likes p {
+    margin: 0 0 0 10px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
 .noUsers__panel {
     grid-column-start: main;
     grid-column-end: users;
