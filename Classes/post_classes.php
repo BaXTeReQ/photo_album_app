@@ -129,4 +129,40 @@ class Post extends Dbh
 
         return $array;
     }
+
+    public static function getLikedPosts(int $userID): array
+    {
+        $dbh = new Dbh();
+        $connection = $dbh->connect();
+
+        $query = "SELECT p1.ID, p1.CID, p1.description as 'desc', p1.fk_userID as 'userID'
+            FROM users u1 INNER JOIN posts p1 ON u1.ID = p1.fk_userID INNER JOIN favourites f1 ON p1.ID = f1.fk_postID
+            WHERE f1.fk_userID = ? ORDER BY f1.ID DESC;";
+
+        $stmt = $connection->prepare($query);
+        $stmt->execute(array($userID));
+
+        if (!$stmt->execute(array($userID))) {
+            $stmt = null;
+            header("location: ../Views/error.php?error=stmtfailed");
+            exit();
+        }
+
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $array = [];
+
+        foreach ($data as $singleData) {
+            $post = new Post(
+                $singleData['ID'],
+                $singleData['CID'],
+                $singleData['desc'],
+                $singleData['userID']
+            );
+
+            array_push($array, $post);
+        }
+
+        return $array;
+    }
 }

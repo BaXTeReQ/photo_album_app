@@ -6,9 +6,20 @@
     <h2>Twoje ulubione</h2>
     <section>
         <?php
-        for ($i = 0; $i < 10; $i++) :
-            include 'post.php';
-        endfor;
+        require_once('../Classes/post_classes.php');
+        require_once('../Classes/user_classes.php');
+        require_once('../Classes/ipfs_classes.php');
+
+        $posts = Post::getLikedPosts($_SESSION['userid']);
+        $ipfs = new IPFS();
+        $gateway = $ipfs->getGateway();
+
+        foreach ($posts as $post) {
+            $user = new User($post->getUserID());
+            $profilePictureCID = $user->getProfilePhotoCIDById($post->getUserID());
+
+            include '../Views/post.php';
+        }
         ?>
     </section>
 </main>
