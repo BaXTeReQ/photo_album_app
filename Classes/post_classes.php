@@ -165,4 +165,39 @@ class Post extends Dbh
 
         return $array;
     }
+
+    public static function getUserPosts(int $userID): array
+    {
+        $dbh = new Dbh();
+        $connection = $dbh->connect();
+
+        $query = "SELECT ID, CID, description as 'desc', fk_userID as 'userID'
+                FROM posts WHERE fk_userID = ?;";
+
+        $stmt = $connection->prepare($query);
+        $stmt->execute(array($userID));
+
+        if (!$stmt->execute(array($userID))) {
+            $stmt = null;
+            header("location: ../Views/error.php?error=stmtfailed");
+            exit();
+        }
+
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $array = [];
+
+        foreach ($data as $singleData) {
+            $post = new Post(
+                $singleData['ID'],
+                $singleData['CID'],
+                $singleData['desc'],
+                $singleData['userID']
+            );
+
+            array_push($array, $post);
+        }
+
+        return $array;
+    }
 }

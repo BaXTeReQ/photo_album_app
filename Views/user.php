@@ -62,9 +62,18 @@ if (!isset($_GET['userid'])) :
     <h3>Posty</h3>
     <section>
         <?php
-            for ($i = 0; $i < 10; $i++) :
-                include 'post.php';
-            endfor;
+            require_once('../Classes/post_classes.php');
+
+            $posts = Post::getUserPosts($userID);
+            $ipfs = new IPFS();
+            $gateway = $ipfs->getGateway();
+
+            foreach ($posts as $post) {
+                $user = new User($post->getUserID());
+                $profilePictureCID = $user->getProfilePhotoCIDById($post->getUserID());
+
+                include '../Views/post.php';
+            }
             ?>
     </section>
 </main>
