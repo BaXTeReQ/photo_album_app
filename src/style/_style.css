@@ -376,8 +376,34 @@ main section {
     text-align: center;
 }
 
+.search .search__results .search__results__posts {
+    display: none;
+}
+
 .search .search__results .user {
     border-bottom: 1px solid var(--main-font-color);
+}
+
+.search .search__results .buttons {
+    width: fit-content;
+    margin: 15px auto;
+    display: flex;
+}
+
+.search .search__results .buttons button {
+    width: 150px;
+    background-color: #7CB518;
+    padding: 15px;
+    border: none;
+    color: white;
+    font-weight: 400;
+    cursor: pointer;
+    font-size: 20px;
+    transition: .5s;
+}
+
+.search .search__results .buttons button.active {
+    background-color: #3D590B;
 }
 
 /* addPhoto.php */

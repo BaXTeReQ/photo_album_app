@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 require_once('dbh_classes.php');
 require_once('user_classes.php');
+require_once('post_classes.php');
 
 class Search extends Dbh
 {
@@ -32,6 +33,36 @@ class Search extends Dbh
             );
 
             array_push($array, $user);
+        }
+
+        return $array;
+    }
+
+    public function getPostsBySearch(string $search): array
+    {
+        $stmt = $this->connect()->prepare(
+            "SELECT ID, CID, description as 'desc', fk_userID as 'userID' FROM posts WHERE description LIKE ?;"
+        );
+
+        if (!$stmt->execute(array("%$search%"))) {
+            $stmt = null;
+            header("location: ../Views/error.php?error=stmtfailed");
+            exit();
+        }
+
+        $postsData = $stmt->fetchALL(PDO::FETCH_ASSOC);
+
+        $array = [];
+
+        foreach ($postsData as $postData) {
+            $post = new Post(
+                $postData['ID'],
+                $postData['CID'],
+                $postData['desc'],
+                $postData["userID"]
+            );
+
+            array_push($array, $post);
         }
 
         return $array;
