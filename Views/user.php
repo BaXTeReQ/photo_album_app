@@ -15,7 +15,7 @@ if (!isset($_GET['userid'])) :
 <main class="user noUsers__panel">
     <h2>Witaj, <?php echo $_SESSION['username']; ?></h2>
     <div class="user__img">
-        <img src="<?php echo $gateway . $CID; ?>" alt="User Image" class="profile__photo">
+        <img src="<?php echo $gateway . $CID; ?>" alt="User Image" class="profile__photo" loading="lazy">
         <button class="user__img_button" type="button" id="changeProfilePictureButton">
             <i class="fa-solid fa-pen"></i>
         </button>
@@ -57,7 +57,7 @@ if (!isset($_GET['userid'])) :
 <main class="user noUsers__panel user-otherUser">
     <h2><?php echo $username; ?></h2>
     <div class="user__img">
-        <img src="<?php echo $gateway . $CID; ?>" alt="User Image" class="profile__photo">
+        <img src="<?php echo $gateway . $CID; ?>" alt="User Image" class="profile__photo" loading="lazy">
     </div>
     <h3>Posty</h3>
     <section>

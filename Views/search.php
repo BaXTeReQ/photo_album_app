@@ -38,7 +38,7 @@
                     ?>
             <article class="user">
                 <a href="user.php?userid=<?php echo $user->getUserID(); ?>">
-                    <img src="<?php echo $gateway . $CID; ?>" alt="User Image" class="profile__photo">
+                    <img src="<?php echo $gateway . $CID; ?>" alt="User Image" class="profile__photo" loading="lazy">
                     <span><?php echo $user->getUsername(); ?></span>
                 </a>
             </article>

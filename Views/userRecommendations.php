@@ -14,7 +14,7 @@
             ?>
             <li>
                 <a href="user.php?userid=<?php echo $user->getUserID(); ?>">
-                    <img src="<?php echo $gateway . $CID; ?>" alt="User Image" class="profile__photo">
+                    <img src="<?php echo $gateway . $CID; ?>" alt="User Image" class="profile__photo" loading="lazy">
                     <?php echo (strlen($user->getUsername()) > 15) ? substr($user->getUsername(), 0, 12) . "..." : $user->getUsername(); ?>
                 </a>
             </li>
