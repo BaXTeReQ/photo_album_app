@@ -23,12 +23,13 @@ class SignIn extends Dbh
         $_SESSION["userid"] = $userData["ID"];
         $_SESSION["username"] = $userData["username"];
         $_SESSION["email"] = $userData["email"];
+        $_SESSION["role"] = $userData["role"];
     }
 
     protected function getUser($username, $password): array
     {
         $stmt = $this->connect()->prepare(
-            'SELECT ID, username, email FROM users WHERE username = ? AND password = ?;'
+            'SELECT ID, username, email, fk_roleID as "role" FROM users WHERE username = ? AND password = ?;'
         );
 
         if (!$stmt->execute(array($username, $password))) {

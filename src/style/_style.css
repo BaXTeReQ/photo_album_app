@@ -64,7 +64,7 @@ main section {
     padding: 10px 5px;
 }
 
-.post a,
+.post a:not(.btn-primary),
 .user a {
     width: fit-content;
     text-decoration: none;
@@ -575,4 +575,144 @@ main section {
 #changeProfilePhotoForm button {
     margin-top: 25px;
     display: none;
+}
+
+/* modHub.php */
+
+.modHub h2 {
+    text-align: center;
+}
+
+.modHub .switch-buttons {
+    width: fit-content;
+    margin: 15px auto;
+    display: flex;
+}
+
+.modHub .switch-buttons button {
+    width: 150px;
+    background-color: #7CB518;
+    padding: 15px;
+    border: none;
+    color: white;
+    font-weight: 400;
+    cursor: pointer;
+    font-size: 20px;
+    transition: .5s;
+}
+
+.modHub .switch-buttons button.active {
+    background-color: #3D590B;
+}
+
+.modHub .search-form form {
+    margin: 50px;
+    border-radius: 10px;
+    border: none;
+    background-color: rgba(125, 125, 125, 0.22);
+    display: flex;
+    width: clamp(80%, 80%, 400px);
+    justify-content: space-between;
+    gap: 0;
+}
+
+.modHub .search-form form input {
+    padding: 5px;
+    height: 100%;
+    outline: none;
+    background: none;
+    border: none;
+    font-size: 26px;
+    width: 90%;
+    color: var(--main-font-color);
+}
+
+.modHub .search-form form button {
+    padding: 5px;
+    background-color: blue;
+    color: var(--main-font-color);
+    border: none;
+    height: 100%;
+    width: 40px;
+    font-size: 24px;
+    border-radius: 0px 10px 10px 0px;
+    cursor: pointer;
+}
+
+.modHub .modHub__posts {
+    display: none;
+}
+
+.modHub .modHub__users {
+    color: white;
+}
+
+.modHub table {
+    width: 100%;
+    padding: 15px;
+}
+
+.modHub table thead,
+.modHub table tbody {
+    width: 100%;
+}
+
+.modHub table tbody {
+    margin-top: 15px;
+}
+
+.modHub table tr {
+    width: 100%;
+    text-align: left;
+}
+
+.modHub table tbody tr {
+    height: 125px;
+}
+
+.modHub table th,
+.modHub table td {
+    width: 25%;
+}
+
+.modHub table th:last-child,
+.modHub table td:last-child {
+    width: clamp(150px, 50%, 250px);
+    text-align: center;
+}
+
+.modHub table td.btn-container {
+    width: 100%;
+    height: 125px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.modHub .btn-primary {
+    margin: 5px;
+    text-align: center;
+    width: 75px;
+    padding: 10px 15px;
+}
+
+.modHub .btn-primary {
+    background-color: blue;
+}
+
+.modHub .btn-red {
+    background-color: red;
+}
+
+.post .btn-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 25px;
+    gap: 5px;
 }

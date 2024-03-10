@@ -27,4 +27,15 @@
         <p id='likeCounter-<?php echo $post->getID(); ?>'><?php echo Post::countLikes($post->getID()); ?></p>
     </div>
     <p><?php echo $post->getDescription(); ?></p>
+    <?php
+    $url =  $_SERVER['PHP_SELF'];
+    $check = strrpos($url, "modHub.php");
+    if ($check) : ?>
+    <div class="btn-container">
+        <a class="btn-primary">Edytuj</a>
+        <?php if ($_SESSION['role'] == 1) : ?>
+        <a class="btn-primary btn-red">Usuń</a>
+        <?php endif; ?>
+    </div>
+    <?php endif; ?>
 </article>
