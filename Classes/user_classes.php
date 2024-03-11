@@ -1,8 +1,8 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
-require_once('dbh_classes.php');
+require_once 'dbh_classes.php';
 
 class User extends Dbh
 {
@@ -41,13 +41,19 @@ class User extends Dbh
 
     private function emailTaken(): bool
     {
-        if ($this->checkEmail($this->id, $this->email)) return true;
+        if ($this->checkEmail($this->id, $this->email)) {
+            return true;
+        }
+
         return false;
     }
 
     private function usernameTaken(): bool
     {
-        if ($this->checkUsername($this->id, $this->email)) return true;
+        if ($this->checkUsername($this->id, $this->email)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -56,17 +62,26 @@ class User extends Dbh
         $redirect = "location: ../Views/user.php?";
 
         if ($this->emailTaken()) {
-            if ($redirect != "location: ../Views/user.php?") $redirect .= "&emailTakenError=1";
-            else $redirect .= "emailTakenError=1";
+            if ($redirect != "location: ../Views/user.php?") {
+                $redirect .= "&emailTakenError=1";
+            } else {
+                $redirect .= "emailTakenError=1";
+            }
+
         }
 
         if ($this->usernameTaken()) {
-            if ($redirect != "location: ../Views/user.php?") $redirect .= "&usernameTakenError=1";
-            else $redirect .= "usernameTakenError=1";
+            if ($redirect != "location: ../Views/user.php?") {
+                $redirect .= "&usernameTakenError=1";
+            } else {
+                $redirect .= "usernameTakenError=1";
+            }
+
         }
 
-        if ($redirect == "location: ../Views/user.php?") $this->setUser($this->id, $this->username, $this->email);
-        else {
+        if ($redirect == "location: ../Views/user.php?") {
+            $this->setUser($this->id, $this->username, $this->email);
+        } else {
             header($redirect);
             exit();
         }
@@ -103,7 +118,9 @@ class User extends Dbh
             exit();
         }
 
-        if ($stmt->rowCount() > 0) return true;
+        if ($stmt->rowCount() > 0) {
+            return true;
+        }
 
         return false;
     }
@@ -120,7 +137,9 @@ class User extends Dbh
             exit();
         }
 
-        if ($stmt->rowCount() > 0) return true;
+        if ($stmt->rowCount() > 0) {
+            return true;
+        }
 
         return false;
     }
@@ -189,5 +208,82 @@ class User extends Dbh
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         return $result["CID"];
+    }
+
+    public static function getUserDataByID(int $id): User
+    {
+        $dbh = new Dbh();
+        $connection = $dbh->connect();
+
+        $query = "SELECT ID, username, email, profile_photoCID as 'photo'
+        FROM users WHERE ID = ? ";
+
+        $stmt = $connection->prepare($query);
+        $stmt->execute(array($id));
+
+        if (!$stmt->execute(array($id))) {
+            $stmt = null;
+            header("location: ../Views/error.php?error=stmtfailed");
+            exit();
+        }
+
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $user = new User(
+            $data['ID'],
+            $data['username'],
+            $data['email'],
+            $data['photo']
+        );
+
+        return $user;
+    }
+
+    public static function getUserPasswordByID(int $id): string
+    {
+        $dbh = new Dbh();
+        $connection = $dbh->connect();
+
+        $query = "SELECT password FROM users WHERE ID = ? ";
+
+        $stmt = $connection->prepare($query);
+        $stmt->execute(array($id));
+
+        if (!$stmt->execute(array($id))) {
+            $stmt = null;
+            header("location: ../Views/error.php?error=stmtfailed");
+            exit();
+        }
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result['password'];
+    }
+
+    public static function editUser(int $id, string $username, string $email, string $password)
+    {
+        $dbh = new Dbh();
+        $connection = $dbh->connect();
+
+        $query = "UPDATE users SET username = ?, email = ?, password = ? WHERE ID = ?";
+
+        $stmt = $connection->prepare($query);
+
+        if (!$stmt->execute(array($username, $email, $password, $id))) {
+            $stmt = null;
+            header("location: ../Views/error.php?error=stmtfailed");
+            exit();
+        }
+    }
+
+    public static function deleteUser(int $id)
+    {
+        $dbh = new Dbh();
+        $connection = $dbh->connect();
+
+        $query = "DELETE FROM users WHERE ID = ?";
+
+        $stmt = $connection->prepare($query);
+        $stmt->execute(array($id));
     }
 }

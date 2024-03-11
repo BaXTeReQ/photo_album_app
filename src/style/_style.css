@@ -716,3 +716,45 @@ main section {
     margin-bottom: 25px;
     gap: 5px;
 }
+
+.btn-container a {
+    text-decoration: none;
+}
+
+.modHub__edit form {
+    color: var(--main-font-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 50px;
+    padding: 15px;
+}
+
+.modHub__edit form textarea {
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 1rem;
+    resize: vertical;
+    font-size: 24px;
+    width: 100%;
+}
+
+.modHub__edit .preview {
+    width: 100%;
+    height: auto;
+}
+
+.modHub__edit .preview img {
+    width: 100%;
+}
+
+.modHub__edit .btn-primary {
+    width: unset;
+    background-color: #7CB518;
+    text-decoration: none;
+}
+
+.modHub__edit a.btn-primary {
+    background-color: blue;
+}

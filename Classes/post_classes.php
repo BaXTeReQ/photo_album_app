@@ -1,8 +1,8 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
-require_once('dbh_classes.php');
+require_once 'dbh_classes.php';
 
 class Post extends Dbh
 {
@@ -100,7 +100,10 @@ class Post extends Dbh
             exit();
         }
 
-        if ($stmt->rowCount() > 0) return true;
+        if ($stmt->rowCount() > 0) {
+            return true;
+        }
+
         return false;
     }
 
@@ -119,7 +122,10 @@ class Post extends Dbh
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if (empty($result)) return 0;
+        if (empty($result)) {
+            return 0;
+        }
+
         return $result["ID"];
     }
 
@@ -217,5 +223,56 @@ class Post extends Dbh
         }
 
         return $array;
+    }
+
+    public static function getPostByID(int $id): Post
+    {
+        $dbh = new Dbh();
+        $connection = $dbh->connect();
+
+        $query = "SELECT ID, CID, description as 'desc', fk_userID as 'userID'
+        FROM posts WHERE ID = ? ";
+
+        $stmt = $connection->prepare($query);
+        $stmt->execute(array($id));
+
+        if (!$stmt->execute(array($id))) {
+            $stmt = null;
+            header("location: ../Views/error.php?error=stmtfailed");
+            exit();
+        }
+
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $post = new Post(
+            $data['ID'],
+            $data['CID'],
+            $data['desc'],
+            $data['userID']
+        );
+
+        return $post;
+    }
+
+    public static function editPost(int $id, string $desc)
+    {
+        $dbh = new Dbh();
+        $connection = $dbh->connect();
+
+        $query = "UPDATE posts SET description = ? WHERE ID = ? ";
+
+        $stmt = $connection->prepare($query);
+        $stmt->execute(array($desc, $id));
+    }
+
+    public static function deletePost(int $id)
+    {
+        $dbh = new Dbh();
+        $connection = $dbh->connect();
+
+        $query = "DELETE FROM posts WHERE ID = ? ";
+
+        $stmt = $connection->prepare($query);
+        $stmt->execute(array($id));
     }
 }
