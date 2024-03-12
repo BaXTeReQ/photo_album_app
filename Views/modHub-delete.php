@@ -2,7 +2,7 @@
 
 session_start();
 
-if (!isset($_SESSION) && $_SESSION['role'] == 3) {
+if (!isset($_SESSION) || $_SESSION['role'] != 1) {
     header("location: ../Views/");
 }
 
