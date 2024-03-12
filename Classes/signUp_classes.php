@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 class SignUp extends Dbh
 {
@@ -23,23 +23,39 @@ class SignUp extends Dbh
         $redirect = "location: ../Views/signUp.php?";
 
         if ($this->emailTaken() == true) {
-            if ($redirect != "location: ../Views/signUp.php?") $redirect .= "&emailTakenError=1";
-            else $redirect .= "emailTakenError=1";
+            if ($redirect != "location: ../Views/signUp.php?") {
+                $redirect .= "&emailTakenError=1";
+            } else {
+                $redirect .= "emailTakenError=1";
+            }
+
         }
 
         if ($this->usernameTaken() == true) {
-            if ($redirect != "location: ../Views/signUp.php?") $redirect .= "&usernameTakenError=1";
-            else $redirect .= "usernameTakenError=1";
+            if ($redirect != "location: ../Views/signUp.php?") {
+                $redirect .= "&usernameTakenError=1";
+            } else {
+                $redirect .= "usernameTakenError=1";
+            }
+
         }
 
         if ($this->passwordMatch() == false) {
-            if ($redirect != "location: ../Views/signUp.php?") $redirect .= "&password!matchError=1";
-            else $redirect .= "password!matchError=1";
+            if ($redirect != "location: ../Views/signUp.php?") {
+                $redirect .= "&password!matchError=1";
+            } else {
+                $redirect .= "password!matchError=1";
+            }
+
         }
 
         if ($this->passwordIncorrect() == true) {
-            if ($redirect != "location: ../Views/signUp.php?") $redirect .= "&invalidpasswordError=1";
-            else $redirect .= "invalidpasswordError=1";
+            if ($redirect != "location: ../Views/signUp.php?") {
+                $redirect .= "&invalidpasswordError=1";
+            } else {
+                $redirect .= "invalidpasswordError=1";
+            }
+
         }
 
         if ($redirect == "location: ../Views/signUp.php?") {
@@ -52,13 +68,19 @@ class SignUp extends Dbh
 
     private function emailTaken(): bool
     {
-        if ($this->checkEmail($this->email)) return true;
+        if ($this->checkEmail($this->email)) {
+            return true;
+        }
+
         return false;
     }
 
     private function usernameTaken(): bool
     {
-        if ($this->checkUsername($this->username)) return true;
+        if ($this->checkUsername($this->username)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -69,13 +91,19 @@ class SignUp extends Dbh
         $number = preg_match('@[0-9]@', $this->password);
         $specialChars = preg_match('@[^\w]@', $this->password);
 
-        if (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($this->password) < 8) return true;
+        if (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($this->password) < 8) {
+            return true;
+        }
+
         return false;
     }
 
     protected function passwordMatch(): bool
     {
-        if ($this->password !== $this->confirm_password) return false;
+        if ($this->password !== $this->confirm_password) {
+            return false;
+        }
+
         return true;
     }
 
@@ -85,7 +113,9 @@ class SignUp extends Dbh
             'INSERT INTO users (username, email, password, profile_photoCID, fk_roleID) VALUES (?,?,?,?,?);'
         );
 
-        if (!$stmt->execute(array($username, $email,  $password, $this->default_profile_photoCID, 3))) {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        if (!$stmt->execute(array($username, $email, $hashedPassword, $this->default_profile_photoCID, 3))) {
             $stmt = null;
             header("location: ../Views/error.php?error=stmtfailed");
             exit();
@@ -104,7 +134,10 @@ class SignUp extends Dbh
             exit();
         }
 
-        if ($stmt->rowCount() > 0) return true;
+        if ($stmt->rowCount() > 0) {
+            return true;
+        }
+
         return false;
     }
 
@@ -120,7 +153,10 @@ class SignUp extends Dbh
             exit();
         }
 
-        if ($stmt->rowCount() > 0) return true;
+        if ($stmt->rowCount() > 0) {
+            return true;
+        }
+
         return false;
     }
 }

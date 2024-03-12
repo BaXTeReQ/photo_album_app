@@ -1,8 +1,8 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
-require_once('dbh_classes.php');
+require_once 'dbh_classes.php';
 
 class SignIn extends Dbh
 {
@@ -26,26 +26,52 @@ class SignIn extends Dbh
         $_SESSION["role"] = $userData["role"];
     }
 
-    protected function getUser($username, $password): array
+    protected function getUser($username, $password)
     {
         $stmt = $this->connect()->prepare(
-            'SELECT ID, username, email, fk_roleID as "role" FROM users WHERE username = ? AND password = ?;'
+            'SELECT password FROM users WHERE username = ?;'
         );
 
-        if (!$stmt->execute(array($username, $password))) {
+        if (!$stmt->execute(array($username))) {
             $stmt = null;
-            header("location: ../Views/signIn.php?error=stmtfailed");
+            header("location: ../Views/SignIn.php?error=stmtfailed");
             exit();
         }
 
         if ($stmt->rowCount() == 0) {
             $stmt = null;
-            header("location: ../Views/signIn.php?error=incorrectuser");
+            header("location: ../Views/SignIn.php?error=notfound");
             exit();
         }
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $passwordFromDB = $result['password'];
+        $checkPassword = password_verify($password, $passwordFromDB);
 
-        return $result;
+        if ($checkPassword) {
+            $stmt = $this->connect()->prepare(
+                'SELECT ID, username, email, fk_roleID as "role" FROM users WHERE username = ? AND password = ?;'
+            );
+
+            if (!$stmt->execute(array($username, $passwordFromDB))) {
+                $stmt = null;
+                header("location: ../Views/signIn.php?error=stmtfailed");
+                exit();
+            }
+
+            if ($stmt->rowCount() == 0) {
+                $stmt = null;
+                header("location: ../Views/signIn.php?error=incorrectuser");
+                exit();
+            }
+
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return $result;
+        } else {
+            $stmt = null;
+            header("location: ../Views/SignIn.php?error=Incorrectpwd");
+            exit();
+        }
     }
 }

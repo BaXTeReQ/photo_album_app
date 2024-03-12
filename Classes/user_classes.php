@@ -269,7 +269,9 @@ class User extends Dbh
 
         $stmt = $connection->prepare($query);
 
-        if (!$stmt->execute(array($username, $email, $password, $id))) {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        if (!$stmt->execute(array($username, $email, $hashedPassword, $id))) {
             $stmt = null;
             header("location: ../Views/error.php?error=stmtfailed");
             exit();
