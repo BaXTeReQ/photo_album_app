@@ -239,27 +239,6 @@ class User extends Dbh
         return $user;
     }
 
-    public static function getUserPasswordByID(int $id): string
-    {
-        $dbh = new Dbh();
-        $connection = $dbh->connect();
-
-        $query = "SELECT password FROM users WHERE ID = ? ";
-
-        $stmt = $connection->prepare($query);
-        $stmt->execute(array($id));
-
-        if (!$stmt->execute(array($id))) {
-            $stmt = null;
-            header("location: ../Views/error.php?error=stmtfailed");
-            exit();
-        }
-
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        return $result['password'];
-    }
-
     public static function editUser(int $id, string $username, string $email, string $password)
     {
         $dbh = new Dbh();
