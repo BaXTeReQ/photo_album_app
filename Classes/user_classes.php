@@ -157,10 +157,10 @@ class User extends Dbh
             exit();
         }
 
+        $array = [];
+
         if ($stmt->rowCount() > 0) {
             $usersData = $stmt->fetchALL(PDO::FETCH_ASSOC);
-
-            $array = [];
 
             foreach ($usersData as $userData) {
                 $user = new User(
