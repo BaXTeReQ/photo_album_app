@@ -1,8 +1,6 @@
-<?php session_start() ?>
+<?php session_start();
 
-<?php
-
-require_once('../Classes/photoUpload_classes.php');
+require_once '../Classes/photoUpload_classes.php';
 
 if (isset($_POST['submitPhoto'])) {
     $photoData = $_POST['croppedImage'];

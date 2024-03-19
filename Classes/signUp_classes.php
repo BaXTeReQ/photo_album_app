@@ -22,31 +22,20 @@ class SignUp extends Dbh
     {
         $redirect = "location: ../Views/signUp.php?";
 
-        if ($this->emailTaken() == true) {
-            if ($redirect != "location: ../Views/signUp.php?") {
-                $redirect .= "&emailTakenError=1";
-            } else {
-                $redirect .= "emailTakenError=1";
-            }
-
-        }
-
         if ($this->usernameTaken() == true) {
             if ($redirect != "location: ../Views/signUp.php?") {
                 $redirect .= "&usernameTakenError=1";
             } else {
                 $redirect .= "usernameTakenError=1";
             }
-
         }
 
-        if ($this->passwordMatch() == false) {
+        if ($this->emailTaken() == true) {
             if ($redirect != "location: ../Views/signUp.php?") {
-                $redirect .= "&password!matchError=1";
+                $redirect .= "&emailTakenError=1";
             } else {
-                $redirect .= "password!matchError=1";
+                $redirect .= "emailTakenError=1";
             }
-
         }
 
         if ($this->passwordIncorrect() == true) {
@@ -55,7 +44,14 @@ class SignUp extends Dbh
             } else {
                 $redirect .= "invalidpasswordError=1";
             }
+        }
 
+        if ($this->passwordMatch() == false) {
+            if ($redirect != "location: ../Views/signUp.php?") {
+                $redirect .= "&password!matchError=1";
+            } else {
+                $redirect .= "password!matchError=1";
+            }
         }
 
         if ($redirect == "location: ../Views/signUp.php?") {

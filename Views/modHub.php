@@ -5,7 +5,33 @@
 }
 ?>
 
+<?php require_once '../Classes/ipfs_classes.php';?>
+
 <main class="modHub noUsers__panel">
+
+    <form action="../Includes/modHub_includes.php" method="POST" class="gatewayForm">
+        <h2>Bramka dostępu</h2>
+        <select name="gateway" id="gateway">
+            <?php
+$ipfs = new IPFS();
+$actualGateway = $ipfs->getGateway();
+
+$options = array(
+    "https://red-above-muskox-423.mypinata.cloud/ipfs/" => "Prywatna bramka Pinata",
+    "https://gateway.pinata.cloud/ipfs/" => "Publiczna bramka Pinata",
+    "https://ipfs.io/ipfs/" => "Publiczna bramka IPFS",
+);
+
+foreach ($options as $value => $label) {
+    $selected = ($actualGateway === $value) ? 'selected' : '';
+
+    echo '<option value="' . $value . '" ' . $selected . '>' . $label . '</option>';
+}
+?>
+        </select>
+        <button type="submit" name="gatewayChange" class="btn-primary">Zapisz</button>
+    </form>
+
     <section class="search-form">
         <form action="../Includes/search_includes.php" method="GET">
             <input type="search" placeholder="<?php echo (isset($_GET['search'])) ? $_GET['search'] : 'Szukaj...'; ?>"

@@ -1,17 +1,20 @@
-<?php require 'nav.php' ?>
+<?php require 'nav.php';?>
 
-<?php if (!isset($_SESSION['username']) && !isset($_GET['userid'])) header("location: ../Views/index.php"); ?>
+<?php if (!isset($_SESSION['username']) && !isset($_GET['userid'])) {
+    header("location: ../Views/index.php");
+}
+?>
 
 <?php
 require_once '../Classes/user_classes.php';
 require_once '../Classes/ipfs_classes.php';
 
-if (!isset($_GET['userid'])) :
+if (!isset($_GET['userid'])):
     $user = new User($_SESSION['userid'], $_SESSION['username'], $_SESSION['email']);
     $CID = $user->getProfilePhotoCIDByID($_SESSION['userid']);
     $ipfs = new IPFS();
     $gateway = $ipfs->getGateway();
-?>
+    ?>
 <main class="user noUsers__panel">
     <h2>Witaj, <?php echo $_SESSION['username']; ?></h2>
     <div class="user__img">
@@ -31,7 +34,6 @@ if (!isset($_GET['userid'])) :
             <input type="email" value="<?php echo $_SESSION['email']; ?>" name="emailchange">
             <label class="red" for="emailchange"></label>
         </div>
-        <!-- <button type="button" class="password_change_button btn-primary">Change password</button> -->
         <button class="save_changes_button btn-primary" type="submit" name="submitall">Save changes</button>
     </form>
 </main>
@@ -45,15 +47,15 @@ if (!isset($_GET['userid'])) :
     <button type="submit" class="btn-primary" name="changeProfilePhotoFormButton">Zapisz</button>
     <input type="hidden" name="croppedImage" id="croppedImage">
 </form>
-<?php else : ?>
+<?php else: ?>
 <?php
-    $userID = $_GET['userid'];
-    $user = new User($userID);
-    $username = $user->getUsernameById($userID);
-    $CID = $user->getProfilePhotoCIDByID($userID);
-    $ipfs = new IPFS();
-    $gateway = $ipfs->getGateway();
-    ?>
+$userID = $_GET['userid'];
+$user = new User($userID);
+$username = $user->getUsernameById($userID);
+$CID = $user->getProfilePhotoCIDByID($userID);
+$ipfs = new IPFS();
+$gateway = $ipfs->getGateway();
+?>
 <main class="user noUsers__panel user-otherUser">
     <h2><?php echo $username; ?></h2>
     <div class="user__img">
@@ -62,25 +64,25 @@ if (!isset($_GET['userid'])) :
     <h3>Posty</h3>
     <section>
         <?php
-            require_once('../Classes/post_classes.php');
+require_once '../Classes/post_classes.php';
 
-            $posts = Post::getUserPosts($userID);
-            $ipfs = new IPFS();
-            $gateway = $ipfs->getGateway();
+$posts = Post::getUserPosts($userID);
+$ipfs = new IPFS();
+$gateway = $ipfs->getGateway();
 
-            foreach ($posts as $post) {
-                $user = new User($post->getUserID());
-                $profilePictureCID = $user->getProfilePhotoCIDById($post->getUserID());
+foreach ($posts as $post) {
+    $user = new User($post->getUserID());
+    $profilePictureCID = $user->getProfilePhotoCIDById($post->getUserID());
 
-                include '../Views/post.php';
-            }
-            ?>
+    include '../Views/post.php';
+}
+?>
     </section>
 </main>
-<?php endif; ?>
+<?php endif;?>
 
 <script src="../src/js/profilePhotoForm.js"></script>
 <script src="../src/js/editPhotoFunction.js"></script>
 <script src="../src/js/profilePhotoPreview.js"></script>
 
-<?php require 'footer.php' ?>
+<?php require 'footer.php';?>

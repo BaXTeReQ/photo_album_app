@@ -758,3 +758,26 @@ main section {
 .modHub__edit a.btn-primary {
     background-color: blue;
 }
+
+.modHub .gatewayForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+}
+
+.modHub .gatewayForm button {
+    width: fit-content;
+}
+
+.modHub .gatewayForm select {
+    margin: 0;
+    box-sizing: border-box;
+    background-color: white;
+    border: thin solid blue;
+    border-radius: 4px;
+    display: inline-block;
+    font: inherit;
+    line-height: 1.5em;
+    padding: 0.5em 3.5em 0.5em 1em;
+}

@@ -8,7 +8,6 @@ $(document).ready(function () {
 
         console.log(post_ID);
 
-        // Send AJAX request to your PHP script
         $.ajax({
             type: "POST",
             url: "../Includes/like_includes.php",
@@ -26,7 +25,7 @@ $(document).ready(function () {
 
                 counter.text(response.likeCount);
             },
-            dataType: 'json', // Ensure that the response is treated as JSON
+            dataType: 'json',
         });
     });
 });
