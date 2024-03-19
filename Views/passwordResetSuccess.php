@@ -1,19 +1,18 @@
-<?php require 'headerL.php' ?>
+<?php require 'headerL.php';?>
 
 <main class="notLoggedIn">
     <section>
-        <h1>App name</h1>
-        <h2>App short description</h2>
+        <h1>Album ze zdjęciami</h1>
     </section>
     <section>
         <form action="">
-            <h3>Password reset was successful</h3>
+            <h3>Hasło zostało zresetowane</h3>
             <a href="signIn.php">
-                Return to sign in page
+                Powrót do strony logowania
                 <i class="fa-solid fa-arrow-right"></i>
             </a>
         </form>
     </section>
 </main>
 
-<?php require 'footer.php' ?>
+<?php require 'footer.php';?>

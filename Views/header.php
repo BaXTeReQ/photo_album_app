@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Photo Album</title>
+    <title>Album ze zdjęciami</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet"> <!-- fonts -->

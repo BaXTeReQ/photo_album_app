@@ -8,7 +8,7 @@
 <?php require_once '../Classes/ipfs_classes.php';?>
 
 <main class="modHub noUsers__panel">
-
+    <?php if (isset($_SESSION) && $_SESSION['role'] == 1): ?>
     <form action="../Includes/modHub_includes.php" method="POST" class="gatewayForm">
         <h2>Bramka dostępu</h2>
         <select name="gateway" id="gateway">
@@ -31,6 +31,7 @@ foreach ($options as $value => $label) {
         </select>
         <button type="submit" name="gatewayChange" class="btn-primary">Zapisz</button>
     </form>
+    <?php endif;?>
 
     <section class="search-form">
         <form action="../Includes/search_includes.php" method="GET">
