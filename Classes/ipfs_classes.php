@@ -8,22 +8,14 @@ class IPFS
     private string $apiPin = "https://api.pinata.cloud/pinning/pinFileToIPFS";
     private string $apiKey = "";
     private string $apiSecret = "";
-    private string $publicGatewayIpfsIo = "https://ipfs.io/ipfs/";
-    private string $publicGatewayPinata = "https://gateway.pinata.cloud/ipfs/";
-    private string $dedicatedGateway = "";
-    private array $gateways = [];
+    private string $gateway = "";
 
     public function __construct()
     {
         include '../_api/variables.php';
         $this->apiKey = $key;
         $this->apiSecret = $secret;
-        $this->dedicatedGateway = $gateway;
-        $this->gateways = [
-            $this->publicGatewayIpfsIo,
-            $this->publicGatewayPinata,
-            $this->dedicatedGateway,
-        ];
+        $this->gateway = $gateway;
     }
 
     public function API_PinResponse(): bool
@@ -85,23 +77,41 @@ class IPFS
 
     public function getGateway(): string
     {
-        return $this->dedicatedGateway;
+        return $this->gateway;
     }
 
     public static function changeGateway(string $newGateway)
     {
         $file = '../_api/variables.php';
 
-        $lines = file($file);
+        $handle = fopen($file, 'r+');
 
-        foreach ($lines as &$line) {
-            if (strpos($line, '$gateway') !== false) {
-                $line = '$gateway = "' . $newGateway . '";' . PHP_EOL;
-                break;
+        if (flock($handle, LOCK_EX)) {
+            $lines = [];
+            while (!feof($handle)) {
+                $lines[] = fgets($handle);
             }
+
+            foreach ($lines as $lineIndex => $line) {
+                if (strpos($line, '$gateway') !== false) {
+                    $lines[$lineIndex] = '$gateway = "' . $newGateway . '";' . PHP_EOL;
+                    break;
+                }
+            }
+
+            $content = implode('', $lines);
+
+            ftruncate($handle, 0);
+            rewind($handle);
+            fwrite($handle, $content);
+
+            flock($handle, LOCK_UN);
+            fclose($handle);
+        } else {
+            fclose($handle);
+            throw new Exception("Nie udało się zablokować pliku $file.");
         }
 
-        file_put_contents($file, implode('', $lines));
     }
 
     public function calcTimeForGateway(string $gateway)
